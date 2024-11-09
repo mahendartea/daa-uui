@@ -1,12 +1,13 @@
 <template>
     <Menubar :model="menuItems"
-        class="bg-white bg-opacity-20 backdrop-blur-lg border border-gray-300 dark:bg-gray-800 dark:bg-opacity-30 dark:border-gray-600">
+        class="bg-gray-50 shadow-md bg-opacity-20 backdrop-blur-lg border border-gray-300 dark:bg-gray-800 dark:bg-opacity-30 dark:border-gray-600">
         <template #start>
             <img alt="logo" src="https://dpmpa.uui.ac.id/wp-content/uploads/2024/07/LOGO-UUI-01-2.png"
                 class="w-20 rounded-lg" />
         </template>
         <template #item="{ item, props, hasSubmenu, root }">
-            <a v-ripple class="flex items-center" v-bind="props.action">
+            <a v-ripple class="flex items-center" v-bind="props.action"
+                :class="{ 'border-b-2 border-primary': route().current(item.route) || route().current(item.route2) }">
                 <span class="text-gray-800 dark:text-gray-200">{{ item.label }}</span>
                 <span v-if="item.shortcut"
                     class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{
@@ -18,8 +19,8 @@
         <template #end>
             <div class="flex items-center gap-2">
                 <InputText placeholder="Search" type="text" class="w-32 sm:w-auto" />
-                <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle"
-                    @click="toggleMenu" class="cursor-pointer" :style="{ width: '40px', height: '40px' }" />
+                <Avatar :image="$page.props.auth.user.profile_photo_url" shape="circle" @click="toggleMenu"
+                    class="cursor-pointer" :style="{ width: '40px', height: '40px' }" />
                 <Menu ref="menu" id="overlay_menu" :model="listItems" :popup="true" />
             </div>
         </template>
@@ -41,6 +42,8 @@ const menuItems = [
     {
         label: 'Dashboard',
         icon: 'pi pi-home',
+        route: 'dashboard',
+        route2: 'dashboard',
         command: () => {
             router.get(route('dashboard')); // Navigate to the dashboard route using router
         }
@@ -48,13 +51,17 @@ const menuItems = [
     {
         label: 'Post',
         icon: 'pi pi-pencil',
+        route: 'posts.index',
+        route2: 'posts.create',
         command: () => {
-            router.get('/post'); // Navigate to the post route
+            router.get(route('posts.index')); // Navigate to the posts route using router
         }
     },
     {
         label: 'Galeri',
         icon: 'pi pi-image',
+        route: 'gallery',
+        route2: 'gallery.create',
         command: () => {
             router.get('/galeri'); // Navigate to the galeri route
         }
@@ -62,6 +69,8 @@ const menuItems = [
     {
         label: 'Agenda',
         icon: 'pi pi-calendar',
+        route: 'agenda',
+        route2: 'agenda.create',
         command: () => {
             router.get('/agenda'); // Navigate to the agenda route
         }
@@ -69,6 +78,8 @@ const menuItems = [
     {
         label: 'Dokumen',
         icon: 'pi pi-file',
+        route: 'dokumen',
+        route2: 'dokumen.create',
         command: () => {
             router.get('/dokumen'); // Navigate to the dokumen route
         }
@@ -76,6 +87,8 @@ const menuItems = [
     {
         label: 'Pengaturan',
         icon: 'pi pi-search',
+        route: 'setting',
+        route2: 'setting',
         items: [
             {
                 label: 'Pengguna',
@@ -131,7 +144,3 @@ const toggleMenu = (event) => {
     }
 };
 </script>
-
-<style scoped>
-/* Add any specific styles for the Menubar here */
-</style>

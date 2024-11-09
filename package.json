@@ -20,6 +20,7 @@
         "vue": "^3.3.13"
     },
     "dependencies": {
+        "@primevue/forms": "^4.2.1",
         "@primevue/themes": "^4.2.1",
         "primeicons": "^7.0.0",
         "primevue": "^4.2.1",
