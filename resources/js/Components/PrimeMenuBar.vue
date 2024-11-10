@@ -1,6 +1,5 @@
 <template>
-    <Menubar :model="menuItems"
-        class="bg-gray-50 shadow-md bg-opacity-20 backdrop-blur-lg border border-gray-300 dark:bg-gray-800 dark:bg-opacity-30 dark:border-gray-600">
+    <Menubar :model="menuItems">
         <template #start>
             <img alt="logo" src="https://dpmpa.uui.ac.id/wp-content/uploads/2024/07/LOGO-UUI-01-2.png"
                 class="w-20 rounded-lg" />
@@ -8,7 +7,7 @@
         <template #item="{ item, props, hasSubmenu, root }">
             <a v-ripple class="flex items-center" v-bind="props.action"
                 :class="{ 'border-b-2 border-primary': route().current(item.route) || route().current(item.route2) }">
-                <span class="text-gray-800 dark:text-gray-200">{{ item.label }}</span>
+                <span>{{ item.label }}</span>
                 <span v-if="item.shortcut"
                     class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{
                         item.shortcut }}</span>
@@ -28,7 +27,8 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from 'vue';
+import { ref } from 'vue';
+import { defineEmits } from 'vue';
 import { router } from '@inertiajs/vue3'; // Import router from Inertia
 import { Menubar, Avatar, InputText, Menu } from 'primevue';
 
@@ -120,6 +120,13 @@ const listItems = [
         label: 'Options',
         items: [
             {
+                label: 'Dark Mode',
+                icon: 'pi pi-moon',
+                command: () => {
+                    document.documentElement.classList.toggle('dark');
+                }
+            },
+            {
                 label: 'Profile',
                 icon: 'pi pi-user',
                 command: () => {
@@ -132,7 +139,7 @@ const listItems = [
                 command: () => {
                     emit('logout'); // Emit logout event
                 }
-            }
+            },
         ]
     }
 ];

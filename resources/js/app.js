@@ -43,8 +43,9 @@ createInertiaApp({
                         cssLayer: {
                             name: 'primevue',
                             order: 'tailwind-base, primevue, tailwind-utilities'
-                        }
-                    }
+                        },
+                        darkModeSelector: '.dark'
+                    },
                 }
             })
             .mount(el);

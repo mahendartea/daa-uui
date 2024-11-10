@@ -1,7 +1,7 @@
 <template>
     <LoggedInLayout title="Posts">
         <div class="card flex justify-between my-5">
-            <Breadcrumb :home="home" :model="items" class="bg-gray-50 dark:bg-gray-800 w-full rounded-sm" />
+            <Breadcrumb :home="home" :model="items" />
         </div>
 
         <div>
