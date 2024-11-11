@@ -21,10 +21,10 @@
                         size="small" stripedRows>
                         <Column field="id" header="ID" sortable style="width: 10%;" />
                         <Column field="title" header="Judul" sortable style="width: 40%;" />
-                        <Column field="category" header="Kategori" sortable style="width:15%;" />
+                        <Column field="category" header="Kategori" sortable style="width:10%;" />
                         <Column field="updated" header="Diubah" sortable :body="formatDate" style="width: 15%;" />
                         <Column field="tag" header="Tag" />
-                        <Column field="actions" header="Aksi" style="width: 10%;">
+                        <Column field="actions" header="Aksi" style="width: 15%;">
                             <template #body="{ data }">
                                 <Button icon="pi pi-pencil" type="button" icon-class="p-w-4" size="small"
                                     class="p-button-secondary p-button-outlined hover:bg-primary-500 hover:text-white mr-2"
@@ -32,6 +32,9 @@
                                 <Button icon="pi pi-trash" type="button" icon-class="p-w-4" size="small"
                                     class="p-button-danger p-button-outlined hover:bg-primary-500 hover:text-white"
                                     @click="deletePost(data)" />
+                                <Button icon="pi pi-eye" type="button" icon-class="p-w-4" size="small"
+                                    class="p-button-info p-button-outlined hover:bg-primary-500 hover:text-white ml-2"
+                                    @click="viewPost(data)" />
                             </template>
                         </Column>
                     </DataTable>
