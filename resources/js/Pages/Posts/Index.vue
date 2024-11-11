@@ -1,5 +1,6 @@
 <template>
     <LoggedInLayout title="Posts">
+        <Toast />
         <div class="card flex justify-between my-5">
             <Breadcrumb :home="home" :model="items" class="bg-gray-50 dark:bg-gray-800 w-full rounded-sm" />
         </div>
@@ -26,14 +27,24 @@
                         <Column field="tag" header="Tag" />
                         <Column field="actions" header="Aksi" style="width: 13%;">
                             <template #body="{ data }">
-
                                 <div class="grid grid-cols-2 gap-1 gap-y-2">
                                     <Button icon="pi pi-pencil" type="button" icon-class="p-w-4" size="small"
                                         class="p-button-secondary p-button-outlined hover:bg-primary-500 hover:text-white"
                                         @click="editPost(data)" label="Ubah" />
-                                    <Button icon="pi pi-trash" type="button" icon-class="p-w-4" size="small"
+                                    <Button icon="pi pi-trash" icon-class="p-w-4" size="small"
+                                        @click="confirmDelete(data.id)"
                                         class="p-button-danger p-button-outlined hover:bg-primary-500 hover:text-white"
-                                        @click="deletePost(data.id)" label="hapus" />
+                                        label="hapus" />
+                                    <Dialog v-model:visible="visible" header="Hapus posting"
+                                        :style="{ width: '25rem' }">
+                                        <span class="text-red-500 dark:text-red-400 block mb-8">Apakah anda
+                                            yakin menghapus postingan ini?</span>
+                                        <div class="flex justify-end gap-2">
+                                            <Button type="button" label="Cancel" severity="secondary"
+                                                @click="visible = false"></Button>
+                                            <Button type="button" label="Hapus" @click="deletePost"></Button>
+                                        </div>
+                                    </Dialog>
                                     <Button icon="pi pi-eye" type="button" icon-class="p-w-4" size="small"
                                         class="p-button-info p-button-outlined hover:bg-primary-500 hover:text-white"
                                         @click="viewPost(data)" label="view" />
@@ -60,7 +71,7 @@
 
 <script setup>
 import LoggedInLayout from '@/Layouts/LoggedInLayout.vue';
-import { Card } from 'primevue';
+import { Card, Toast } from 'primevue';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Pagination from '@/Components/Pagination.vue';
@@ -70,10 +81,17 @@ import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import FloatLabel from 'primevue/floatlabel';
 import { router } from '@inertiajs/vue3';
+import Dialog from 'primevue/dialog';
+import { useToast } from 'primevue/usetoast';
+
+const toasts = useToast();
 
 const props = defineProps({
     posts: Object, // Ensure this is an object to match the structure of the posts data
 });
+
+const visible = ref(false);
+const postIdToDelete = ref(null);
 
 // Computed property to format the posts data
 const formattedPosts = computed(() => {
@@ -117,10 +135,32 @@ const createPost = () => {
     router.get('/admin/posts/create');
 };
 
-const deletePost = (id) => {
-    router.delete(`/admin/posts/destroy/${id}`, {
+const confirmDelete = (id) => {
+    postIdToDelete.value = id;
+    visible.value = true;
+};
+
+const deletePost = () => {
+    router.delete(`/admin/posts/destroy/${postIdToDelete.value}`, {
         preserveScroll: true,
-        preserveState: true
-    })
-}
+        preserveState: true,
+        onSuccess: () => {
+            toasts.add({
+                severity: 'success',
+                summary: 'Success',
+                life: 3000,
+                detail: 'Post deleted successfully',
+            });
+            visible.value = false;
+        },
+        onError: () => {
+            toasts.add({
+                severity: 'error',
+                summary: 'Error',
+                life: 3000,
+                detail: 'Failed to delete post',
+            });
+        },
+    });
+};
 </script>

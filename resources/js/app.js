@@ -9,6 +9,7 @@ import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';
 import { definePreset } from '@primevue/themes';
 import 'primeicons/primeicons.css'
+import { ToastService } from 'primevue';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Direktorat Akademik dan Administrasi';
 const daaPreset = definePreset(Aura, {
@@ -48,6 +49,7 @@ createInertiaApp({
                     },
                 }
             })
+            .use(ToastService)
             .mount(el);
     },
     progress: {

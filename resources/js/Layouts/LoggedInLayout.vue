@@ -32,8 +32,8 @@ const logout = () => {
         <div
             class="container flex flex-col items-center justify-between p-6 mx-auto space-y-4 sm:space-y-0 sm:flex-row">
             <a href="#">
-                <img class="w-auto h-14" src="https://dpmpa.uui.ac.id/wp-content/uploads/2024/07/LOGO-UUI-01-2.png"
-                    alt="logoui">
+                <img class="w-auto h-14 rounded"
+                    src="https://dpmpa.uui.ac.id/wp-content/uploads/2024/07/LOGO-UUI-01-2.png" alt="logoui">
             </a>
 
             <p class="text-sm text-gray-600 dark:text-gray-300">© Copyright 2021. All Rights Reserved.</p>
