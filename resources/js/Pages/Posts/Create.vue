@@ -109,4 +109,15 @@ const onFormSubmit = () => {
     });
 };
 
+const onDraftSubmit = () => {
+    form.post('/admin/posts/store-draft', {
+        onSuccess: () => {
+            form.reset();
+        },
+        onError: (errors) => {
+            console.error('Form submission failed', errors);
+        }
+    });
+}
+
 </script>

@@ -1,7 +1,7 @@
 <template>
     <LoggedInLayout title="Posts">
         <div class="card flex justify-between my-5">
-            <Breadcrumb :home="home" :model="items" />
+            <Breadcrumb :home="home" :model="items" class="bg-gray-50 dark:bg-gray-800 w-full rounded-sm" />
         </div>
 
         <div>
@@ -24,20 +24,28 @@
                         <Column field="category" header="Kategori" sortable style="width:10%;" />
                         <Column field="updated" header="Diubah" sortable :body="formatDate" style="width: 15%;" />
                         <Column field="tag" header="Tag" />
-                        <Column field="actions" header="Aksi" style="width: 15%;">
+                        <Column field="actions" header="Aksi" style="width: 13%;">
                             <template #body="{ data }">
-                                <Button icon="pi pi-pencil" type="button" icon-class="p-w-4" size="small"
-                                    class="p-button-secondary p-button-outlined hover:bg-primary-500 hover:text-white mr-2"
-                                    @click="editPost(data)" />
-                                <Button icon="pi pi-trash" type="button" icon-class="p-w-4" size="small"
-                                    class="p-button-danger p-button-outlined hover:bg-primary-500 hover:text-white"
-                                    @click="deletePost(data)" />
-                                <Button icon="pi pi-eye" type="button" icon-class="p-w-4" size="small"
-                                    class="p-button-info p-button-outlined hover:bg-primary-500 hover:text-white ml-2"
-                                    @click="viewPost(data)" />
+
+                                <div class="grid grid-cols-2 gap-1 gap-y-2">
+                                    <Button icon="pi pi-pencil" type="button" icon-class="p-w-4" size="small"
+                                        class="p-button-secondary p-button-outlined hover:bg-primary-500 hover:text-white"
+                                        @click="editPost(data)" label="Ubah" />
+                                    <Button icon="pi pi-trash" type="button" icon-class="p-w-4" size="small"
+                                        class="p-button-danger p-button-outlined hover:bg-primary-500 hover:text-white"
+                                        @click="deletePost(data.id)" label="hapus" />
+                                    <Button icon="pi pi-eye" type="button" icon-class="p-w-4" size="small"
+                                        class="p-button-info p-button-outlined hover:bg-primary-500 hover:text-white"
+                                        @click="viewPost(data)" label="view" />
+                                    <Button icon="pi pi-save" type="button" icon-class="p-w-4" size="small"
+                                        v-if="data.draft == 1" label="Draf"
+                                        class="p-button-success p-button-outlined hover:bg-primary-500 hover:text-white"
+                                        @click="publishPost(data.id)" />
+                                </div>
                             </template>
                         </Column>
                     </DataTable>
+
                 </template>
 
                 <template #footer>
@@ -108,4 +116,11 @@ watch(search, (mencari) => {
 const createPost = () => {
     router.get('/admin/posts/create');
 };
+
+const deletePost = (id) => {
+    router.delete(`/admin/posts/destroy/${id}`, {
+        preserveScroll: true,
+        preserveState: true
+    })
+}
 </script>

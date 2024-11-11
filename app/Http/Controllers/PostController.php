@@ -43,6 +43,30 @@ class PostController extends Controller
             'content' => $data['content'],
             'category' => $data['selectedCategory']['label'],
             'tag' => $data['tag'],
+            'draft' => false,
+            'tgl' => now(),
+        ]);
+
+        return redirect()->route('posts.index');
+    }
+
+    public function storeDraft()
+    {
+        $data = request()->validate([
+            'title' => 'required|string|max:255',
+            'seo' => 'required|string|max:255|unique:post,judul_seo',
+            'content' => 'required|string',
+            'selectedCategory.label' => 'required',
+            'tag' => 'string',
+        ]);
+
+        $post = Post::create([
+            'title' => $data['title'],
+            'judul_seo' => $data['seo'],
+            'content' => $data['content'],
+            'category' => $data['selectedCategory']['label'],
+            'tag' => $data['tag'],
+            'draft' => true,
             'tgl' => now(),
         ]);
 
