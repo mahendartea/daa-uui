@@ -16,6 +16,7 @@ class PostController extends Controller
             ->paginate(10);
         return Inertia::render('Posts/Index', [
             'posts' => $posts,
+            'message' => session('message')
         ]);
     }
 
@@ -75,15 +76,38 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
+        $categories = Category::all();
         return Inertia::render('Posts/Edit', [
             'post' => $post,
+            'categories' => $categories,
         ]);
     }
 
     public function update(Post $post)
     {
-        $post->update(request()->all());
-        return redirect()->route('posts.index');
+        $data = request()->validate([
+            'title' => 'required|string|max:255',
+            'seo' => 'required|string|max:255|unique:post,judul_seo,' . $post->id . ',id',
+            'content' => 'required|string',
+            'selectedCategory.label' => 'required',
+            'tag' => 'string',
+        ]);
+
+        $post->update([
+            'title' => $data['title'],
+            'judul_seo' => $data['seo'],
+            'content' => $data['content'],
+            'category' => $data['selectedCategory']['label'],
+            'tag' => $data['tag'],
+            'tgl' => now(),
+        ]);
+
+        return redirect()->route('posts.index')->with('message', [
+            'severity' => 'success',
+            'summary' => 'Berhasil',
+            'detail' => 'Post berhasil diperbarui',
+            'life' => 3000
+        ]);
     }
 
     public function destroy(Post $post)

@@ -1,10 +1,9 @@
 <template>
     <LoggedInLayout title="Posts">
-        <Toast />
+        <Toast class="z-50" />
         <div class="card flex justify-between my-5">
             <Breadcrumb :home="home" :model="items" class="bg-gray-50 dark:bg-gray-800 w-full rounded-sm" />
         </div>
-
         <div>
             <div class="flex justify-end gap-3 mb-2">
                 <FloatLabel variant="on">
@@ -30,21 +29,11 @@
                                 <div class="grid grid-cols-2 gap-1 gap-y-2">
                                     <Button icon="pi pi-pencil" type="button" icon-class="p-w-4" size="small"
                                         class="p-button-secondary p-button-outlined hover:bg-primary-500 hover:text-white"
-                                        @click="editPost(data)" label="Ubah" />
+                                        @click="editPost(data.id)" label="Ubah" />
                                     <Button icon="pi pi-trash" icon-class="p-w-4" size="small"
                                         @click="confirmDelete(data.id)"
                                         class="p-button-danger p-button-outlined hover:bg-primary-500 hover:text-white"
-                                        label="hapus" />
-                                    <Dialog v-model:visible="visible" header="Hapus posting"
-                                        :style="{ width: '25rem' }">
-                                        <span class="text-red-500 dark:text-red-400 block mb-8">Apakah anda
-                                            yakin menghapus postingan ini?</span>
-                                        <div class="flex justify-end gap-2">
-                                            <Button type="button" label="Cancel" severity="secondary"
-                                                @click="visible = false"></Button>
-                                            <Button type="button" label="Hapus" @click="deletePost"></Button>
-                                        </div>
-                                    </Dialog>
+                                        label="Hapus" />
                                     <Button icon="pi pi-eye" type="button" icon-class="p-w-4" size="small"
                                         class="p-button-info p-button-outlined hover:bg-primary-500 hover:text-white"
                                         @click="viewPost(data)" label="view" />
@@ -56,6 +45,14 @@
                             </template>
                         </Column>
                     </DataTable>
+                    <Dialog v-model:visible="visible" header="Hapus posting" :style="{ width: '25rem' }" modal>
+                        <span class="text-red-500 dark:text-red-400 block mb-8">Apakah anda
+                            yakin menghapus postingan ini?</span>
+                        <div class="flex justify-end gap-2">
+                            <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
+                            <Button type="button" label="Hapus" @click="deletePost"></Button>
+                        </div>
+                    </Dialog>
 
                 </template>
 
@@ -75,7 +72,7 @@ import { Card, Toast } from 'primevue';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Pagination from '@/Components/Pagination.vue';
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch, onMounted } from 'vue';
 import Breadcrumb from 'primevue/breadcrumb';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
@@ -84,11 +81,13 @@ import { router } from '@inertiajs/vue3';
 import Dialog from 'primevue/dialog';
 import { useToast } from 'primevue/usetoast';
 
-const toasts = useToast();
-
+const toast = useToast();
 const props = defineProps({
-    posts: Object, // Ensure this is an object to match the structure of the posts data
+    posts: Object,
+    message: Object
 });
+
+const toasts = useToast();
 
 const visible = ref(false);
 const postIdToDelete = ref(null);
@@ -147,9 +146,9 @@ const deletePost = () => {
         onSuccess: () => {
             toasts.add({
                 severity: 'success',
-                summary: 'Success',
+                summary: 'Berhasil',
                 life: 3000,
-                detail: 'Post deleted successfully',
+                detail: 'Postingan berhasil dihapus',
             });
             visible.value = false;
         },
@@ -158,9 +157,25 @@ const deletePost = () => {
                 severity: 'error',
                 summary: 'Error',
                 life: 3000,
-                detail: 'Failed to delete post',
+                detail: 'Gagal menghapus postingan',
             });
         },
     });
 };
+
+const editPost = (id) => {
+    router.get(`/admin/posts/edit/${id}`);
+};
+
+onMounted(() => {
+    if (props.message) {
+        toasts.add({
+            severity: props.message.severity,
+            summary: props.message.summary,
+            detail: props.message.detail,
+            life: props.message.life
+        });
+    }
+});
+
 </script>
