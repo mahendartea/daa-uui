@@ -40,10 +40,10 @@ const formatDate = (dateString) => {
                 </h2>
             </template>
             <template #content>
-                <div class="mt-3 mb-5 bg-primary text-white font-bold text-lg flex justify-between px-3">
+                <div class="mb-5 bg-primary text-white font-bold text-lg flex justify-between px-3">
                     <span>{{ post.category }}</span>
                 </div>
-                <div class="mb-10">
+                <div class="mb-5">
                     <p class="font-bold inline-block">Tag :</p>
                     <span v-for="tag in post.tag.split(',')" :key="tag.trim()"
                         class="tag-item mx-0.5 bg-gray-200 px-1 rounded">{{
@@ -57,7 +57,7 @@ const formatDate = (dateString) => {
                 <p class="text-sm text-gray-600 dark:text-gray-400 mt-5">Perbaharui pada : {{ formatDate(post.updated)
                     }}</p>
                 <div class="flex justify-between mt-5">
-                    <p>Created by : {{ post.created }}</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Created by : {{ post.created }}</p>
 
                     <div class="flex justify-end gap-2">
                         <Button icon="pi pi-arrow-left" label="Kembali" severity="secondary" type="button"
