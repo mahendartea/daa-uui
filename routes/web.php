@@ -24,12 +24,17 @@ Route::middleware([
     })->name('dashboard');
 
     route::group(['prefix' => 'admin'], function () {
-        Route::get('posts', [PostController::class, 'index'])->name('posts.index');
-        Route::get('posts/create', [PostController::class, 'create'])->name('posts.create');
-        Route::post('posts/store', [PostController::class, 'store'])->name('posts.store');
-        Route::post('posts/store-draft', [PostController::class, 'storeDraft'])->name('posts.store-draft');
-        Route::delete('posts/destroy/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
-        Route::get('posts/edit/{post}', [PostController::class, 'edit'])->name('posts.edit');
-        Route::put('posts/update/{post}', [PostController::class, 'update'])->name('posts.update');
+        Route::group(['prefix' => 'posts'], function () {
+            Route::get('/', [PostController::class, 'index'])->name('posts.index');
+            Route::get('create', [PostController::class, 'create'])->name('posts.create');
+            Route::post('store', [PostController::class, 'store'])->name('posts.store');
+            Route::post('store-draft', [PostController::class, 'storeDraft'])->name('posts.store-draft');
+            Route::delete('destroy/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+            Route::get('edit/{post}', [PostController::class, 'edit'])->name('posts.edit');
+            Route::put('update/{post}', [PostController::class, 'update'])->name('posts.update');
+            Route::put('publish/{post}', [PostController::class, 'publish'])->name('posts.publish');
+            Route::put('update-draft/{post}', [PostController::class, 'updateDraft'])->name('posts.update-draft');
+            Route::get('show/{post}', [PostController::class, 'show'])->name('posts.show');
+        });
     });
 });

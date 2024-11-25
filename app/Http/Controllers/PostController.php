@@ -2,29 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Inertia\Inertia;
-use App\Models\Category;
 
 class PostController extends Controller
 {
     public function index()
     {
         $cari = request("search");
-        $posts = Post::where('title', 'like', '%' . $cari . '%')
+        $posts = Post::where('title', 'like', '%'.$cari.'%')
             ->orderBy('tgl', 'desc')
             ->paginate(10);
         return Inertia::render('Posts/Index', [
             'posts' => $posts,
             'message' => session('message')
-        ]);
-    }
-
-    public function create()
-    {
-        $categories = Category::all();
-        return Inertia::render('Posts/Create', [
-            'categories' => $categories,
         ]);
     }
 
@@ -46,9 +38,23 @@ class PostController extends Controller
             'tag' => $data['tag'],
             'draft' => false,
             'tgl' => now(),
+            'created' => request()->user()->name,
         ]);
 
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index')->with('message', [
+            'severity' => 'success',
+            'summary' => 'Berhasil',
+            'detail' => 'Post berhasil disimpan',
+            'life' => 3000
+        ]);
+    }
+
+    public function create()
+    {
+        $categories = Category::all();
+        return Inertia::render('Posts/Create', [
+            'categories' => $categories,
+        ]);
     }
 
     public function storeDraft()
@@ -83,11 +89,24 @@ class PostController extends Controller
         ]);
     }
 
+    public function publish(Post $post)
+    {
+        $post->update([
+            'draft' => false,
+        ]);
+        return redirect()->route('posts.index')->with('message', [
+            'severity' => 'success',
+            'summary' => 'Berhasil',
+            'detail' => 'Post berhasil diterbitkan',
+            'life' => 3000
+        ]);
+    }
+
     public function update(Post $post)
     {
         $data = request()->validate([
             'title' => 'required|string|max:255',
-            'seo' => 'required|string|max:255|unique:post,judul_seo,' . $post->id . ',id',
+            'seo' => 'required|string|max:255|unique:post,judul_seo,'.$post->id.',id',
             'content' => 'required|string',
             'selectedCategory.label' => 'required',
             'tag' => 'string',
@@ -107,6 +126,26 @@ class PostController extends Controller
             'summary' => 'Berhasil',
             'detail' => 'Post berhasil diperbarui',
             'life' => 3000
+        ]);
+    }
+
+    public function updateDraft(Post $post)
+    {
+        $post->update([
+            'draft' => true,
+        ]);
+        return redirect()->route('posts.index')->with('message', [
+            'severity' => 'success',
+            'summary' => 'Berhasil',
+            'detail' => 'Post berhasil disimpan sebagai draft',
+            'life' => 3000
+        ]);
+    }
+
+    public function show(Post $post)
+    {
+        return Inertia::render('Posts/Show', [
+            'post' => $post,
         ]);
     }
 

@@ -37,6 +37,8 @@
                         <small v-if="form.errors.tag" class="p-error">{{ form.errors.tag }}</small>
                     </FloatLabel>
                 </div>
+                <Button type="button" severity="secondary" label="Draft" icon="pi pi-bookmark" icon-class="p-w-4"
+                    class="mt-3 w-32" @click="onDraftUpdate" />
                 <Button type="submit" severity="primary" label="Update" icon="pi pi-save" icon-class="p-w-4"
                     class="mt-3 w-32 ml-2" />
             </form>
@@ -115,6 +117,17 @@ const tagsArray = computed({
 
 const onFormSubmit = () => {
     form.put(`/admin/posts/update/${props.post.id}`, {
+        onSuccess: () => {
+            // Success handling
+        },
+        onError: (errors) => {
+            console.error('Form submission failed', errors);
+        }
+    });
+}
+
+const onDraftUpdate = () => {
+    form.put(`/admin/posts/update-draft/${props.post.id}`, {
         onSuccess: () => {
             // Success handling
         },
