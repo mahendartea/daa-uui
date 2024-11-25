@@ -5,8 +5,7 @@
                 class="w-20 rounded-lg" />
         </template>
         <template #item="{ item, props, hasSubmenu, root }">
-            <a v-ripple class="flex items-center" v-bind="props.action"
-                :class="{ 'border-b-2 border-primary': route().current(item.route) || route().current(item.route2) }">
+            <a v-ripple class="flex items-center" v-bind="props.action">
                 <span>{{ item.label }}</span>
                 <span v-if="item.shortcut"
                     class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{
@@ -60,11 +59,24 @@ const menuItems = [
     {
         label: 'Galeri',
         icon: 'pi pi-image',
-        route: 'gallery',
-        route2: 'gallery.create',
-        command: () => {
-            router.get('/galeri'); // Navigate to the galeri route
-        }
+        route: 'galeries.index',
+        route2: 'albums.index',
+        items: [
+            {
+                label: 'Album',
+                icon: 'pi pi-folder',
+                command: () => {
+                    router.get(route('albums.index'));
+                }
+            },
+            {
+                label: 'Gambar',
+                icon: 'pi pi-images',
+                command: () => {
+                    router.get(route('galeries.index'));
+                }
+            },
+        ]
     },
     {
         label: 'Agenda',

@@ -10,13 +10,19 @@
             <Breadcrumb :home="home" :model="items" class="bg-gray-50 dark:bg-gray-800 w-full rounded-sm" />
         </div>
         <div>
-            <div class="flex justify-end gap-3 mb-2">
-                <FloatLabel variant="on">
-                    <InputText id="on_label" v-model="search" class="w-72" />
-                    <label for="on_label">Cari Postingan...</label>
-                </FloatLabel>
-                <Button class="p-button-primary p-button-outlined hover:bg-primary-500 hover:text-white"
-                    icon="pi pi-plus" icon-class="p-w-4" label="Tambah Postingan" type="button" @click="createPost" />
+            <div class="flex justify-between gap-3 mb-2">
+                <div>
+                    <h1 class="text-2xl font-bold text-primary">Postingan</h1>
+                </div>
+                <div class="flex justify-end gap-1">
+                    <FloatLabel variant="on">
+                        <InputText id="on_label" v-model="search" class="w-72" />
+                        <label for="on_label">Cari Postingan...</label>
+                    </FloatLabel>
+                    <Button class="p-button-primary p-button-outlined hover:bg-primary-500 hover:text-white"
+                        icon="pi pi-plus" icon-class="p-w-4" label="Tambah Postingan" type="button"
+                        @click="createPost" />
+                </div>
             </div>
             <Card class="border">
                 <template #title>Postingan</template>
@@ -88,7 +94,6 @@ import Dialog from 'primevue/dialog';
 import { useToast } from 'primevue/usetoast';
 import { Head } from '@inertiajs/vue3';
 
-const toast = useToast();
 const props = defineProps({
     posts: Object,
     message: Object

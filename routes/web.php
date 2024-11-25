@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\GaleryController;
 use App\Http\Controllers\PostController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -35,6 +37,10 @@ Route::middleware([
             Route::put('publish/{post}', [PostController::class, 'publish'])->name('posts.publish');
             Route::put('update-draft/{post}', [PostController::class, 'updateDraft'])->name('posts.update-draft');
             Route::get('show/{post}', [PostController::class, 'show'])->name('posts.show');
+        });
+        Route::group(['prefix' => 'galeries'], function () {
+            Route::get('/', [GaleryController::class, 'index'])->name('galeries.index');
+            Route::delete('destroy/{galery}', [GaleryController::class, 'destroy'])->name('galeries.destroy');
         });
     });
 });
