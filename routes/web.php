@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\GaleryController;
 use App\Http\Controllers\PostController;
 use Illuminate\Foundation\Application;
@@ -41,6 +42,15 @@ Route::middleware([
         Route::group(['prefix' => 'galeries'], function () {
             Route::get('/', [GaleryController::class, 'index'])->name('galeries.index');
             Route::delete('destroy/{galery}', [GaleryController::class, 'destroy'])->name('galeries.destroy');
+            Route::get('create', [GaleryController::class, 'create'])->name('galeries.create');
+        });
+        Route::group(['prefix' => 'albums'], function () {
+            Route::get('/', [AlbumController::class, 'index'])->name('albums.index');
+            Route::get('create', [AlbumController::class, 'create'])->name('albums.create');
+            Route::post('store', [AlbumController::class, 'store'])->name('albums.store');
+            Route::get('edit/{album}', [AlbumController::class, 'edit'])->name('albums.edit');
+            Route::put('update/{album}', [AlbumController::class, 'update'])->name('albums.update');
+            Route::delete('destroy/{album}', [AlbumController::class, 'destroy'])->name('albums.destroy');
         });
     });
 });

@@ -19,4 +19,9 @@ class Galery extends Model
     {
         $this->attributes['tgl_upload'] = date('Y-m-d H:i:s', strtotime($value));
     }
+
+    public function album()
+    {
+        return $this->belongsTo(Album::class, 'album_id');
+    }
 }

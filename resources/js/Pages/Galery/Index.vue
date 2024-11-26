@@ -1,7 +1,7 @@
 <script setup>
 import LoggedInLayout from '@/Layouts/LoggedInLayout.vue';
 import Breadcrumb from 'primevue/breadcrumb';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { DataTable, FloatLabel, Toast, useToast } from 'primevue';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
@@ -9,7 +9,7 @@ import Card from 'primevue/card';
 import Column from 'primevue/column';
 import { router } from '@inertiajs/vue3';
 import Dialog from 'primevue/dialog';
-
+import Paginator from 'primevue/paginator';
 
 const home = ref({
     icon: 'pi pi-home'
@@ -30,8 +30,20 @@ const props = defineProps({
     message: Object
 });
 
+const first = ref(0);
+const rows = ref(10);
+
+const currentGaleries = computed(() => {
+    return props.galeries.slice(first.value, first.value + rows.value);
+});
+
+const onPage = (event) => {
+    first.value = event.first;
+    rows.value = event.rows;
+};
+
 const createGalery = () => {
-    router.get(route('galery.create'));
+    router.get(route('galeries.create'));
 };
 
 const editGalery = (id) => {
@@ -108,10 +120,11 @@ onMounted(() => {
             <Card class="border">
                 <template #title>Galery</template>
                 <template #content>
-                    <DataTable :value="galeries" responsiveLayout="scroll" size="small" stripedRows
+                    <DataTable :value="currentGaleries" responsiveLayout="scroll" size="small" stripedRows
                         tableStyle="min-width: 50rem">
                         <Column field="id" header="ID" sortable style="width: 10%;" />
                         <Column field="gambar" header="Gambar" sortable style="width: 40%;" />
+                        <Column field="album.nama_album" header="Kategori Album" sortable style="width: 10%;" />
                         <Column field="ket_gambar" header="Keterangan Gambar" sortable style="width: 15%;" />
                         <Column field="actions" header="Aksi" style="width: 13%;">
                             <template #body="{ data }">
@@ -132,6 +145,8 @@ onMounted(() => {
                             </template>
                         </Column>
                     </DataTable>
+                    <Paginator :rows="rows" :first="first" :totalRecords="props.galeries.length"
+                        :rowsPerPageOptions="[10, 20, 30]" @page="onPage" class="mt-4" />
                     <Dialog v-model:visible="visible" :style="{ width: '25rem' }" header="Hapus galeri" modal>
                         <span class="text-red-500 dark:text-red-400 block mb-8">Apakah anda yakin menghapus galeri
                             ini?</span>
@@ -142,7 +157,6 @@ onMounted(() => {
                     </Dialog>
                 </template>
             </Card>
-
         </div>
     </LoggedInLayout>
 </template>

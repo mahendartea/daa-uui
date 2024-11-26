@@ -10,7 +10,7 @@ class GaleryController extends Controller
 {
     public function index()
     {
-        $galeries = Galery::all();
+        $galeries = Galery::with('album')->get();
         return Inertia::render('Galery/Index', compact('galeries'));
     }
 
@@ -18,5 +18,10 @@ class GaleryController extends Controller
     {
         $galery->delete();
         return redirect()->route('galeries.index');
+    }
+
+    public function create()
+    {
+        return Inertia::render('Galery/Create');
     }
 }
