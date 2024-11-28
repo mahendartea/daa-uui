@@ -48,11 +48,7 @@ const createGalery = () => {
 };
 
 const editGalery = (id) => {
-    router.get(route('galery.edit', id));
-};
-
-const viewGalery = (galery) => {
-    router.get(route('galery.show', galery.id));
+    router.get(route('galeries.edit', id));
 };
 
 const confirmDelete = (id) => {
@@ -116,10 +112,6 @@ onMounted(() => {
                     <h1 class="text-2xl font-bold text-primary">Galery</h1>
                 </div>
                 <div class="flex justify-end gap-1">
-                    <FloatLabel variant="on">
-                        <InputText id="on_label" v-model="search" class="w-72" />
-                        <label for="on_label">Cari Galeri...</label>
-                    </FloatLabel>
                     <Button class="p-button-primary p-button-outlined hover:bg-primary-500 hover:text-white"
                         icon="pi pi-plus" icon-class="p-w-4" label="Tambah Galeri" type="button"
                         @click="createGalery" />
@@ -154,10 +146,7 @@ onMounted(() => {
                                         class="p-button-danger p-button-outlined hover:bg-primary-500 hover:text-white"
                                         icon="pi pi-trash" icon-class="p-w-4" label="Hapus" size="small"
                                         @click="confirmDelete(data.id)" />
-                                    <Button
-                                        class="p-button-info p-button-outlined hover:bg-primary-500 hover:text-white"
-                                        icon="pi pi-eye" icon-class="p-w-4" label="View" size="small" type="button"
-                                        @click="viewGalery(data)" />
+
                                 </div>
                             </template>
                         </Column>

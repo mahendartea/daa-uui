@@ -54,6 +54,8 @@ Route::middleware([
             Route::delete('destroy/{galery}', [GaleryController::class, 'destroy'])->name('galeries.destroy');
             Route::get('create', [GaleryController::class, 'create'])->name('galeries.create');
             Route::post('store', [GaleryController::class, 'store'])->name('galeries.store');
+            Route::get('edit/{galery}', [GaleryController::class, 'edit'])->name('galeries.edit');
+            Route::put('update/{galery}', [GaleryController::class, 'update'])->name('galeries.update');
         });
         Route::group(['prefix' => 'albums'], function () {
             Route::get('/', [AlbumController::class, 'index'])->name('albums.index');
