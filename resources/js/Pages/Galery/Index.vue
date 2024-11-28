@@ -10,6 +10,7 @@ import Column from 'primevue/column';
 import { router } from '@inertiajs/vue3';
 import Dialog from 'primevue/dialog';
 import Paginator from 'primevue/paginator';
+import Image from 'primevue/image';
 
 const home = ref({
     icon: 'pi pi-home'
@@ -81,6 +82,14 @@ const deleteGalery = () => {
     });
 };
 
+const imageDialog = ref(false);
+const selectedImage = ref('');
+
+const viewImage = (imagePath) => {
+    selectedImage.value = '/' + imagePath;
+    imageDialog.value = true;
+};
+
 onMounted(() => {
     if (props.message) {
         toasts.value.add({
@@ -123,7 +132,15 @@ onMounted(() => {
                     <DataTable :value="currentGaleries" responsiveLayout="scroll" size="small" stripedRows
                         tableStyle="min-width: 50rem">
                         <Column field="id" header="ID" sortable style="width: 10%;" />
-                        <Column field="gambar" header="Gambar" sortable style="width: 40%;" />
+                        <Column field="gambar" header="Gambar" style="width: 40%;">
+                            <template #body="{ data }">
+                                <div class="flex items-center justify-start">
+                                    <img :src="'/' + data.gambar" :alt="data.ket_gambar"
+                                        class="w-32 h-32 object-cover rounded-lg shadow-md"
+                                        @click="viewImage(data.gambar)" />
+                                </div>
+                            </template>
+                        </Column>
                         <Column field="album.nama_album" header="Kategori Album" sortable style="width: 10%;" />
                         <Column field="ket_gambar" header="Keterangan Gambar" sortable style="width: 15%;" />
                         <Column field="actions" header="Aksi" style="width: 13%;">
@@ -155,8 +172,30 @@ onMounted(() => {
                             <Button label="Hapus" type="button" @click="deleteGalery"></Button>
                         </div>
                     </Dialog>
+                    <Dialog v-model:visible="imageDialog" :style="{ width: '50rem' }" header="Image Preview" modal>
+                        <img :src="selectedImage" alt="image" class="image-preview" />
+                    </Dialog>
                 </template>
             </Card>
         </div>
     </LoggedInLayout>
 </template>
+
+<style scoped>
+.p-datatable .p-datatable-tbody>tr>td {
+    padding: 0.5rem;
+    vertical-align: middle;
+}
+
+.image-preview {
+    transition: transform 0.2s;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.image-preview:hover {
+    transform: scale(1.05);
+}
+</style>

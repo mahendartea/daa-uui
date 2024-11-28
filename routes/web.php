@@ -7,6 +7,16 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -43,6 +53,7 @@ Route::middleware([
             Route::get('/', [GaleryController::class, 'index'])->name('galeries.index');
             Route::delete('destroy/{galery}', [GaleryController::class, 'destroy'])->name('galeries.destroy');
             Route::get('create', [GaleryController::class, 'create'])->name('galeries.create');
+            Route::post('store', [GaleryController::class, 'store'])->name('galeries.store');
         });
         Route::group(['prefix' => 'albums'], function () {
             Route::get('/', [AlbumController::class, 'index'])->name('albums.index');
