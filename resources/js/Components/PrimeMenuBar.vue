@@ -81,10 +81,9 @@ const menuItems = [
     {
         label: 'Agenda',
         icon: 'pi pi-calendar',
-        route: 'agenda',
-        route2: 'agenda.create',
+        route: 'agenda.index',
         command: () => {
-            router.get('/agenda'); // Navigate to the agenda route
+            router.get('/admin/agenda'); // Navigate to the agenda route
         }
     },
     {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\GaleryController;
 use App\Http\Controllers\PostController;
@@ -49,6 +50,16 @@ Route::middleware([
             Route::put('update-draft/{post}', [PostController::class, 'updateDraft'])->name('posts.update-draft');
             Route::get('show/{post}', [PostController::class, 'show'])->name('posts.show');
         });
+
+        Route::group(['prefix' => 'agenda'], function () {
+            Route::get('/', [AgendaController::class, 'index'])->name('agenda.index');
+            Route::get('create', [AgendaController::class, 'create'])->name('agenda.create');
+            Route::post('/', [AgendaController::class, 'store'])->name('agenda.store');
+            Route::delete('destroy/{agenda}', [AgendaController::class, 'destroy'])->name('agenda.destroy');
+            Route::get('edit/{agenda}', [AgendaController::class, 'edit'])->name('agenda.edit');
+            Route::put('update/{agenda}', [AgendaController::class, 'update'])->name('agenda.update');
+        });
+
         Route::group(['prefix' => 'galeries'], function () {
             Route::get('/', [GaleryController::class, 'index'])->name('galeries.index');
             Route::delete('destroy/{galery}', [GaleryController::class, 'destroy'])->name('galeries.destroy');
