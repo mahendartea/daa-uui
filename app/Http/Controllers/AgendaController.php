@@ -25,7 +25,10 @@ class AgendaController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return Inertia::render('Agenda/Index', compact('agenda'));
+        return Inertia::render('Agenda/Index', [
+            'agenda' => $agenda,
+            'message' => session('message')
+        ]);
     }
 
     public function create()
@@ -53,6 +56,7 @@ class AgendaController extends Controller
 
         return redirect()->route('agenda.index')->with('message', [
             'severity' => 'success',
+            'summary' => 'Berhasil',
             'detail' => 'Agenda berhasil ditambahkan',
             'life' => 3000
         ]);
@@ -85,6 +89,7 @@ class AgendaController extends Controller
 
         return redirect()->route('agenda.index')->with('message', [
             'severity' => 'success',
+            'summary' => 'Berhasil',
             'detail' => 'Agenda berhasil diperbarui',
             'life' => 3000
         ]);

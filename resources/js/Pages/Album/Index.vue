@@ -81,6 +81,7 @@ const deleteAlbum = () => {
 };
 
 onMounted(() => {
+    console.log(props.message);
     if (props.message) {
         toasts.add({
             severity: props.message.severity,

@@ -10,10 +10,17 @@ use Illuminate\Support\Facades\Validator;
 
 class GaleryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $galeries = Galery::with('album')->get();
-        return Inertia::render('Galery/Index', compact('galeries'));
+
+        if ($request->session()->has('message')) {
+            $message = $request->session()->get('message');
+        } else {
+            $message = '';
+        }
+
+        return Inertia::render('Galery/Index', compact('galeries', 'message'));
     }
 
     public function destroy(Galery $galery)
@@ -108,19 +115,19 @@ class GaleryController extends Controller
         }
 
         $data = [];
-        
+
         if ($request->has('album_id')) {
             $data['album_id'] = is_array($request->album_id) ? $request->album_id['value'] : $request->album_id;
         }
-        
+
         if ($request->has('ket_gambar')) {
             $data['ket_gambar'] = $request->ket_gambar;
         }
-        
+
         if ($request->has('slide_home')) {
             $data['slide_home'] = (bool) $request->slide_home;
         }
-        
+
         if ($request->has('tgl_upload')) {
             $data['tgl_upload'] = date('Y-m-d', strtotime($request->tgl_upload));
         }
@@ -140,6 +147,11 @@ class GaleryController extends Controller
 
         $galery->update($data);
 
-        return redirect()->route('galeries.index')->with('message', 'Gallery updated successfully');
+        return redirect()->route('galeries.index')->with('message', [
+            'severity' => 'success',
+            'summary' => 'Berhasil',
+            'detail' => 'Galeri berhasil diperbarui',
+            'life' => 3000
+        ]);
     }
 }

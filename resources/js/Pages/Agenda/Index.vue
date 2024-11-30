@@ -85,7 +85,7 @@ import LoggedInLayout from '@/Layouts/LoggedInLayout.vue';
 import { Card, Toast } from 'primevue';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import Breadcrumb from 'primevue/breadcrumb';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
@@ -101,6 +101,19 @@ const props = defineProps({
 });
 
 const toasts = useToast();
+
+// Show toast message when available
+onMounted(() => {
+    if (props.message) {
+        toasts.add({
+            severity: props.message.severity,
+            summary: props.message.summary,
+            detail: props.message.detail,
+            life: props.message.life
+        });
+    }
+});
+
 const visible = ref(false);
 const agendaIdToDelete = ref(null);
 

@@ -10,7 +10,10 @@ class AlbumController extends Controller
     public function index()
     {
         $albums = Album::orderByDesc('created_at')->orderByDesc('updated_at')->get();
-        return Inertia::render('Album/Index', compact('albums'));
+        return Inertia::render('Album/Index', [
+            'albums' => $albums,
+            'message' => session('message')
+        ]);
     }
 
     public function create()

@@ -79,7 +79,7 @@ import Toast from 'primevue/toast';
 import { useToast } from "primevue/usetoast";
 import { useForm } from '@inertiajs/vue3';
 
-const toast = useToast();
+const toasts = useToast();
 const home = ref({
     icon: 'pi pi-home'
 });
@@ -155,7 +155,7 @@ const getChangedData = () => {
 
 const onSelect = (event) => {
     form.gambar = event.files[0];
-    toast.add({ severity: 'info', summary: 'Success', detail: 'New image selected', life: 3000 });
+    toasts.add({ severity: 'info', summary: 'Success', detail: 'New image selected', life: 3000 });
 };
 
 const onFormSubmit = () => {
@@ -163,10 +163,10 @@ const onFormSubmit = () => {
 
     form.put(`/admin/galeries/update/${props.galery.id}`, changedData, {
         onSuccess: () => {
-            toast.add({ severity: 'success', summary: 'Success', detail: 'Gallery Updated', life: 3000 });
+            toasts.add({ severity: 'success', summary: 'Success', detail: 'Gallery Updated', life: 3000 });
         },
         onError: () => {
-            toast.add({ severity: 'error', summary: 'Error', detail: 'Please check the form for errors', life: 3000 });
+            toasts.add({ severity: 'error', summary: 'Error', detail: 'Please check the form for errors', life: 3000 });
         },
         preserveScroll: true
     });

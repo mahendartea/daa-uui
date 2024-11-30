@@ -88,7 +88,7 @@ const viewImage = (imagePath) => {
 
 onMounted(() => {
     if (props.message) {
-        toasts.value.add({
+        toasts.add({
             severity: props.message.severity,
             summary: props.message.summary,
             detail: props.message.detail,
@@ -124,7 +124,7 @@ onMounted(() => {
                     <DataTable :value="currentGaleries" responsiveLayout="scroll" size="small" stripedRows
                         tableStyle="min-width: 50rem">
                         <Column field="id" header="ID" sortable style="width: 10%;" />
-                        <Column field="gambar" header="Gambar" style="width: 40%;">
+                        <Column field="gambar" header="Gambar" style="width: 20%;">
                             <template #body="{ data }">
                                 <div class="flex items-center justify-start">
                                     <img :src="'/' + data.gambar" :alt="data.ket_gambar"
