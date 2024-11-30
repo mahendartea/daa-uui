@@ -115,7 +115,11 @@ onMounted(() => {
                 <template #content>
                     <DataTable :value="currentAlbums" responsiveLayout="scroll" size="small" stripedRows
                         tableStyle="min-width: 50rem">
-                        <Column field="id_album" header="ID Album" sortable style="width: 10%;" />
+                        <Column header="No" style="width: 5%;">
+                            <template #body="{ index }">
+                                {{ index + 1 + first }}
+                            </template>
+                        </Column>
                         <Column field="nama_album" header="Nama Album" sortable style="width: 40%;" />
                         <Column field="actions" header="Aksi" style="width: 13%;">
                             <template #body="{ data }">

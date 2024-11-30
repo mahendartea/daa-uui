@@ -2,40 +2,42 @@
 import LoggedInLayout from '@/Layouts/LoggedInLayout.vue';
 import Breadcrumb from 'primevue/breadcrumb';
 import { ref, onMounted, computed } from 'vue';
-import { DataTable, FloatLabel, Toast, useToast } from 'primevue';
-import InputText from 'primevue/inputtext';
+import { DataTable, FloatLabel } from 'primevue';
 import Button from 'primevue/button';
 import Card from 'primevue/card';
 import Column from 'primevue/column';
 import { router } from '@inertiajs/vue3';
 import Dialog from 'primevue/dialog';
 import Paginator from 'primevue/paginator';
-import Image from 'primevue/image';
+import Toast from 'primevue/toast';
+import { useToast } from 'primevue/usetoast';
 
 const home = ref({
     icon: 'pi pi-home'
 });
 
 const items = ref([
-    { label: 'Galery' },
-    { label: 'Data' },
+    { label: 'Post' },
+    { label: 'Kategori' },
 ]);
 
-const search = ref('');
 const visible = ref(false);
 const selectedId = ref(null);
 const toasts = useToast();
 
 const props = defineProps({
-    galeries: Object,
+    categories: {
+        type: Object,
+        default: () => []
+    },
     message: Object
 });
 
 const first = ref(0);
 const rows = ref(10);
 
-const currentGaleries = computed(() => {
-    return props.galeries.slice(first.value, first.value + rows.value);
+const currentCategories = computed(() => {
+    return props.categories ? props.categories.slice(first.value, first.value + rows.value) : [];
 });
 
 const onPage = (event) => {
@@ -43,12 +45,12 @@ const onPage = (event) => {
     rows.value = event.rows;
 };
 
-const createGalery = () => {
-    router.get(route('galeries.create'));
+const createCategory = () => {
+    router.get(route('categories.create'));
 };
 
-const editGalery = (id) => {
-    router.get(route('galeries.edit', id));
+const editCategory = (id) => {
+    router.get(route('categories.edit', id));
 };
 
 const confirmDelete = (id) => {
@@ -56,14 +58,14 @@ const confirmDelete = (id) => {
     visible.value = true;
 };
 
-const deleteGalery = () => {
-    router.delete(route('galeries.destroy', selectedId.value), {
+const deleteCategory = () => {
+    router.delete(`/admin/categories/destroy/${selectedId.value}`, {
         onSuccess: () => {
             visible.value = false;
             toasts.add({
                 severity: 'success',
                 summary: 'Success',
-                detail: 'Galeri berhasil dihapus',
+                detail: 'Kategori berhasil dihapus',
                 life: 3000,
             });
         },
@@ -71,23 +73,16 @@ const deleteGalery = () => {
             toasts.add({
                 severity: 'error',
                 summary: 'Error',
-                detail: 'Terjadi kesalahan saat menghapus galeri',
+                detail: 'Terjadi kesalahan saat menghapus kategori',
                 life: 3000,
             });
         },
     });
 };
 
-const imageDialog = ref(false);
-const selectedImage = ref('');
-
-const viewImage = (imagePath) => {
-    selectedImage.value = '/' + imagePath;
-    imageDialog.value = true;
-};
-
 onMounted(() => {
     if (props.message) {
+        console.log(props.message);
         toasts.add({
             severity: props.message.severity,
             summary: props.message.summary,
@@ -96,99 +91,73 @@ onMounted(() => {
         });
     }
 });
-
 </script>
 
 <template>
-    <LoggedInLayout title="Galery">
+    <LoggedInLayout title="Kategori">
         <Toast class="z-50" />
         <div class="card flex justify-between my-5">
             <Breadcrumb :home="home" :model="items" class="bg-gray-50 dark:bg-gray-800 w-full rounded-sm" />
         </div>
-
         <div>
             <div class="flex justify-between gap-3 mb-2">
                 <div>
-                    <h1 class="text-2xl font-bold text-primary">Galery</h1>
+                    <h1 class="text-2xl font-bold text-primary">Kategori</h1>
                 </div>
                 <div class="flex justify-end gap-1">
                     <Button class="p-button-primary p-button-outlined hover:bg-primary-500 hover:text-white"
-                        icon="pi pi-plus" icon-class="p-w-4" label="Tambah Galeri" type="button"
-                        @click="createGalery" />
+                        icon="pi pi-plus" icon-class="p-w-4" label="Tambah Kategori" type="button"
+                        @click="createCategory" />
                 </div>
             </div>
 
             <Card class="border">
-                <template #title>Galery</template>
+                <template #title>Kategori</template>
                 <template #content>
-                    <DataTable :value="currentGaleries" responsiveLayout="scroll" size="small" stripedRows
+                    <DataTable :value="currentCategories" responsiveLayout="scroll" size="small" stripedRows
                         tableStyle="min-width: 50rem">
                         <Column header="No" style="width: 5%;">
                             <template #body="{ index }">
                                 {{ index + 1 + first }}
                             </template>
                         </Column>
-                        <Column field="gambar" header="Gambar" style="width: 20%;">
+                        <Column field="category" header="Kategori" sortable style="width: 40%;" />
+                        <Column field="aktif" header="Status" sortable style="width: 15%;">
                             <template #body="{ data }">
-                                <div class="flex items-center justify-start">
-                                    <img :src="'/' + data.gambar" :alt="data.ket_gambar"
-                                        class="w-32 h-32 object-cover rounded-lg shadow-md"
-                                        @click="viewImage(data.gambar)" />
-                                </div>
+                                <span
+                                    :class="{ 'text-green-500': data.aktif === 'Y', 'text-red-500': data.aktif === 'N' }">
+                                    {{ data.aktif === 'Y' ? 'Aktif' : 'Tidak Aktif' }}
+                                </span>
                             </template>
                         </Column>
-                        <Column field="album.nama_album" header="Kategori Album" sortable style="width: 10%;" />
-                        <Column field="ket_gambar" header="Keterangan Gambar" sortable style="width: 15%;" />
                         <Column field="actions" header="Aksi" style="width: 13%;">
                             <template #body="{ data }">
                                 <div class="grid grid-cols-2 gap-1 gap-y-2">
                                     <Button
                                         class="p-button-secondary p-button-outlined hover:bg-primary-500 hover:text-white"
                                         icon="pi pi-pencil" icon-class="p-w-4" label="Ubah" size="small" type="button"
-                                        @click="editGalery(data.id)" />
+                                        @click="editCategory(data.id)" />
                                     <Button
                                         class="p-button-danger p-button-outlined hover:bg-primary-500 hover:text-white"
                                         icon="pi pi-trash" icon-class="p-w-4" label="Hapus" size="small"
                                         @click="confirmDelete(data.id)" />
-
                                 </div>
                             </template>
                         </Column>
                     </DataTable>
-                    <Paginator :rows="rows" :first="first" :totalRecords="props.galeries.length"
-                        :rowsPerPageOptions="[10, 20, 30]" @page="onPage" class="mt-4" />
-                    <Dialog v-model:visible="visible" :style="{ width: '25rem' }" header="Hapus galeri" modal>
-                        <span class="text-red-500 dark:text-red-400 block mb-8">Apakah anda yakin menghapus galeri
-                            ini?</span>
-                        <div class="flex justify-end gap-2">
-                            <Button label="Cancel" severity="secondary" type="button" @click="visible = false"></Button>
-                            <Button label="Hapus" type="button" @click="deleteGalery"></Button>
-                        </div>
-                    </Dialog>
-                    <Dialog v-model:visible="imageDialog" :style="{ width: '50rem' }" header="Image Preview" modal>
-                        <img :src="selectedImage" alt="image" class="image-preview" />
-                    </Dialog>
+                    <Paginator :rows="rows" :first="first" :totalRecords="props.categories.length"
+                        :rowsPerPageOptions="[5, 10, 20]" @page="onPage" class="mt-4" />
                 </template>
             </Card>
+
+            <Dialog v-model:visible="visible" :style="{ width: '25rem' }" header="Hapus Kategori" modal>
+                <span class="text-red-500 dark:text-red-400 block mb-8">Apakah anda yakin menghapus kategori
+                    ini?</span>
+                <div class="flex justify-end gap-2">
+                    <Button label="Cancel" severity="secondary" type="button" @click="visible = false"></Button>
+                    <Button label="Hapus" type="button" @click="deleteCategory"></Button>
+                </div>
+            </Dialog>
         </div>
     </LoggedInLayout>
 </template>
-
-<style scoped>
-.p-datatable .p-datatable-tbody>tr>td {
-    padding: 0.5rem;
-    vertical-align: middle;
-}
-
-.image-preview {
-    transition: transform 0.2s;
-    cursor: pointer;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.image-preview:hover {
-    transform: scale(1.05);
-}
-</style>

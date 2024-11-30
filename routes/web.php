@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GaleryController;
 use App\Http\Controllers\PostController;
 use Illuminate\Foundation\Application;
@@ -49,6 +50,15 @@ Route::middleware([
             Route::put('publish/{post}', [PostController::class, 'publish'])->name('posts.publish');
             Route::put('update-draft/{post}', [PostController::class, 'updateDraft'])->name('posts.update-draft');
             Route::get('show/{post}', [PostController::class, 'show'])->name('posts.show');
+        });
+
+        Route::group(['prefix' => 'categories'], function () {
+            Route::get('/', [CategoryController::class, 'index'])->name('categories.index');
+            Route::get('create', [CategoryController::class, 'createCategory'])->name('categories.create');
+            Route::post('store', [CategoryController::class, 'storeCategory'])->name('categories.store');
+            Route::delete('destroy/{category}', [CategoryController::class, 'destroyCategory'])->name('categories.destroy');
+            Route::get('edit/{category}', [CategoryController::class, 'editCategory'])->name('categories.edit');
+            Route::put('update/{category}', [CategoryController::class, 'updateCategory'])->name('categories.update');
         });
 
         Route::group(['prefix' => 'agenda'], function () {

@@ -29,7 +29,11 @@
                 <template #content>
                     <DataTable :value="formattedPosts" responsiveLayout="scroll" size="small" stripedRows
                         tableStyle="min-width: 50rem">
-                        <Column field="id" header="ID" sortable style="width: 10%;" />
+                        <Column header="No" style="width: 5%;">
+                            <template #body="{ index }">
+                                {{ index + 1 + ((props.posts.current_page - 1) * props.posts.per_page) }}
+                            </template>
+                        </Column>
                         <Column field="title" header="Judul" sortable style="width: 40%;" />
                         <Column field="category" header="Kategori" sortable style="width:10%;" />
                         <Column :body="formatDate" field="updated" header="Diubah" sortable style="width: 15%;" />

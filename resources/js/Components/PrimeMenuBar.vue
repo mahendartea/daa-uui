@@ -52,9 +52,22 @@ const menuItems = [
         icon: 'pi pi-pencil',
         route: 'posts.index',
         route2: 'posts.create',
-        command: () => {
-            router.get(route('posts.index')); // Navigate to the posts route using router
-        }
+        items: [
+            {
+                label: 'Postingan',
+                icon: 'pi pi-pencil',
+                command: () => {
+                    router.get(route('posts.index')); // Navigate to the posts route using router
+                }
+            },
+            {
+                label: 'Kategori',
+                icon: 'pi pi-pencil',
+                command: () => {
+                    router.get(route('categories.index')); // Navigate to the categories route using router
+                }
+            }
+        ],
     },
     {
         label: 'Galeri',

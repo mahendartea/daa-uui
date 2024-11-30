@@ -75,7 +75,7 @@ const form = useForm({
     content: props.post.content ?? '',
     selectedCategory: {
         label: props.post?.category ?? '',
-        value: props.categories?.find(cat => cat.category === props.post?.category)?.id_category ?? null
+        value: props.categories?.find(cat => cat.category === props.post?.category)?.id ?? null
     },
     tag: props.post?.tag ?? '',
 });
@@ -83,7 +83,7 @@ const form = useForm({
 const kategori = ref([]);
 kategori.value = props.categories?.map(category => ({
     label: category.category,
-    value: category.id_category
+    value: category.id
 })) ?? [];
 
 const editorRef = ref()
