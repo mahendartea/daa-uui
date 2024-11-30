@@ -145,7 +145,7 @@ const menuItems = [
                         label: 'Pengguna',
                         icon: 'pi pi-user',
                         command: () => {
-                            router.get('/users'); // Navigate to the config route
+                            router.get(route('users.index')); // Navigate to the config route
                         }
                     },
                     {

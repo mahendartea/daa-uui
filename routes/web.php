@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\GaleryController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -97,6 +98,16 @@ Route::middleware([
             Route::get('edit/{document}', [DocumentController::class, 'edit'])->name('documents.edit');
             Route::put('update/{document}', [DocumentController::class, 'update'])->name('documents.update');
             Route::delete('destroy/{document}', [DocumentController::class, 'destroy'])->name('documents.destroy');
+        });
+
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/', [UserController::class, 'index'])->name('users.index');
+            Route::get('create', [UserController::class, 'create'])->name('users.create');
+            Route::post('store', [UserController::class, 'store'])->name('users.store');
+            Route::delete('destroy/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+            Route::get('edit/{user}', [UserController::class, 'edit'])->name('users.edit');
+            Route::put('update/{user}', [UserController::class, 'update'])->name('users.update');
+            Route::get('show/{user}', [UserController::class, 'show'])->name('users.show');
         });
     });
 });
