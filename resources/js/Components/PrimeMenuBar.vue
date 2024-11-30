@@ -16,7 +16,6 @@
         </template>
         <template #end>
             <div class="flex items-center gap-2">
-                <InputText placeholder="Search" type="text" class="w-32 sm:w-auto" />
                 <Avatar :image="$page.props.auth.user.profile_photo_url" shape="circle" @click="toggleMenu"
                     class="cursor-pointer" :style="{ width: '40px', height: '40px' }" />
                 <Menu ref="menu" id="overlay_menu" :model="listItems" :popup="true" />
@@ -29,7 +28,7 @@
 import { ref } from 'vue';
 import { defineEmits } from 'vue';
 import { router } from '@inertiajs/vue3'; // Import router from Inertia
-import { Menubar, Avatar, InputText, Menu } from 'primevue';
+import { Menubar, Avatar, Menu } from 'primevue';
 
 const emit = defineEmits(['logout']); // Define an event for logout
 
@@ -105,7 +104,7 @@ const menuItems = [
         route: 'dokumen',
         route2: 'dokumen.create',
         command: () => {
-            router.get('/dokumen'); // Navigate to the dokumen route
+            router.get(route('documents.index')); // Navigate to the dokumen route
         }
     },
     {
@@ -115,25 +114,55 @@ const menuItems = [
         route2: 'setting',
         items: [
             {
-                label: 'Pengguna',
-                icon: 'pi pi-user',
-                command: () => {
-                    router.get('/users'); // Navigate to the config route
-                }
+                label: 'Menu',
+                icon: 'pi pi-list',
+                items: [
+                    {
+                        label: 'Menu Utama',
+                        icon: 'pi pi-list',
+                        command: () => {
+                            router.get('/menu'); // Navigate to the config route
+                        }
+                    },
+                    {
+                        label: 'Sub Menu',
+                        icon: 'pi pi-list',
+                        command: () => {
+                            router.get('/submenu'); // Navigate to the config route
+                        }
+                    },
+                ]
+            },
+
+            {
+                separator: true
             },
             {
-                label: 'Peran',
+                label: 'Otorisasi',
                 icon: 'pi pi-lock',
-                command: () => {
-                    router.get('/role'); // Navigate to the config route
-                }
-            },
-            {
-                label: 'Izin',
-                icon: 'pi pi-lock',
-                command: () => {
-                    router.get('/permision'); // Navigate to the config route
-                }
+                items: [
+                    {
+                        label: 'Pengguna',
+                        icon: 'pi pi-user',
+                        command: () => {
+                            router.get('/users'); // Navigate to the config route
+                        }
+                    },
+                    {
+                        label: 'Peran',
+                        icon: 'pi pi-lock',
+                        command: () => {
+                            router.get('/role'); // Navigate to the config route
+                        }
+                    },
+                    {
+                        label: 'Izin',
+                        icon: 'pi pi-lock',
+                        command: () => {
+                            router.get('/permision'); // Navigate to the config route
+                        }
+                    },
+                ],
             },
         ]
     }

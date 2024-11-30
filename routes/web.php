@@ -3,6 +3,7 @@
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\GaleryController;
 use App\Http\Controllers\PostController;
 use Illuminate\Foundation\Application;
@@ -85,6 +86,17 @@ Route::middleware([
             Route::get('edit/{album}', [AlbumController::class, 'edit'])->name('albums.edit');
             Route::put('update/{album}', [AlbumController::class, 'update'])->name('albums.update');
             Route::delete('destroy/{album}', [AlbumController::class, 'destroy'])->name('albums.destroy');
+        });
+        Route::group(['prefix' => 'documents'], function () {
+            Route::get('/', [DocumentController::class, 'index'])->name('documents.index');
+            Route::get('create', [DocumentController::class, 'create'])->name('documents.create');
+            Route::post('store', [DocumentController::class, 'store'])->name('documents.store');
+            Route::get('show/{document}', [DocumentController::class, 'show'])->name('documents.show');
+            Route::get('{document}/view', [DocumentController::class, 'viewDocument'])->name('documents.view');
+            Route::get('{document}/download', [DocumentController::class, 'downloadDocument'])->name('documents.download');
+            Route::get('edit/{document}', [DocumentController::class, 'edit'])->name('documents.edit');
+            Route::put('update/{document}', [DocumentController::class, 'update'])->name('documents.update');
+            Route::delete('destroy/{document}', [DocumentController::class, 'destroy'])->name('documents.destroy');
         });
     });
 });
