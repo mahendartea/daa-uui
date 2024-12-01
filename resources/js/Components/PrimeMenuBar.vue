@@ -159,7 +159,7 @@ const menuItems = [
                         label: 'Izin',
                         icon: 'pi pi-lock',
                         command: () => {
-                            router.get('/permision'); // Navigate to the config route
+                            router.get(route('permissions.index')); // Navigate to the config route
                         }
                     },
                 ],

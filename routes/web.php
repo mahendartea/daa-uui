@@ -5,6 +5,7 @@ use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\GaleryController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -118,6 +119,15 @@ Route::middleware([
             Route::delete('destroy/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
             Route::get('edit/{role}', [RoleController::class, 'edit'])->name('roles.edit');
             Route::put('update/{role}', [RoleController::class, 'update'])->name('roles.update');
+        });
+
+        Route::group(['prefix' => 'permissions'], function () {
+            Route::get('/', [PermissionController::class, 'index'])->name('permissions.index');
+            Route::get('create', [PermissionController::class, 'create'])->name('permissions.create');
+            Route::post('store', [PermissionController::class, 'store'])->name('permissions.store');
+            Route::delete('destroy/{permission}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
+            Route::get('edit/{permission}', [PermissionController::class, 'edit'])->name('permissions.edit');
+            Route::put('update/{permission}', [PermissionController::class, 'update'])->name('permissions.update');
         });
     });
 });
