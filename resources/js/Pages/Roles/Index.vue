@@ -1,4 +1,5 @@
 <template>
+
     <Head>
         <title>Peran</title>
         <meta name="description" content="Role Management" />
@@ -22,8 +23,8 @@
                     <Link v-if="can.create_role"
                         class="p-button p-button-primary p-button-outlined hover:bg-primary-500 hover:text-white"
                         :href="route('roles.create')">
-                        <i class="pi pi-plus mr-2"></i>
-                        Tambah Peran
+                    <i class="pi pi-plus mr-2"></i>
+                    Tambah Peran
                     </Link>
                 </div>
             </div>
@@ -40,8 +41,8 @@
                         <Column field="permissions" header="Permissions" style="width: 50%;">
                             <template #body="{ data }">
                                 <div class="flex flex-wrap gap-1">
-                                    <Chip v-for="permission in data.permissions" :key="permission" :label="permission"
-                                        class="bg-primary-100 text-primary-700" />
+                                    <Badge v-for="permission in data.permissions" :key="permission" :value="permission"
+                                        severity="info" size="small" class="text-xs" />
                                 </div>
                             </template>
                         </Column>
@@ -59,7 +60,8 @@
                         </Column>
                     </DataTable>
                     <Dialog v-model:visible="visible" :style="{ width: '25rem' }" header="Hapus Peran" modal>
-                        <span class="text-red-500 dark:text-red-400 block mb-8">Apakah anda yakin menghapus peran ini?</span>
+                        <span class="text-red-500 dark:text-red-400 block mb-8">Apakah anda yakin menghapus peran
+                            ini?</span>
                         <div class="flex justify-end gap-2">
                             <Button label="Batal" severity="secondary" type="button" @click="visible = false"></Button>
                             <Button label="Hapus" type="button" @click="deleteRole"></Button>
@@ -90,9 +92,10 @@ import Dialog from 'primevue/dialog';
 import Toast from 'primevue/toast';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+import Badge from 'primevue/badge';
+import ConfirmDialog from 'primevue/confirmdialog';
 import Pagination from '@/Components/Pagination.vue';
 import Chip from 'primevue/chip';
-import ConfirmDialog from 'primevue/confirmdialog';
 
 const toast = useToast();
 const visible = ref(false);
