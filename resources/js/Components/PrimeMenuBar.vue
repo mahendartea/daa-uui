@@ -152,7 +152,7 @@ const menuItems = [
                         label: 'Peran',
                         icon: 'pi pi-lock',
                         command: () => {
-                            router.get('/role'); // Navigate to the config route
+                            router.get(route('roles.index')); // Navigate to the config route
                         }
                     },
                     {

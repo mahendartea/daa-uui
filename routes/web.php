@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\GaleryController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -108,6 +109,15 @@ Route::middleware([
             Route::get('edit/{user}', [UserController::class, 'edit'])->name('users.edit');
             Route::put('update/{user}', [UserController::class, 'update'])->name('users.update');
             Route::get('show/{user}', [UserController::class, 'show'])->name('users.show');
+        });
+
+        Route::group(['prefix' => 'roles'], function () {
+            Route::get('/', [RoleController::class, 'index'])->name('roles.index');
+            Route::get('create', [RoleController::class, 'create'])->name('roles.create');
+            Route::post('store', [RoleController::class, 'store'])->name('roles.store');
+            Route::delete('destroy/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
+            Route::get('edit/{role}', [RoleController::class, 'edit'])->name('roles.edit');
+            Route::put('update/{role}', [RoleController::class, 'update'])->name('roles.update');
         });
     });
 });
