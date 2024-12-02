@@ -108,35 +108,52 @@ const menuItems = [
         }
     },
     {
+        label: 'Akademik',
+        icon: 'pi pi-users',
+        route: 'akademik.index',
+        items: [
+            {
+                label: 'Kalender Akademik',
+                icon: 'pi pi-search',
+                command: () => {
+                    router.get(route('kalender.index'));
+                }
+            },
+            {
+                label: 'Jadwal',
+                icon: 'pi pi-search',
+                items: [
+                    {
+                        label: 'Jadwal UTS',
+                        icon: 'pi pi-search',
+                        command: () => {
+                            router.get(route('uts.index'));
+                        }
+                    },
+                    {
+                        label: 'Jadwal UAS',
+                        icon: 'pi pi-search',
+                        command: () => {
+                            router.get(route('uas.index'));
+                        }
+                    },
+                ]
+            },
+            {
+                label: 'SAP',
+                icon: 'pi pi-search',
+                command: () => {
+                    router.get(route('sap.index'));
+                }
+            },
+        ],
+    },
+    {
         label: 'Pengaturan',
         icon: 'pi pi-search',
         route: 'setting',
         route2: 'setting',
         items: [
-            {
-                label: 'Menu',
-                icon: 'pi pi-list',
-                items: [
-                    {
-                        label: 'Menu Utama',
-                        icon: 'pi pi-list',
-                        command: () => {
-                            router.get('/menu'); // Navigate to the config route
-                        }
-                    },
-                    {
-                        label: 'Sub Menu',
-                        icon: 'pi pi-list',
-                        command: () => {
-                            router.get('/submenu'); // Navigate to the config route
-                        }
-                    },
-                ]
-            },
-
-            {
-                separator: true
-            },
             {
                 label: 'Otorisasi',
                 icon: 'pi pi-lock',

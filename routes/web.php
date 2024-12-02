@@ -5,6 +5,7 @@ use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\GaleryController;
+use App\Http\Controllers\KalenderController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
@@ -128,6 +129,16 @@ Route::middleware([
             Route::delete('destroy/{permission}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
             Route::get('edit/{permission}', [PermissionController::class, 'edit'])->name('permissions.edit');
             Route::put('update/{permission}', [PermissionController::class, 'update'])->name('permissions.update');
+        });
+
+        Route::group(['prefix' => 'akademik'], function () {
+            Route::get('/', [KalenderController::class, 'index'])->name('kalender.index');
+            Route::get('create', [KalenderController::class, 'create'])->name('kalender.create');
+            Route::post('store', [KalenderController::class, 'store'])->name('kalender.store');
+            Route::delete('destroy/{kalender}', [KalenderController::class, 'destroy'])->name('kalender.destroy');
+            Route::get('edit/{kalender}', [KalenderController::class, 'edit'])->name('kalender.edit');
+            Route::put('update/{kalender}', [KalenderController::class, 'update'])->name('kalender.update');
+            Route::get('download/{kalender}', [KalenderController::class, 'download'])->name('kalender.download');
         });
     });
 });

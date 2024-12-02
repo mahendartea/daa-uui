@@ -11,6 +11,8 @@ class Document extends Model
 
     protected $table = 'upload';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'nama_file',
         'path',
@@ -18,9 +20,7 @@ class Document extends Model
         'created',
     ];
 
-    protected $dates = [
-        'tgl_upload',
+    protected $casts = [
+        'tgl_upload' => 'datetime',
     ];
-
-    public $timestamps = false;
 }
