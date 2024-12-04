@@ -9,6 +9,7 @@ use App\Http\Controllers\KalenderController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\StatisController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -140,5 +141,18 @@ Route::middleware([
             Route::put('update/{kalender}', [KalenderController::class, 'update'])->name('kalender.update');
             Route::get('download/{kalender}', [KalenderController::class, 'download'])->name('kalender.download');
         });
+
+        // Static Pages Management Routes
+        Route::group(['prefix' => 'statis'], function () {
+            Route::get('/', [StatisController::class, 'index'])->name('statis.index');
+            Route::get('create', [StatisController::class, 'create'])->name('statis.create');
+            Route::post('store', [StatisController::class, 'store'])->name('statis.store');
+            Route::get('{id}/edit', [StatisController::class, 'edit'])->name('statis.edit');
+            Route::put('{id}', [StatisController::class, 'update'])->name('statis.update');
+            Route::delete('{id}', [StatisController::class, 'destroy'])->name('statis.destroy');
+        });
     });
 });
+
+// Public Static Pages Route
+Route::get('pages/{slug}', [StatisController::class, 'show'])->name('statis.show');

@@ -69,6 +69,13 @@ const menuItems = [
         ],
     },
     {
+        label: 'Halaman',
+        icon: 'pi pi-file',
+        command: () => {
+            router.get(route('statis.index')); // Navigate to the pages route using router
+        }
+    },
+    {
         label: 'Galeri',
         icon: 'pi pi-image',
         route: 'galeries.index',
