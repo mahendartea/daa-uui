@@ -16,7 +16,8 @@ class DocumentController extends Controller
             ->when($request->search, function ($query, $search) {
                 $query->where('nama_file', 'like', "%{$search}%")
                     ->orWhere('path', 'like', "%{$search}%")
-                    ->orWhere('created', 'like', "%{$search}%");
+                    ->orWhere('created', 'like', "%{$search}%")
+                    ->orWhere('link_external', 'like', "%{$search}%");
             })
             ->orderBy('tgl_upload', 'desc')
             ->paginate(10)
@@ -37,8 +38,9 @@ class DocumentController extends Controller
     {
         $request->validate([
             'nama_file' => 'required|string|max:150',
+            'link_external' => 'nullable|url|max:255',
             'file' => [
-                'required',
+                'required_without:link_external',
                 'file',
                 'max:10240', // 10MB max size
                 'mimes:pdf,doc,docx',
@@ -46,25 +48,29 @@ class DocumentController extends Controller
         ]);
 
         try {
-            if (!$request->hasFile('file')) {
-                throw new \Exception('File tidak ditemukan');
+            if (!$request->link_external && !$request->hasFile('file')) {
+                throw new \Exception('File atau Link External harus diisi');
             }
 
-            $file = $request->file('file');
-            if (!$file->isValid()) {
-                throw new \Exception('File tidak valid');
+            $fileName = null;
+            $path = null;
+
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                if (!$file->isValid()) {
+                    throw new \Exception('File tidak valid');
+                }
+
+                $extension = $file->getClientOriginalExtension();
+                $fileName = Str::random(40) . '.' . $extension;
+                $path = $file->storeAs('documents', $fileName, 'public');
             }
 
-            $extension = $file->getClientOriginalExtension();
-            $fileName = Str::random(40) . '.' . $extension;
-
-            // Store file in public/documents directory
-            $path = $file->storeAs('documents', $fileName, 'public');
-
-            // Create database record
             Document::create([
                 'nama_file' => $request->nama_file,
+                'file_name' => $fileName,
                 'path' => $path,
+                'link_external' => $request->link_external,
                 'tgl_upload' => now(),
                 'created' => auth()->user()->name ?? 'System',
             ]);
@@ -102,6 +108,10 @@ class DocumentController extends Controller
 
     public function viewDocument(Document $document)
     {
+        if ($document->link_external) {
+            return redirect()->away($document->link_external);
+        }
+
         $fullPath = storage_path('app/public/' . $document->path);
 
         if (!file_exists($fullPath)) {
@@ -113,6 +123,10 @@ class DocumentController extends Controller
 
     public function downloadDocument(Document $document)
     {
+        if ($document->link_external) {
+            return redirect()->away($document->link_external);
+        }
+
         $fullPath = storage_path('app/public/' . $document->path);
 
         if (!file_exists($fullPath)) {
@@ -133,6 +147,7 @@ class DocumentController extends Controller
     {
         $request->validate([
             'nama_file' => 'required|string|max:150',
+            'link_external' => 'nullable|url|max:255',
             'file' => [
                 'nullable',
                 'file',
@@ -145,6 +160,7 @@ class DocumentController extends Controller
             $data = [
                 'nama_file' => $request->nama_file,
                 'tgl_upload' => now(),
+                'link_external' => $request->link_external,
             ];
 
             // Handle file upload if a new file is provided

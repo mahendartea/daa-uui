@@ -15,6 +15,7 @@ class Document extends Model
 
     protected $fillable = [
         'nama_file',
+        'link_external',
         'path',
         'tgl_upload',
         'created',

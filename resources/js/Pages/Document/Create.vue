@@ -23,6 +23,7 @@ const selectedFile = ref(null);
 const form = useForm({
     nama_file: '',
     file: null,
+    link_external: '',
 });
 
 const allowedTypes = [
@@ -75,11 +76,11 @@ const onSubmit = () => {
         return;
     }
 
-    if (!form.file) {
+    if (!form.file && !form.link_external) {
         toast.add({
             severity: 'error',
             summary: 'Error',
-            detail: 'Silakan pilih file',
+            detail: 'Silakan pilih file atau masukkan link external',
             life: 3000
         });
         return;
@@ -88,7 +89,12 @@ const onSubmit = () => {
     // Create FormData object
     const formData = new FormData();
     formData.append('nama_file', form.nama_file);
-    formData.append('file', form.file);
+    if (form.file) {
+        formData.append('file', form.file);
+    }
+    if (form.link_external) {
+        formData.append('link_external', form.link_external);
+    }
 
     router.post(route('documents.store'), formData, {
         preserveScroll: true,
@@ -135,7 +141,18 @@ const onSubmit = () => {
                     </div>
 
                     <div class="flex flex-col gap-2">
-                        <label class="text-gray-700 dark:text-gray-200">File*</label>
+                        <label for="link_external" class="text-gray-700 dark:text-gray-200">Link External</label>
+                        <InputText id="link_external" v-model="form.link_external"
+                            placeholder="https://example.com/document"
+                            :class="{ 'p-invalid': form.errors.link_external }" />
+                        <small class="text-red-500" v-if="form.errors.link_external">{{ form.errors.link_external
+                            }}</small>
+                        <small class="text-gray-500">Masukkan URL lengkap jika dokumen berasal dari sumber
+                            external</small>
+                    </div>
+
+                    <div class="flex flex-col gap-2" v-if="!form.link_external">
+                        <label class="text-gray-700 dark:text-gray-200">File</label>
                         <FileUpload ref="fileUploadRef" mode="basic" :auto="true" accept=".pdf,.doc,.docx"
                             :maxFileSize="10000000" @select="onFileSelect" :class="{ 'p-invalid': form.errors.file }"
                             chooseLabel="Pilih File" />
@@ -144,7 +161,7 @@ const onSubmit = () => {
                     </div>
 
                     <!-- Selected File Preview -->
-                    <div v-if="selectedFile" class="mt-4">
+                    <div v-if="selectedFile && !form.link_external" class="mt-4">
                         <Card>
                             <template #title>
                                 <div class="flex items-center gap-2">

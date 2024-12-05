@@ -142,18 +142,50 @@ onMounted(() => {
                                 {{ index + 1 + ((documents.current_page - 1) * documents.per_page) }}
                             </template>
                         </Column>
-                        <Column field="nama_file" header="Nama File" sortable style="width: 25%;" />
-                        <Column field="path" header="Path" sortable style="width: 25%;" />
+                        <Column field="nama_file" header="Nama File" sortable style="width: 25%;">
+                            <template #body="slotProps">
+                                <div class="flex items-center gap-2">
+                                    <span class="whitespace-pre-wrap break-words">{{ slotProps.data.nama_file }}</span>
+                                    <template v-if="slotProps.data.link_external">
+                                        <span class="text-xs text-gray-500">(External Link)</span>
+                                    </template>
+                                </div>
+                            </template>
+                        </Column>
+                        <Column field="path" header="Path/Link" sortable style="width: 15%;">
+                            <template #body="slotProps">
+                                <div class="flex items-center gap-2 text-wrap">
+                                    <template v-if="slotProps.data.link_external">
+                                        <a :href="slotProps.data.link_external" target="_blank"
+                                            class="text-primary-600 hover:text-primary-800">
+                                            {{ slotProps.data.link_external }}
+                                        </a>
+                                    </template>
+                                    <template v-else>
+                                        {{ slotProps.data.path }}
+                                    </template>
+                                </div>
+                            </template>
+                        </Column>
                         <Column field="tgl_upload" header="Tanggal Upload"
                             :body="slotProps => formatDate(slotProps.data.tgl_upload)" sortable style="width: 15%;" />
                         <Column field="created" header="Created By" sortable style="width: 10%;" />
-                        <Column field="actions" header="Aksi" style="width: 20%;">
+                        <Column field="actions" header="Aksi" style="width: 15%;">
                             <template #body="slotProps">
                                 <div class="flex gap-2">
-                                    <Button
-                                        class="p-button-info p-button-outlined hover:bg-primary-500 hover:text-white"
-                                        icon="pi pi-eye" icon-class="p-w-4" label="Lihat" size="small" type="button"
-                                        @click="router.get(route('documents.show', slotProps.data.id))" />
+                                    <template v-if="slotProps.data.link_external">
+                                        <Button
+                                            class="p-button-info p-button-outlined hover:bg-primary-500 hover:text-white"
+                                            icon="pi pi-external-link" icon-class="p-w-4" label="Buka Link" size="small"
+                                            type="button"
+                                            @click="router.get(route('documents.show', slotProps.data.id))" />
+                                    </template>
+                                    <template v-else>
+                                        <Button
+                                            class="p-button-info p-button-outlined hover:bg-primary-500 hover:text-white"
+                                            icon="pi pi-eye" icon-class="p-w-4" label="Lihat" size="small" type="button"
+                                            @click="router.get(route('documents.show', slotProps.data.id))" />
+                                    </template>
                                     <Button
                                         class="p-button-secondary p-button-outlined hover:bg-primary-500 hover:text-white"
                                         icon="pi pi-pencil" icon-class="p-w-4" label="Ubah" size="small" type="button"
