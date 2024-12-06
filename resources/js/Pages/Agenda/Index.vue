@@ -28,8 +28,17 @@
             <Card class="border">
                 <template #title>Agenda</template>
                 <template #content>
-                    <DataTable :value="agenda" responsiveLayout="scroll" size="small" stripedRows
-                        tableStyle="min-width: 50rem">
+                    <DataTable :value="agenda.data" :paginator="true" :rows="perPage"
+                        :total-records="agenda.total" :lazy="true" :rows-per-page-options="[5,10,20,50]"
+                        @page="onPage($event)" responsiveLayout="scroll" size="small" stripedRows
+                        tableStyle="min-width: 50rem" :loading="loading">
+                        <Column header="No" style="width: 5%;">
+                            <template #body="slotProps">
+                                {{ slotProps.index + 1 + ((agenda.current_page - 1) * perPage) }}
+                            </template>
+                        </Column>
+
+
                         <Column field="nama_agenda" header="Nama Agenda" sortable style="width: 20%;">
                             <template #body="{ data }">
                                 <div class="whitespace-pre-wrap break-words">{{ data.nama_agenda }}</div>
@@ -37,7 +46,7 @@
                         </Column>
                         <Column field="isi_agenda" header="Isi Agenda" sortable style="width: 15%;">
                             <template #body="{ data }">
-                                <div v-html="data.isi_agenda" class="whitespace-pre-wrap break-words"></div>
+                                <div class="whitespace-pre-wrap break-words" v-html="data.isi_agenda.length > 50 ? data.isi_agenda.slice(0, 50) + '...' : data.isi_agenda"></div>
                             </template>
                         </Column>
                         <Column field="tempat" header="Tempat" sortable style="width: 10%;" />
@@ -46,7 +55,7 @@
                                 {{ formatDate(data.jadwal_awal) }}
                             </template>
                         </Column>
-                        <Column field="jadwal" header="Mulai - Selesai" sortable style="width: 15%; min-height: 10rem;">
+                        <Column field="jadwal" header="Mulai - Selesai" sortable style="width: 15%;">
                             <template #body="{ data }">
                                 <p>{{ formatDate(data.jadwal_awal) }}</p> - {{ formatDate(data.jadwal_akhir) }}
                             </template>
@@ -114,6 +123,10 @@ onMounted(() => {
     }
 });
 
+const loading = ref(false);
+const perPage = ref(10);
+const search = ref('');
+
 const visible = ref(false);
 const agendaIdToDelete = ref(null);
 
@@ -137,13 +150,40 @@ const items = ref([
     { label: 'Data' },
 ]);
 
-const search = ref('');
+watch(search, debounce((value) => {
+    router.get('/admin/agenda', { search: value, per_page: perPage.value }, {
+        preserveState: true,
+        preserveScroll: true,
+        replace: true
+    });
+}, 300));
 
-watch(search, (mencari) => {
+function debounce(fn, delay) {
+    let timeoutId;
+    return function (...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
+const onPage = (event) => {
+    const page = event.page + 1;
+    const perPageValue = event.rows;
+
+    if (perPage.value !== perPageValue) {
+        perPage.value = perPageValue;
+    }
+
     router.get('/admin/agenda', {
-        search: mencari
-    }, { preserveState: true });
-});
+        page: page,
+        per_page: perPageValue,
+        search: search.value
+    }, {
+        preserveState: true,
+        preserveScroll: true,
+        replace: true
+    });
+};
 
 const createAgenda = () => {
     router.get('/admin/agenda/create');
@@ -155,27 +195,20 @@ const confirmDelete = (id) => {
 };
 
 const deleteAgenda = () => {
-    router.delete(`/admin/agenda/destroy/${agendaIdToDelete.value}`, {
-        preserveScroll: true,
-        preserveState: true,
-        onSuccess: () => {
-            toasts.add({
-                severity: 'success',
-                summary: 'Berhasil',
-                life: 3000,
-                detail: 'Agenda berhasil dihapus',
-            });
-            visible.value = false;
-        },
-        onError: () => {
-            toasts.add({
-                severity: 'error',
-                summary: 'Error',
-                life: 3000,
-                detail: 'Gagal menghapus agenda',
-            });
-        },
-    });
+    if (agendaIdToDelete.value) {
+        router.delete(`/admin/agenda/destroy/${agendaIdToDelete.value}`, {
+            onSuccess: () => {
+                toasts.add({
+                    severity: 'success',
+                    summary: 'Agenda berhasil dihapus',
+                    detail: 'Agenda berhasil dihapus',
+                    life: 3000
+                });
+                visible.value = false;
+                agendaIdToDelete.value = null;
+            },
+        });
+    }
 };
 
 const editAgenda = (id) => {

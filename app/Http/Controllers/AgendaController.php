@@ -12,6 +12,7 @@ class AgendaController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
+        $perPage = $request->input('per_page', 10);
 
         $agenda = Agenda::query()
             ->when($search, function ($query, $search) {
@@ -23,11 +24,16 @@ class AgendaController extends Controller
                 });
             })
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate($perPage)
+            ->withQueryString();
 
         return Inertia::render('Agenda/Index', [
             'agenda' => $agenda,
-            'message' => session('message')
+            'message' => session('message'),
+            'filters' => [
+                'search' => $search,
+                'per_page' => $perPage
+            ]
         ]);
     }
 
