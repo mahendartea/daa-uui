@@ -147,24 +147,14 @@ onMounted(() => {
                                 <div class="flex items-center gap-2">
                                     <span class="whitespace-pre-wrap break-words">{{ slotProps.data.nama_file }}</span>
                                     <template v-if="slotProps.data.link_external">
-                                        <span class="text-xs text-gray-500">(External Link)</span>
+                                        <span class="text-xs text-gray-500 bg-gray-200 px-2">Link</span>
                                     </template>
                                 </div>
                             </template>
                         </Column>
-                        <Column field="path" header="Path/Link" sortable style="width: 15%;">
+                        <Column header="File" style="width: 5%;">
                             <template #body="slotProps">
-                                <div class="flex items-center gap-2 text-wrap">
-                                    <template v-if="slotProps.data.link_external">
-                                        <a :href="slotProps.data.link_external" target="_blank"
-                                            class="text-primary-600 hover:text-primary-800">
-                                            {{ slotProps.data.link_external }}
-                                        </a>
-                                    </template>
-                                    <template v-else>
-                                        {{ slotProps.data.path }}
-                                    </template>
-                                </div>
+                                <i class="pi pi-file text-xl" />
                             </template>
                         </Column>
                         <Column field="tgl_upload" header="Tanggal Upload"
@@ -174,11 +164,10 @@ onMounted(() => {
                             <template #body="slotProps">
                                 <div class="flex gap-2">
                                     <template v-if="slotProps.data.link_external">
-                                        <Button
-                                            class="p-button-info p-button-outlined hover:bg-primary-500 hover:text-white"
-                                            icon="pi pi-external-link" icon-class="p-w-4" label="Buka Link" size="small"
-                                            type="button"
-                                            @click="router.get(route('documents.show', slotProps.data.id))" />
+                                        <a :href="slotProps.data.link_external" target="_blank" class="p-button p-button-info p-button-outlined hover:bg-primary-500 hover:text-white">
+                                            <i class="pi pi-external-link p-mr-2 p-w-4"></i>
+                                            <span>Buka Link</span>
+                                        </a>
                                     </template>
                                     <template v-else>
                                         <Button
