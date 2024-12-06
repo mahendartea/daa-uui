@@ -35,8 +35,8 @@
                                 {{ index + 1 + ((kalender.current_page - 1) * kalender.per_page) }}
                             </template>
                         </Column>
-                        <Column field="thnajr" header="Tahun Ajaran" sortable style="width: 15%;" />
-                        <Column field="nama" header="Nama" sortable style="width: 20%;">
+                        <Column field="thnajr" header="Tahun Ajaran" sortable style="width: 10%;" />
+                        <Column field="nama" header="Nama" sortable style="width: 15%;">
                             <template #body="{ data }">
                                 <div class="whitespace-pre-wrap break-words">{{ data.nama }}</div>
                             </template>

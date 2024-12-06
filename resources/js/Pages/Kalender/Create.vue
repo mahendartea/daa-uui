@@ -21,11 +21,12 @@
                     <form @submit.prevent="submit" class="flex flex-col gap-4">
                         <div class="flex flex-col gap-2">
                             <label for="thnajr">Tahun Ajaran</label>
-                            <InputText
+                            <Dropdown
                                 id="thnajr"
                                 v-model="form.thnajr"
+                                :options="yearOptions"
                                 :class="{ 'p-invalid': form.errors.thnajr }"
-                                placeholder="Contoh: 2023/2024"
+                                placeholder="Pilih Tahun Ajaran"
                             />
                             <small class="text-red-500" v-if="form.errors.thnajr">{{ form.errors.thnajr }}</small>
                         </div>
@@ -76,7 +77,7 @@
 <script setup>
 import LoggedInLayout from '@/Layouts/LoggedInLayout.vue';
 import { Card, Toast } from 'primevue';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import Breadcrumb from 'primevue/breadcrumb';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
@@ -109,6 +110,16 @@ const items = ref([
     { label: 'Kalender' },
     { label: 'Tambah' },
 ]);
+
+const currentYear = new Date().getFullYear();
+const yearOptions = computed(() => {
+    const options = [];
+    for (let i = 0; i < 5; i++) {
+        const year = currentYear + i;
+        options.push(`${year}/${year + 1}`);
+    }
+    return options;
+});
 
 const submit = () => {
     form.post('/admin/akademik/store', {
