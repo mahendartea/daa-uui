@@ -133,6 +133,16 @@ class GaleryController extends Controller
         }
 
         if ($request->hasFile('gambar')) {
+            // Check if image not updated
+            if (public_path($galery->gambar) == $request->file('gambar')->getPathname()) {
+                return redirect()->route('galeries.index')->with('message', [
+                    'severity' => 'error',
+                    'summary' => 'Gagal',
+                    'detail' => 'Gambarnya tidak diperbarui',
+                    'life' => 3000
+                ]);
+            }
+
             // Delete old image
             if (file_exists(public_path($galery->gambar))) {
                 unlink(public_path($galery->gambar));

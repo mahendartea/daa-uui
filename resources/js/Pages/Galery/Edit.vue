@@ -11,7 +11,7 @@
                 <div class="card grid grid-cols-2 w-full gap-10">
                     <div class="w-full col-span-2">
                         <div class="mb-4">
-                            <img :src="'/' + form.gambar" :alt="form.ket_gambar"
+                            <img :src="previewImage" :alt="form.ket_gambar"
                                 class="w-64 h-64 object-cover rounded-lg shadow-md mx-auto" />
                         </div>
                         <FileUpload @select="onSelect" :multiple="false" accept="image/*" :maxFileSize="5000000"
@@ -127,41 +127,36 @@ albums.value = props.albums?.map(album => ({
     value: album.id_album
 })) || [];
 
-const getChangedData = () => {
-    const changes = {};
-
-    if (form.gambar instanceof File) {
-        changes.gambar = form.gambar;
-    }
-
-    if (form.album_id?.value !== originalData.album_id) {
-        changes.album_id = form.album_id;
-    }
-
-    if (form.ket_gambar !== originalData.ket_gambar) {
-        changes.ket_gambar = form.ket_gambar;
-    }
-
-    if (form.slide_home !== originalData.slide_home) {
-        changes.slide_home = form.slide_home;
-    }
-
-    if (form.tgl_upload && formatDate(form.tgl_upload) !== originalData.tgl_upload) {
-        changes.tgl_upload = formatDate(form.tgl_upload);
-    }
-
-    return changes;
-};
+const previewImage = ref('/' + props.galery.gambar);
 
 const onSelect = (event) => {
-    form.gambar = event.files[0];
-    toasts.add({ severity: 'info', summary: 'Success', detail: 'New image selected', life: 3000 });
+    if (event.files && event.files[0]) {
+        form.gambar = event.files[0];
+        previewImage.value = URL.createObjectURL(event.files[0]);
+        toasts.add({ severity: 'info', summary: 'Success', detail: 'New image selected', life: 3000 });
+    }
 };
 
 const onFormSubmit = () => {
-    const changedData = getChangedData();
+    const formData = new FormData();
 
-    form.put(`/admin/galeries/update/${props.galery.id}`, changedData, {
+    // Add file if it exists
+    if (form.gambar instanceof File) {
+        formData.append('gambar', form.gambar);
+    }
+
+    // Add other form fields
+    if (form.album_id?.value) {
+        formData.append('album_id', form.album_id.value);
+    }
+    formData.append('ket_gambar', form.ket_gambar);
+    formData.append('slide_home', form.slide_home ? '1' : '0');
+    if (form.tgl_upload) {
+        formData.append('tgl_upload', formatDate(form.tgl_upload));
+    }
+
+    form.put(`/admin/galeries/update/${props.galery.id}`, formData, {
+        forceFormData: true,
         onSuccess: () => {
             toasts.add({ severity: 'success', summary: 'Success', detail: 'Gallery Updated', life: 3000 });
         },
