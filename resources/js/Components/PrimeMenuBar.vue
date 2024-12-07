@@ -134,7 +134,7 @@ const menuItems = [
                         label: 'Jadwal Kuliah',
                         icon: 'pi pi-search',
                         command: () => {
-                            router.get(route('kuliah.index'));
+                            router.get(route('course-calendar.index'));
                         }
                     },
                     {

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CourseCalenderController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\GaleryController;
 use App\Http\Controllers\KalenderController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StatisController;
 use App\Http\Controllers\UserController;
+use App\Models\CourseCalender;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -92,6 +94,16 @@ Route::middleware([
             Route::put('update/{album}', [AlbumController::class, 'update'])->name('albums.update');
             Route::delete('destroy/{album}', [AlbumController::class, 'destroy'])->name('albums.destroy');
         });
+
+        Route::group(['prefix' => 'course-calendar'], function () {
+            Route::get('/', [CourseCalenderController::class, 'index'])->name('course-calendar.index');
+            Route::get('create', [CourseCalenderController::class, 'create'])->name('course-calendar.create');
+            Route::post('/', [CourseCalenderController::class, 'store'])->name('course-calendar.store');
+            Route::delete('{courseCalender}', [CourseCalenderController::class, 'destroy'])->name('course-calendar.destroy');
+            Route::get('{courseCalender}/edit', [CourseCalenderController::class, 'edit'])->name('course-calendar.edit');
+            Route::put('{courseCalender}', [CourseCalenderController::class, 'update'])->name('course-calendar.update');
+        });
+
         Route::group(['prefix' => 'documents'], function () {
             Route::get('/', [DocumentController::class, 'index'])->name('documents.index');
             Route::get('create', [DocumentController::class, 'create'])->name('documents.create');
