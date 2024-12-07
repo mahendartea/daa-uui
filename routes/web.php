@@ -7,6 +7,7 @@ use App\Http\Controllers\CourseCalenderController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\FinalCalenderController;
 use App\Http\Controllers\GaleryController;
+use App\Http\Controllers\HeadlineController;
 use App\Http\Controllers\KalenderController;
 use App\Http\Controllers\MidtemCalenderController;
 use App\Http\Controllers\PermissionController;
@@ -48,7 +49,7 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    route::group(['prefix' => 'admin'], function () {
+    Route::prefix('admin')->group(function () {
         Route::group(['prefix' => 'posts'], function () {
             Route::get('/', [PostController::class, 'index'])->name('posts.index');
             Route::get('create', [PostController::class, 'create'])->name('posts.create');
@@ -173,6 +174,13 @@ Route::middleware([
             Route::put('update/{kalender}', [KalenderController::class, 'update'])->name('kalender.update');
             Route::get('download/{kalender}', [KalenderController::class, 'download'])->name('kalender.download');
         });
+
+        // Headline Routes
+        Route::get('/headline', [HeadlineController::class, 'index'])->name('headline.index');
+        Route::get('/headline/create', [HeadlineController::class, 'create'])->name('headline.create');
+        Route::post('/headline', [HeadlineController::class, 'store'])->name('headline.store');
+        Route::get('/headline/{id}/edit', [HeadlineController::class, 'edit'])->name('headline.edit');
+        Route::put('/headline/{id}', [HeadlineController::class, 'update'])->name('headline.update');
 
         // Static Pages Management Routes
         Route::group(['prefix' => 'statis'], function () {

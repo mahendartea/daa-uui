@@ -153,13 +153,6 @@ const menuItems = [
                     },
                 ]
             },
-            {
-                label: 'SAP',
-                icon: 'pi pi-search',
-                command: () => {
-                    router.get(route('sap.index'));
-                }
-            },
         ],
     },
     {
@@ -168,6 +161,19 @@ const menuItems = [
         route: 'setting',
         route2: 'setting',
         items: [
+            {
+                label: 'Pengaturan Umum',
+                icon: 'pi pi-cog',
+                items: [
+                    {
+                        label: 'Headline',
+                        icon: 'pi pi-cog',
+                        command: () => {
+                            router.get(route('headline.index')); // Navigate to the config route
+                        }
+                    },
+                ],
+            },
             {
                 label: 'Otorisasi',
                 icon: 'pi pi-lock',
