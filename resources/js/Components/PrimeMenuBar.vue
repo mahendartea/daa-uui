@@ -141,7 +141,7 @@ const menuItems = [
                         label: 'Jadwal UTS',
                         icon: 'pi pi-search',
                         command: () => {
-                            router.get(route('uts.index'));
+                            router.get(route('midtem-calender.index'));
                         }
                     },
                     {

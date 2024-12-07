@@ -7,6 +7,7 @@ use App\Http\Controllers\CourseCalenderController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\GaleryController;
 use App\Http\Controllers\KalenderController;
+use App\Http\Controllers\MidtemCalenderController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
@@ -102,6 +103,15 @@ Route::middleware([
             Route::delete('{courseCalender}', [CourseCalenderController::class, 'destroy'])->name('course-calendar.destroy');
             Route::get('{courseCalender}/edit', [CourseCalenderController::class, 'edit'])->name('course-calendar.edit');
             Route::put('{courseCalender}', [CourseCalenderController::class, 'update'])->name('course-calendar.update');
+        });
+
+        Route::group(['prefix' => 'midtem-calender'], function () {
+            Route::get('/', [MidtemCalenderController::class, 'index'])->name('midtem-calender.index');
+            Route::get('create', [MidtemCalenderController::class, 'create'])->name('midtem-calender.create');
+            Route::post('/', [MidtemCalenderController::class, 'store'])->name('midtem-calender.store');
+            Route::get('{midtemCalender}/edit', [MidtemCalenderController::class, 'edit'])->name('midtem-calender.edit');
+            Route::put('{midtemCalender}', [MidtemCalenderController::class, 'update'])->name('midtem-calender.update');
+            Route::delete('{midtemCalender}', [MidtemCalenderController::class, 'destroy'])->name('midtem-calender.destroy');
         });
 
         Route::group(['prefix' => 'documents'], function () {
