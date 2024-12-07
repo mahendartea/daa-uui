@@ -148,7 +148,7 @@ const menuItems = [
                         label: 'Jadwal UAS',
                         icon: 'pi pi-search',
                         command: () => {
-                            router.get(route('uas.index'));
+                            router.get(route('final-calender.index'));
                         }
                     },
                 ]

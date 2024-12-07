@@ -5,6 +5,7 @@ use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseCalenderController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\FinalCalenderController;
 use App\Http\Controllers\GaleryController;
 use App\Http\Controllers\KalenderController;
 use App\Http\Controllers\MidtemCalenderController;
@@ -112,6 +113,15 @@ Route::middleware([
             Route::get('{midtemCalender}/edit', [MidtemCalenderController::class, 'edit'])->name('midtem-calender.edit');
             Route::put('{midtemCalender}', [MidtemCalenderController::class, 'update'])->name('midtem-calender.update');
             Route::delete('{midtemCalender}', [MidtemCalenderController::class, 'destroy'])->name('midtem-calender.destroy');
+        });
+
+        Route::group(['prefix'=>'final-calender'], function () {
+            Route::get('/', [FinalCalenderController::class, 'index'])->name('final-calender.index');
+            Route::get('create', [FinalCalenderController::class, 'create'])->name('final-calender.create');
+            Route::post('/', [FinalCalenderController::class, 'store'])->name('final-calender.store');
+            Route::delete('{finalCalender}', [FinalCalenderController::class, 'destroy'])->name('final-calender.destroy');
+            Route::get('{finalCalender}/edit', [FinalCalenderController::class, 'edit'])->name('final-calender.edit');
+            Route::put('{finalCalender}', [FinalCalenderController::class, 'update'])->name('final-calender.update');
         });
 
         Route::group(['prefix' => 'documents'], function () {
