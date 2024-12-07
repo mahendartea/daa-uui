@@ -22,16 +22,14 @@
             </div>
 
             <Card v-if="headline" class="border">
-                <template #title>Headline</template>
                 <template #content>
                     <div class="flex flex-col gap-4">
-                        <div>
-                            <h3 class="text-lg font-semibold mb-2">Isi Headline:</h3>
-                            <div class="whitespace-pre-wrap break-words">{{ headline.isi_headline }}</div>
+                        <div class="flex flex-col gap-2">
+                            <label class="font-bold">Isi Headline</label>
+                            <div v-html="headline.isi_headline"></div>
                         </div>
-
-                        <div>
-                            <h3 class="text-lg font-semibold mb-2">Gambar:</h3>
+                        <div class="flex flex-col gap-2">
+                            <label class="font-bold">Gambar</label>
                             <img :src="'/uploads/headline/' + headline.gambar_headline"
                                 :alt="headline.isi_headline"
                                 class="max-w-md rounded cursor-pointer"

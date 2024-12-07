@@ -22,7 +22,7 @@
                     <form v-if="headline" @submit.prevent="submit" class="flex flex-col gap-4">
                         <div class="flex flex-col gap-2">
                             <label for="isi_headline">Isi Headline</label>
-                            <Textarea v-model="form.isi_headline" id="isi_headline" rows="5"
+                            <Editor v-model="form.isi_headline" editorStyle="height: 250px" ref="editorRef"
                                 :class="{ 'p-invalid': form.errors.isi_headline }" />
                             <small class="text-red-500" v-if="form.errors.isi_headline">{{ form.errors.isi_headline }}</small>
                         </div>
@@ -66,11 +66,12 @@ import { Card } from 'primevue';
 import { ref, onMounted } from 'vue';
 import Breadcrumb from 'primevue/breadcrumb';
 import Button from 'primevue/button';
-import Textarea from 'primevue/textarea';
+import Editor from 'primevue/editor';
 import FileUpload from 'primevue/fileupload';
 import { useForm, Head } from '@inertiajs/vue3';
 import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
+import { watch } from 'vue';
 
 const props = defineProps({
     headline: {
@@ -94,6 +95,23 @@ onMounted(() => {
         form.isi_headline = props.headline.isi_headline;
     }
 });
+
+
+const editorRef = ref()
+
+watch(editorRef, (editor) => {
+    if (!editor) return
+    editor.renderValue = function renderValue(value) {
+        if (this.quill) {
+            if (value) {
+                const delta = this.quill.clipboard.convert({ html: value })
+                this.quill.setContents(delta, 'silent')
+            } else {
+                this.quill.setText('')
+            }
+        }
+    }.bind(editor)
+})
 
 const home = ref({
     icon: 'pi pi-home',
@@ -132,12 +150,6 @@ const submit = () => {
     processing.value = true;
     form.post(route('headline.update', props.headline.id_headline), {
         onSuccess: () => {
-            toast.add({
-                severity: 'success',
-                summary: 'Sukses',
-                detail: 'Headline berhasil diperbarui',
-                life: 3000
-            });
             processing.value = false;
         },
         onError: () => {

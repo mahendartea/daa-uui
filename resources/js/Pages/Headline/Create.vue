@@ -22,7 +22,7 @@
                     <form @submit.prevent="submit" class="flex flex-col gap-4">
                         <div class="flex flex-col gap-2">
                             <label for="isi_headline">Isi Headline</label>
-                            <Textarea v-model="form.isi_headline" id="isi_headline" rows="5" 
+                            <Editor v-model="form.isi_headline" editorStyle="height: 250px"
                                 :class="{ 'p-invalid': form.errors.isi_headline }" />
                             <small class="text-red-500" v-if="form.errors.isi_headline">{{ form.errors.isi_headline }}</small>
                         </div>
@@ -33,9 +33,9 @@
                                 <div v-if="preview" class="mb-2">
                                     <img :src="preview" class="max-w-xs rounded" />
                                 </div>
-                                <FileUpload mode="basic" name="gambar_headline" accept="image/*" 
-                                    :maxFileSize="2000000" @select="onSelect" @uploader="onUpload" 
-                                    :class="{ 'p-invalid': form.errors.gambar_headline }" 
+                                <FileUpload mode="basic" name="gambar_headline" accept="image/*"
+                                    :maxFileSize="2000000" @select="onSelect" @uploader="onUpload"
+                                    :class="{ 'p-invalid': form.errors.gambar_headline }"
                                     chooseLabel="Pilih Gambar" />
                                 <small class="text-red-500" v-if="form.errors.gambar_headline">{{ form.errors.gambar_headline }}</small>
                             </div>
@@ -58,7 +58,7 @@ import { Card } from 'primevue';
 import { ref } from 'vue';
 import Breadcrumb from 'primevue/breadcrumb';
 import Button from 'primevue/button';
-import Textarea from 'primevue/textarea';
+import Editor from 'primevue/editor';
 import FileUpload from 'primevue/fileupload';
 import { useForm, Head } from '@inertiajs/vue3';
 import Toast from 'primevue/toast';
