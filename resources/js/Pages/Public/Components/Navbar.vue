@@ -1,5 +1,5 @@
 <template>
-    <nav class="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+    <nav class="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 shadow-sm">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a class="flex items-center space-x-3 rtl:space-x-reverse flex-col " href="/">
                 <img alt="Flowbite Logo" class="h-10 "
@@ -34,7 +34,7 @@
                            href="#">Mobility Student</a>
                     </li>
                     <li class="relative">
-                        <button @click="toggleAkademikDropdown" 
+                        <button @click="toggleAkademikDropdown"
                                 class="flex items-center justify-between w-full py-2 px-3 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
                             Akademik
                             <svg aria-hidden="true" class="w-2.5 h-2.5 ms-2.5" fill="none"
@@ -43,7 +43,7 @@
                                       stroke-linejoin="round" stroke-width="2"/>
                             </svg>
                         </button>
-                        <div v-show="isAkademikOpen" 
+                        <div v-show="isAkademikOpen"
                              class="z-10 absolute left-0 md:left-auto font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
                              @click.away="isAkademikOpen = false">
                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
