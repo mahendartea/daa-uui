@@ -1,8 +1,16 @@
 <template>
+    <div class="bg-red-700 shadow-sm sticky top-0 z-40 dark:bg-red-900 dark:bg-opacity-50 dark:backdrop-blur-sm">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-end space-x-3 mx-auto p-2">
+            <button class="text-white" aria-controls="navbar-multi-level" aria-expanded="false"> Hubungi Kami </button>
+            <button class="text-white" aria-controls="navbar-multi-level" aria-expanded="false"> Hubungi Kami </button>
+            <button class="text-white" aria-controls="navbar-multi-level" aria-expanded="false"> Hubungi Kami </button>
+        </div>
+    </div>
+
     <nav class="bg-white bg-opacity-90 backdrop-blur-xl shadow-sm sticky top-0 z-40 dark:bg-gray-800 dark:bg-opacity-90 dark:backdrop-blur-sm">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a class="flex items-center space-x-3 rtl:space-x-reverse flex-col " href="/">
-                <img alt="Flowbite Logo" class="h-10 "
+                <img alt="Flowbite Logo" class="h-14"
                      src="images/logouui.png"/>
                 <span class="self-center text-md text-gray-800 font-semibold whitespace-nowrap dark:text-white">Direktorat Administrasi Akademik</span>
             </a>
