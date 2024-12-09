@@ -12,22 +12,22 @@
                         class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-cover" alt="Campus Building">
                 </div>
                 <!-- Item 2 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
                     <img src="/images/gallery/Lab-robotik.jpg"
                         class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-bottom" alt="Library Interior">
                 </div>
                 <!-- Item 3 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
                     <img src="/images/gallery/Perpustakaan-1.jpg"
                         class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-bottom" alt="Study Area">
                 </div>
                 <!-- Item 4 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
                     <img src="/images/gallery/Plenary-Hall-UUI.jpg"
                         class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-bottom" alt="Graduation Day">
                 </div>
                 <!-- Item 5 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
                     <img src="/images/gallery/Gedung-UKM.jpg"
                         class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-bottom" alt="Campus Life">
                 </div>
@@ -74,6 +74,12 @@
             </button>
         </div>
 
+        <section class="max-w-8xl p-6 mx-auto bg-gray-50 rounded-md shadow-md dark:bg-gray-800 h-screen">
+
+        </section>
+
+
+
     </Layout>
 </template>
 
@@ -81,18 +87,11 @@
 import Layout from '@/Layouts/Layout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import { onMounted } from 'vue';
-import { Carousel } from 'flowbite';
+import { initFlowbite } from 'flowbite';
+
 
 onMounted(() => {
-  const carouselElement = document.getElementById('carouselExample');
-
-  if (carouselElement) {
-    const carousel = new Carousel(carouselElement, {
-      defaultPosition: 0,
-      interval: 3000,
-      indicators: true,
-    });
-  }
+    initFlowbite();
 });
 
 defineProps({
