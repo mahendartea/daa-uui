@@ -1,7 +1,7 @@
 <template>
     <div>
         <Head>
-            <link rel="icon" type="image/png" href="/images/logouui.png" />
+            <link rel="icon" type="image/png" href="/images/logouuinontext.png" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
             <meta name="description" content="UUI - Universitas Ubudiyah Indonesia" />
             <meta name="author" content="UUI - Universitas Ubudiyah Indonesia (by: Mahendar Dwi Payana)" />
