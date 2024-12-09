@@ -1,9 +1,8 @@
 <template>
     <div class="bg-red-700 shadow-sm sticky top-0 z-40 dark:bg-red-900 dark:bg-opacity-50 dark:backdrop-blur-sm">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-end space-x-3 mx-auto p-2">
-            <button class="text-white" aria-controls="navbar-multi-level" aria-expanded="false"> Hubungi Kami </button>
-            <button class="text-white" aria-controls="navbar-multi-level" aria-expanded="false"> Hubungi Kami </button>
-            <button class="text-white" aria-controls="navbar-multi-level" aria-expanded="false"> Hubungi Kami </button>
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-end space-x-5 text-xs mx-auto p-2">
+            <a href="https://uui.ac.id" class="text-white font-mono" target="_blank"> Website UUI </a>
+            <a href="https://elearning.uui.ac.id" class="text-white font-mono" target="_blank"> Elearning </a>
         </div>
     </div>
 
