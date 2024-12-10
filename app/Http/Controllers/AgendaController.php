@@ -118,4 +118,12 @@ class AgendaController extends Controller
             ]);
         }
     }
+
+    // for public
+    public function showlatestagenda()
+    {
+        $agenda = Agenda::orderBy('jdwl_agenda', 'desc')->take(3)->get();
+
+        return response()->json($agenda);
+    }
 }

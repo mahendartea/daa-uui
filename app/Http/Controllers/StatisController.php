@@ -50,7 +50,7 @@ class StatisController extends Controller
     public function show($slug)
     {
         $page = Statis::where('judul_seo', $slug)->firstOrFail();
-        return Inertia::render('Statis/Show', [
+        return Inertia::render('Public/Statis/Show', [
             'page' => $page
         ]);
     }

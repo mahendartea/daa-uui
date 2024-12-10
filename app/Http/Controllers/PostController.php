@@ -10,13 +10,13 @@ class PostController extends Controller
 {
     public function index()
     {
-        $cari = request("search");
-        $posts = Post::where('title', 'like', '%'.$cari.'%')
+        $cari = request('search');
+        $posts = Post::where('title', 'like', '%' . $cari . '%')
             ->orderBy('tgl', 'desc')
             ->paginate(10);
         return Inertia::render('Posts/Index', [
             'posts' => $posts,
-            'message' => session('message')
+            'message' => session('message'),
         ]);
     }
 
@@ -41,12 +41,14 @@ class PostController extends Controller
             'created' => request()->user()->name,
         ]);
 
-        return redirect()->route('posts.index')->with('message', [
-            'severity' => 'success',
-            'summary' => 'Berhasil',
-            'detail' => 'Post berhasil disimpan',
-            'life' => 3000
-        ]);
+        return redirect()
+            ->route('posts.index')
+            ->with('message', [
+                'severity' => 'success',
+                'summary' => 'Berhasil',
+                'detail' => 'Post berhasil disimpan',
+                'life' => 3000,
+            ]);
     }
 
     public function create()
@@ -94,19 +96,21 @@ class PostController extends Controller
         $post->update([
             'draft' => false,
         ]);
-        return redirect()->route('posts.index')->with('message', [
-            'severity' => 'success',
-            'summary' => 'Berhasil',
-            'detail' => 'Post berhasil diterbitkan',
-            'life' => 3000
-        ]);
+        return redirect()
+            ->route('posts.index')
+            ->with('message', [
+                'severity' => 'success',
+                'summary' => 'Berhasil',
+                'detail' => 'Post berhasil diterbitkan',
+                'life' => 3000,
+            ]);
     }
 
     public function update(Post $post)
     {
         $data = request()->validate([
             'title' => 'required|string|max:255',
-            'seo' => 'required|string|max:255|unique:post,judul_seo,'.$post->id.',id',
+            'seo' => 'required|string|max:255|unique:post,judul_seo,' . $post->id . ',id',
             'content' => 'required|string',
             'selectedCategory.label' => 'required',
             'tag' => 'string',
@@ -121,12 +125,14 @@ class PostController extends Controller
             'tgl' => now(),
         ]);
 
-        return redirect()->route('posts.index')->with('message', [
-            'severity' => 'success',
-            'summary' => 'Berhasil',
-            'detail' => 'Post berhasil diperbarui',
-            'life' => 3000
-        ]);
+        return redirect()
+            ->route('posts.index')
+            ->with('message', [
+                'severity' => 'success',
+                'summary' => 'Berhasil',
+                'detail' => 'Post berhasil diperbarui',
+                'life' => 3000,
+            ]);
     }
 
     public function updateDraft(Post $post)
@@ -134,12 +140,14 @@ class PostController extends Controller
         $post->update([
             'draft' => true,
         ]);
-        return redirect()->route('posts.index')->with('message', [
-            'severity' => 'success',
-            'summary' => 'Berhasil',
-            'detail' => 'Post berhasil disimpan sebagai draft',
-            'life' => 3000
-        ]);
+        return redirect()
+            ->route('posts.index')
+            ->with('message', [
+                'severity' => 'success',
+                'summary' => 'Berhasil',
+                'detail' => 'Post berhasil disimpan sebagai draft',
+                'life' => 3000,
+            ]);
     }
 
     public function show(Post $post)
@@ -153,5 +161,23 @@ class PostController extends Controller
     {
         $post->delete();
         return redirect()->route('posts.index');
+    }
+
+    // for public
+
+    public function getPublicPosts()
+    {
+        $postsberita = Post::where('draft', false)->orderBy('tgl', 'desc')->where('category', 'Berita')->take(3)->get();
+
+        $postpengumuman = Post::where('draft', false)->orderBy('tgl', 'desc')->where('category', 'Pengumuman')->take(3)->get();
+
+        $posts = array_merge($postsberita->toArray(), $postpengumuman->toArray());
+
+        $formattedPosts = array_map(function ($post) {
+            $post['tgl'] = \Carbon\Carbon::parse($post['tgl'])->format('Y-m-d H:i:s');
+            return $post;
+        }, $posts);
+
+        return response()->json($formattedPosts);
     }
 }

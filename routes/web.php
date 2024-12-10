@@ -194,5 +194,7 @@ Route::middleware([
     });
 });
 
-// Public Static Pages Route
+// Public Routes
 Route::get('pages/{slug}', [StatisController::class, 'show'])->name('statis.show');
+Route::get('/posts/public', [PostController::class, 'getPublicPosts'])->name('posts.public');
+Route::get('/agenda/latest', [AgendaController::class, 'showlatestagenda'])->name('agenda.latest');

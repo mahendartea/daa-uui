@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <Head>
             <link rel="icon" type="image/png" href="/images/logouuinontext.png" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
@@ -18,14 +17,12 @@
             <slot />
         </main>
 
-
-
-        <footer class="bg-white dark:bg-gray-900">
+        <footer class="bg-slate-50 dark:bg-gray-900">
             <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
                 <div class="md:flex md:justify-between">
                     <div class="mb-6 md:mb-0">
-                        <a href="https://flowbite.com/" class="flex items-center flex-col">
-                            <img src="images/logouui.png" class="h-14 me-3" alt="UUILOGO" />
+                        <a href="/" class="flex items-center flex-col">
+                            <img src="/images/logouui.png" class="h-14 me-3" alt="UUILOGO" />
                             <span
                                 class="self-center text-lg font-semibold whitespace-nowrap dark:text-white">Universitas Ubudiyah Indonesia</span>
                                 <span>Direktorat Administrasi Akademik</span>
@@ -71,8 +68,8 @@
                 </div>
                 <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
                 <div class="sm:flex sm:items-center sm:justify-between">
-                    <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a
-                            href="https://flowbite.com/" class="hover:underline">Flowbite™</a>. All Rights Reserved.
+                    <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400"> 2023 <a
+                            href="https://flowbite.com/" class="hover:underline">Flowbite</a>. All Rights Reserved.
                     </span>
                     <div class="flex mt-4 sm:justify-center sm:mt-0">
                         <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
@@ -123,7 +120,6 @@
                 </div>
             </div>
         </footer>
-
     </div>
 </template>
 

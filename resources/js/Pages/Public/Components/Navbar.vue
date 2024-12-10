@@ -1,8 +1,9 @@
 <template>
-    <div class="bg-red-700 shadow-sm sticky top-0 z-40 dark:bg-red-900 dark:bg-opacity-50 dark:backdrop-blur-sm">
+    <div class="bg-gray-100 shadow-sm sticky top-0 z-40 dark:bg-red-900 dark:bg-opacity-50 dark:backdrop-blur-sm">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-end space-x-5 text-xs mx-auto p-2">
-            <a href="https://uui.ac.id" class="text-white font-mono" target="_blank"> Website UUI </a>
-            <a href="https://elearning.uui.ac.id" class="text-white font-mono" target="_blank"> Elearning </a>
+            <a href="https://uui.ac.id" class="text-gray-700 font-mono" target="_blank"> Website UUI </a>
+            <a href="https://elearning.uui.ac.id" class="text-gray-700 font-mono" target="_blank"> Elearning </a>
+            <Link :href="route('login')" class="text-gray-700 font-mono">Admnistrator</Link>
         </div>
     </div>
 
@@ -10,7 +11,7 @@
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a class="flex items-center space-x-3 rtl:space-x-reverse flex-col " href="/">
                 <img alt="Flowbite Logo" class="h-14"
-                     src="images/logouui.png"/>
+                     src="/images/logouui.png"/>
                 <span class="self-center text-md text-gray-800 font-semibold whitespace-nowrap dark:text-white">Direktorat Administrasi Akademik</span>
             </a>
             <button aria-controls="navbar-multi-level" aria-expanded="false"
@@ -84,12 +85,6 @@
                     <li>
                         <a class="block py-2 px-3 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500"
                            href="#">Hubungi Kami</a>
-                    </li>
-                    <li>
-                        <Link :href="route('login')"
-                              class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                            Login
-                        </Link>
                     </li>
                 </ul>
             </div>

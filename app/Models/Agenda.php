@@ -10,8 +10,8 @@ class Agenda extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'jdwl_agenda' => 'datetime',
-        'jadwal_awal' => 'datetime',
-        'jadwal_akhir' => 'datetime',
+        'jdwl_agenda' => 'datetime:Y-m-d',
+        'jadwal_awal' => 'datetime:Y-m-d',
+        'jadwal_akhir' => 'datetime:Y-m-d',
     ];
 }
