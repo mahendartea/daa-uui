@@ -1,9 +1,9 @@
 <template>
-    <div class="bg-gray-100 shadow-sm sticky top-0 z-40 dark:bg-red-900 dark:bg-opacity-50 dark:backdrop-blur-sm">
+    <div class="bg-[#1c1b39] shadow-sm sticky top-0 z-40 dark:bg-red-900 dark:bg-opacity-50 dark:backdrop-blur-sm">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-end space-x-5 text-xs mx-auto p-2">
-            <a href="https://uui.ac.id" class="text-gray-700 font-mono" target="_blank"> Website UUI </a>
-            <a href="https://elearning.uui.ac.id" class="text-gray-700 font-mono" target="_blank"> Elearning </a>
-            <Link :href="route('login')" class="text-gray-700 font-mono">Admnistrator</Link>
+            <a href="https://uui.ac.id" class="text-gray-100 font-mono" target="_blank"> Website UUI </a>
+            <a href="https://elearning.uui.ac.id" class="text-gray-100 font-mono" target="_blank"> Elearning </a>
+            <Link :href="route('login')" class="text-gray-100 font-mono">Admnistrator</Link>
         </div>
     </div>
 
@@ -29,13 +29,16 @@
             <div :class="{ 'hidden': !isMobileMenuOpen }" class="w-full md:block md:w-auto z-40 bg-transparent" id="navbar-multi-level">
                 <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:bg-transparent dark:bg-transparent">
                     <li>
-                        <a aria-current="page"
-                           class="block py-2 px-3 text-gray-900 hover:bg-transparent md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500"
-                           href="/">Home</a>
+                        <Link :href="route('home')"
+                           class="block py-2 px-3 text-gray-900 hover:bg-transparent rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                            Beranda
+                        </Link>
                     </li>
                     <li>
-                        <a class="block py-2 px-3 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500"
-                           href="/pages/profile">Profil</a>
+                        <Link :href="route('profile')"
+                           class="block py-2 px-3 text-gray-900 hover:bg-transparent rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                            Profil
+                        </Link>
                     </li>
                     <li>
                         <a class="block py-2 px-3 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500"
