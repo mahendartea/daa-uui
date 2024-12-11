@@ -157,6 +157,7 @@ class PostController extends Controller
         ]);
     }
 
+
     public function destroy(Post $post)
     {
         $post->delete();
@@ -164,6 +165,30 @@ class PostController extends Controller
     }
 
     // for public
+    public function showPublic($seo)
+    {
+        $post = Post::where('judul_seo', $seo)->firstOrFail();
+
+        return Inertia::render('Public/Post/Single', [
+            'post' => $post,
+        ]);
+    }
+
+    // show all public post
+    public function showAllPublic()
+    {
+        $category = request('category', 'Berita');
+        $posts = Post::where('draft', false)
+            ->where('category', $category)
+            ->orderBy('tgl', 'desc')
+            ->paginate(9);
+
+        return Inertia::render('Public/Post/Index', [
+            'posts' => $posts,
+            'category' => $category,
+            'categories' => ['Berita', 'Pengumuman']
+        ]);
+    }
 
     public function getPublicPosts()
     {
@@ -180,4 +205,5 @@ class PostController extends Controller
 
         return response()->json($formattedPosts);
     }
+
 }

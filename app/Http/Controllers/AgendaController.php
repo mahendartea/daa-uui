@@ -126,4 +126,24 @@ class AgendaController extends Controller
 
         return response()->json($agenda);
     }
+
+    // Public Methods
+    public function showPublic($id)
+    {
+        $agenda = Agenda::findOrFail($id);
+
+        return Inertia::render('Public/Agenda/Single', [
+            'agenda' => $agenda
+        ]);
+    }
+
+    public function showAllPublic()
+    {
+        $agendas = Agenda::orderBy('jdwl_agenda', 'desc')
+            ->paginate(9);
+
+        return Inertia::render('Public/Agenda/Index', [
+            'agendas' => $agendas
+        ]);
+    }
 }

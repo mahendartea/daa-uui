@@ -196,5 +196,11 @@ Route::middleware([
 
 // Public Routes
 Route::get('pages/{slug}', [StatisController::class, 'show'])->name('statis.show');
+
 Route::get('/posts/public', [PostController::class, 'getPublicPosts'])->name('posts.public');
+Route::get('/post/{seo}', [PostController::class, 'showPublic'])->name('post.show');
+Route::get('/posts', [PostController::class, 'showAllPublic'])->name('posts.showAllPublic');
+
 Route::get('/agenda/latest', [AgendaController::class, 'showlatestagenda'])->name('agenda.latest');
+Route::get('/agenda/{id}', [AgendaController::class, 'showPublic'])->name('agenda.show');
+Route::get('/agenda', [AgendaController::class, 'showAllPublic'])->name('agenda.showAllPublic');
