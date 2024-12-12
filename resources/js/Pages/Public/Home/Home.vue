@@ -85,8 +85,8 @@
         </div>
 
         <section class="bg-white dark:bg-gray-900">
-            <div class="py-5 px-4 mx-auto max-w-screen-xl lg:py-16">
-                <main class="relative md:flex md:items-center my-5">
+            <div class="py-5 mx-auto max-w-screen-xl lg:py-16 flex items-start gap-5">
+                <main class="relative md:flex md:items-center w-1/2">
                     <div class="p-8 border rounded-lg dark:border-gray-700">
                         <p class="leading-loose text-gray-500 dark:text-gray-400 text-justify">
                             Assalamu'alaikum Wr.Wb.Puji syukur kami panjatkan kepada Allah SWT atas rahmat dan
@@ -104,8 +104,7 @@
 
                         <div class="flex items-center mt-5 -mx-2">
                             <img class="object-cover mx-2 rounded-full w-14 shrink-0 h-14 ring-4 ring-gray-300 dark:ring-gray-700"
-                                src="/images/dirdaa.png"
-                                alt="">
+                                src="/images/dirdaa.png" alt="">
 
                             <div class="mx-2">
                                 <h1 class="font-semibold text-gray-800 dark:text-white">Eva Rosdiana, S.ST., M.K.M</h1>
@@ -115,7 +114,7 @@
                     </div>
                 </main>
                 <div
-                    class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mb-8">
+                    class="w-1/2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12">
                     <a class="bg-red-100 text-red-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-red-400 mb-2"
                         href="https://www.youtube.com/watch?v=_amV5yNaZW4">
                         <svg aria-hidden="true" class="w-2.5 h-2.5 me-1.5" fill="currentColor" viewBox="0 0 20 14"
@@ -142,104 +141,111 @@
                         </svg>
                     </a>
                 </div>
-                <div class="py-5 px-4 mx-auto max-w-screen-xl lg:py-5 bg-gray-50 dark:bg-gray-800">
-                    <div class="grid md:grid-cols-3 gap-8">
-                        <!-- Berita Section -->
-                        <div>
-                            <h2 class="text-3xl font-bold mb-5 text-gray-900 dark:text-white">Berita</h2>
-                            <div class="space-y-2">
-                                <div v-for="post in beritaPosts" :key="post.id"
-                                    class="p-4 bg-white border-b border-gray-200  dark:border-gray-700 dark:bg-gray-800">
-                                    <div class="flex flex-col justify-between">
-                                        <Link :href="route('post.show', post.judul_seo)"
-                                            class="text-lg font-semibold text-gray-900 dark:text-white hover:text-red-600 dark:hover:text-red-400">
-                                        {{ post.title }}
-                                        </Link>
-                                        <span
-                                            class="text-sm text-gray-500 dark:text-gray-400">{{ formatDate(post.tgl) }}</span>
-                                    </div>
-                                </div>
-                                <Link :href="route('posts.showAllPublic')"
-                                    class="inline-block text-sm font-medium text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400">
-                                Lihat Semua Berita
-                                </Link>
-                            </div>
-                        </div>
 
-                        <!-- Pengumuman Section -->
-                        <div>
-                            <h2 class="text-3xl font-bold mb-5 text-gray-900 dark:text-white">Pengumuman</h2>
-                            <div class="space-y-2">
-                                <div v-for="post in pengumumanPosts" :key="post.id"
+            </div>
+        </section>
+
+        <section class="bg-white dark:bg-gray-900 mb-10">
+            <div class="py-5 px-4 mx-auto max-w-screen-xl lg:py-5 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                <div class="grid md:grid-cols-3 gap-8 p-5">
+                    <!-- Berita Section -->
+                    <div>
+                        <h2 class="text-3xl font-bold mb-5 text-gray-900 dark:text-white">Berita Terbaru</h2>
+                        <div class="space-y-2">
+                            <div v-for="post in beritaPosts" :key="post.id"
+                                class="p-4 bg-white border-b border-gray-200  dark:border-gray-700 dark:bg-gray-800">
+                                <div class="flex flex-col justify-between">
+                                    <Link :href="route('post.show', post.judul_seo)"
+                                        class="text-lg font-semibold text-gray-900 dark:text-white hover:text-red-600 dark:hover:text-red-400">
+                                    {{ post . title }}
+                                    </Link>
+                                    <span
+                                        class="text-sm text-gray-500 dark:text-gray-400">{{ formatDate(post . tgl) }}</span>
+                                </div>
+                            </div>
+                            <Link :href="route('posts.showAllPublic')"
+                                class="inline-block text-sm font-medium text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400">
+                            Lihat Semua Berita
+                            </Link>
+                        </div>
+                    </div>
+
+                    <!-- Pengumuman Section -->
+                    <div>
+                        <h2 class="text-3xl font-bold mb-5 text-gray-900 dark:text-white">Pengumuman</h2>
+                        <div class="space-y-2">
+                            <div v-for="post in pengumumanPosts" :key="post.id"
+                                class="p-4 bg-white border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800">
+                                <div class="flex flex-col justify-between">
+                                    <Link :href="route('post.show', post.judul_seo)"
+                                        class="text-lg font-semibold text-gray-900 dark:text-white hover:text-red-600 dark:hover:text-red-400">
+                                    {{ post . title }}
+                                    </Link>
+                                    <span
+                                        class="text-sm text-gray-500 dark:text-gray-400">{{ formatDate(post . tgl) }}</span>
+                                </div>
+                            </div>
+                            <Link :href="route('posts.showAllPublic')"
+                                class="inline-block text-sm font-medium text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400">
+                            Lihat Semua Pengumuman
+                            </Link>
+                        </div>
+                    </div>
+
+                    <!-- Agenda Section -->
+                    <div>
+                        <h2 class="text-3xl font-bold mb-5 text-gray-900 dark:text-white">Agenda</h2>
+                        <div class="space-y-2">
+                            <div v-if="latestAgenda && latestAgenda.length > 0">
+                                <div v-for="agenda in latestAgenda" :key="agenda.id"
                                     class="p-4 bg-white border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800">
-                                    <div class="flex flex-col justify-between">
-                                        <Link :href="route('post.show', post.judul_seo)"
+                                    <div class="flex flex-col space-y-2">
+                                        <Link :href="route('agenda.show', agenda.id)"
                                             class="text-lg font-semibold text-gray-900 dark:text-white hover:text-red-600 dark:hover:text-red-400">
-                                        {{ post.title }}
+                                        {{ agenda . nama_agenda }}
                                         </Link>
-                                        <span
-                                            class="text-sm text-gray-500 dark:text-gray-400">{{ formatDate(post.tgl) }}</span>
-                                    </div>
-                                </div>
-                                <Link :href="route('posts.showAllPublic')"
-                                    class="inline-block text-sm font-medium text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400">
-                                Lihat Semua Pengumuman
-                                </Link>
-                            </div>
-                        </div>
-
-                        <!-- Agenda Section -->
-                        <div>
-                            <h2 class="text-3xl font-bold mb-5 text-gray-900 dark:text-white">Agenda</h2>
-                            <div class="space-y-2">
-                                <div v-if="latestAgenda && latestAgenda.length > 0">
-                                    <div v-for="agenda in latestAgenda" :key="agenda.id"
-                                        class="p-4 bg-white border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800">
-                                        <div class="flex flex-col space-y-2">
-                                            <Link :href="route('agenda.show', agenda.id)"
-                                                class="text-lg font-semibold text-gray-900 dark:text-white hover:text-red-600 dark:hover:text-red-400">
-                                            {{ agenda.nama_agenda }}
-                                            </Link>
-                                            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                                    </path>
-                                                </svg>
-                                                {{ formatDate(agenda.jdwl_agenda) }}
-                                            </div>
-                                            <div v-if="agenda.tempat"
-                                                class="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
-                                                    </path>
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z">
-                                                    </path>
-                                                </svg>
-                                                {{ agenda.tempat }}
-                                            </div>
+                                        <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                                </path>
+                                            </svg>
+                                            {{ formatDate(agenda . jdwl_agenda) }}
+                                        </div>
+                                        <div v-if="agenda.tempat"
+                                            class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                                                </path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z">
+                                                </path>
+                                            </svg>
+                                            {{ agenda . tempat }}
                                         </div>
                                     </div>
                                 </div>
-                                <div v-else
-                                    class="p-4 bg-white border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800 text-center text-gray-500">
-                                    Tidak ada agenda terbaru
-                                </div>
-                                <Link :href="route('agenda.showAllPublic')"
-                                    class="inline-block text-sm font-medium text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400">
-                                Lihat Semua Agenda
-                                </Link>
                             </div>
+                            <div v-else
+                                class="p-4 bg-white border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800 text-center text-gray-500">
+                                Tidak ada agenda terbaru
+                            </div>
+                            <Link :href="route('agenda.showAllPublic')"
+                                class="inline-block text-sm font-medium text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400">
+                            Lihat Semua Agenda
+                            </Link>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
+
+        <section class="bg-white dark:bg-gray-900">
+            <RssFeed />
+
         </section>
 
     </Layout>
@@ -259,6 +265,7 @@
     import {
         initFlowbite
     } from 'flowbite';
+    import RssFeed from '@/Components/RssFeed.vue';
 
     const beritaPosts = ref([]);
     const pengumumanPosts = ref([]);
@@ -289,6 +296,7 @@
         } catch (error) {
             console.error('Error fetching data:', error);
         }
+
     });
 
     defineProps({
