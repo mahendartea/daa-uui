@@ -235,3 +235,6 @@ Route::get('/profile', function () {
 Route::get('/agenda/latest', [AgendaController::class, 'showlatestagenda'])->name('agenda.latest');
 Route::get('/agenda/{id}', [AgendaController::class, 'showPublic'])->name('agenda.show');
 Route::get('/agenda', [AgendaController::class, 'showAllPublic'])->name('agenda.showAllPublic');
+
+// Public Document Routes
+Route::get('/documents', [DocumentController::class, 'showFilePublic'])->name('public.documents.index');

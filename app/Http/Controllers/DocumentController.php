@@ -245,4 +245,16 @@ class DocumentController extends Controller
             ]);
         }
     }
+
+    public function showFilePublic()
+    {
+        $documents = Document::select('id', 'nama_file', 'path', 'tgl_upload', 'created', 'link_external')
+            ->orderBy('tgl_upload', 'desc')
+            ->paginate(10);
+
+        return Inertia::render('Public/Document/Index', [
+            'documents' => $documents,
+            'filters' => request()->all('search', 'field', 'direction')
+        ]);
+    }
 }
