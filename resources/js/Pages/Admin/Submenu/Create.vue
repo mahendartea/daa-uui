@@ -18,15 +18,15 @@
                 <form @submit.prevent="submit" class="w-full flex flex-wrap justify-end text-center">
                     <div class="card grid grid-cols-2 w-full gap-10">
                         <FloatLabel class="w-full">
-                            <InputText id="nama_sub" v-model="form.nama_sub" class="w-full" />
+                            <InputText id="nama_sub" v-model="form.nama_sub" class="w-full" maxlength="50" />
                             <label for="nama_sub">Nama Submenu</label>
                             <small v-if="form.errors.nama_sub" class="p-error">{{ form.errors.nama_sub }}</small>
                         </FloatLabel>
 
                         <FloatLabel class="w-full">
-                            <InputText id="link" v-model="form.link" class="w-full" />
-                            <label for="link">Link</label>
-                            <small v-if="form.errors.link" class="p-error">{{ form.errors.link }}</small>
+                            <InputText id="link_sub" v-model="form.link_sub" class="w-full" />
+                            <label for="link_sub">Link</label>
+                            <small v-if="form.errors.link_sub" class="p-error">{{ form.errors.link_sub }}</small>
                         </FloatLabel>
 
                         <FloatLabel class="w-full">
@@ -34,6 +34,12 @@
                                 optionLabel="nama_menu" optionValue="id_main" class="w-full" />
                             <label for="id_main">Menu</label>
                             <small v-if="form.errors.id_main" class="p-error">{{ form.errors.id_main }}</small>
+                        </FloatLabel>
+
+                        <FloatLabel class="w-full hidden">
+                            <InputNumber id="id_submain" v-model="form.id_submain" class="w-full" :min="1" />
+                            <label for="id_submain">ID Submain (Optional)</label>
+                            <small v-if="form.errors.id_submain" class="p-error">{{ form.errors.id_submain }}</small>
                         </FloatLabel>
 
                         <FloatLabel class="w-full">
@@ -97,8 +103,9 @@ const statusOptions = [
 
 const form = useForm({
     nama_sub: '',
-    link: '',
+    link_sub: '',
     id_main: '',
+    id_submain: null,
     urutan: 1,
     aktif: 'Y'
 })

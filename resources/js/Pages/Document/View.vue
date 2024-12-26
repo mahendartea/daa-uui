@@ -74,9 +74,12 @@ const handleDownload = () => {
                             <div class="flex gap-2">
                                 <Button icon="pi pi-download" label="Download" @click="handleDownload"
                                     class="p-button-primary" />
-                                <Button icon="pi pi-pencil" label="Edit"
+                                    <Button icon="pi pi-pencil" label="Edit"
                                     @click="router.get(route('documents.edit', document.id))"
                                     class="p-button-secondary" />
+                                    <span class="flex items-center gap-2">
+                                        <span class="text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md p-2">/{{ document.path }}</span>
+                                    </span>
                             </div>
                         </div>
                     </div>

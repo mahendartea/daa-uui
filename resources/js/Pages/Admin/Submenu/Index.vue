@@ -37,7 +37,11 @@
                         </Column>
                         <Column field="nama_sub" header="Nama Submenu" sortable style="width: 15%;" />
                         <Column field="menu.nama_menu" header="Menu" sortable style="width: 15%;" />
-                        <Column field="link" header="Link" sortable style="width: 15%;" />
+                        <Column header="Link" style="width: 5%;">
+                            <template #body="{ data }">
+                                <a :href="data.link_sub" target="_blank"><i class="pi pi-external-link text-primary text-xl"></i></a>
+                            </template>
+                        </Column>
                         <Column field="urutan" header="Urutan" sortable style="width: 15%;">
                             <template #body="{ data }">
                                 {{ data.urutan }}

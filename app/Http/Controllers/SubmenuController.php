@@ -27,15 +27,16 @@ class SubmenuController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_sub' => 'required|string|max:255',
-            'link' => 'nullable|string|max:255',
+        $validated = $request->validate([
+            'nama_sub' => 'required|string|max:50',
+            'link_sub' => 'nullable|string',
             'id_main' => 'required|exists:mainmenu,id_main',
+            'id_submain' => 'nullable|integer',
             'urutan' => 'required|integer',
             'aktif' => 'required|in:Y,N',
         ]);
 
-        Submenu::create($request->all());
+        Submenu::create($validated);
 
         return redirect()->route('submenus.index')
             ->with('message', 'Submenu berhasil ditambahkan');
@@ -53,16 +54,17 @@ class SubmenuController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nama_sub' => 'required|string|max:255',
-            'link' => 'nullable|string|max:255',
+        $validated = $request->validate([
+            'nama_sub' => 'required|string|max:50',
+            'link_sub' => 'nullable|string',
             'id_main' => 'required|exists:mainmenu,id_main',
+            'id_submain' => 'nullable|integer',
             'urutan' => 'required|integer',
             'aktif' => 'required|in:Y,N',
         ]);
 
         $submenu = Submenu::findOrFail($id);
-        $submenu->update($request->all());
+        $submenu->update($validated);
 
         return redirect()->route('submenus.index')
             ->with('message', 'Submenu berhasil diperbarui');

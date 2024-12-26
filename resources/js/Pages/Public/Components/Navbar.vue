@@ -34,13 +34,23 @@
                         </button>
                         <!-- Dropdown menu -->
                         <div class="absolute left-0 z-10 mt-2 w-48 origin-top-left rounded-md bg-white dark:bg-gray-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                            <Link v-for="submenu in menu.submenu"
-                                :key="submenu.id_sub"
-                                :href="submenu.link_sub"
-                                :class="{'bg-gray-100 dark:bg-gray-700 text-red-600 dark:text-red-400': route().current(submenu.link_sub)}"
-                                class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-red-600 dark:hover:text-red-400 transition duration-150 ease-in-out">
-                                {{ submenu.nama_sub }}
-                            </Link>
+                            <template v-for="submenu in menu.submenu" :key="submenu.id_sub">
+                                <!-- External link -->
+                                <a v-if="isExternalLink(submenu.link_sub)"
+                                    :href="submenu.link_sub"
+                                    target="_blank"
+                                    class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-red-600 dark:hover:text-red-400 transition duration-150 ease-in-out">
+                                    {{ submenu.nama_sub }}
+                                    <i class="pi pi-external-link ml-1 text-xs"></i>
+                                </a>
+                                <!-- Internal link -->
+                                <Link v-else
+                                    :href="submenu.link_sub"
+                                    :class="{'bg-gray-100 dark:bg-gray-700 text-red-600 dark:text-red-400': route().current(submenu.link_sub)}"
+                                    class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-red-600 dark:hover:text-red-400 transition duration-150 ease-in-out">
+                                    {{ submenu.nama_sub }}
+                                </Link>
+                            </template>
                         </div>
                     </div>
                 </template>
@@ -104,13 +114,23 @@
                                 <!-- Mobile submenu -->
                                 <div v-show="activeMobileSubmenu === menu.id_main"
                                     class="space-y-1 pl-4">
-                                    <Link v-for="submenu in menu.submenu"
-                                        :key="submenu.id_sub"
-                                        :href="submenu.link_sub"
-                                        :class="{'text-red-600 dark:text-red-400': route().current(submenu.link_sub)}"
-                                        class="block rounded-md px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-red-600 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-red-400 transition duration-150 ease-in-out">
-                                        {{ submenu.nama_sub }}
-                                    </Link>
+                                    <template v-for="submenu in menu.submenu" :key="submenu.id_sub">
+                                        <!-- External link -->
+                                        <a v-if="isExternalLink(submenu.link_sub)"
+                                            :href="submenu.link_sub"
+                                            target="_blank"
+                                            class="block rounded-md px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-red-600 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-red-400 transition duration-150 ease-in-out">
+                                            {{ submenu.nama_sub }}
+                                            <i class="pi pi-external-link ml-1"></i>
+                                        </a>
+                                        <!-- Internal link -->
+                                        <Link v-else
+                                            :href="submenu.link_sub"
+                                            :class="{'text-red-600 dark:text-red-400': route().current(submenu.link_sub)}"
+                                            class="block rounded-md px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-red-600 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-red-400 transition duration-150 ease-in-out">
+                                            {{ submenu.nama_sub }}
+                                        </Link>
+                                    </template>
                                 </div>
                             </div>
                         </template>
@@ -125,16 +145,25 @@
 import { Link, usePage } from '@inertiajs/vue3'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
-// State for mobile menu and submenu
+const props = defineProps({
+    mainmenu: {
+        type: Array,
+        required: true
+    }
+})
+
 const isMobileMenuOpen = ref(false)
 const activeMobileSubmenu = ref(null)
 
-// Toggle mobile submenu
+const isExternalLink = (url) => {
+    if (!url) return false
+    return url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')
+}
+
 const toggleMobileSubmenu = (menuId) => {
     activeMobileSubmenu.value = activeMobileSubmenu.value === menuId ? null : menuId
 }
 
-// Close mobile menu on escape key
 const handleEscape = (e) => {
     if (e.key === 'Escape') {
         isMobileMenuOpen.value = false
@@ -142,7 +171,6 @@ const handleEscape = (e) => {
     }
 }
 
-// Close mobile menu on route change
 const handleRouteChange = () => {
     isMobileMenuOpen.value = false
     activeMobileSubmenu.value = null

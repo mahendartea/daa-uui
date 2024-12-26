@@ -45,9 +45,24 @@
                         </svg>
                         <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Tugas Pokok</h5>
                     </div>
-                    <p class="font-normal text-gray-700 dark:text-gray-400">
-                        Melaksanakan pengelolaan administrasi akademik di lingkungan Universitas Ubudiyah Indonesia.
-                    </p>
+                    <ul class="list-disc list-inside text-gray-700 dark:text-gray-400 space-y-2 text-sm">
+                        <li>Menyusun Rencana dan Program kerja DAA sebagai pedoman pelaksanaan tugas;</li>
+                        <li>Membuat progress report setiap semester terkait kegiatan akademik dan persoalan administrasi akademik.</li>
+                        <li>Menelaah peraturan perundang-undangan di bidang akademik, dan administrasi;</li>
+                        <li>Menyusun konsep rumusan kebijakan dan peraturan di bidang akademik.</li>
+                        <li>Mengkoordinasikan pelaksanaan kurikulum, pembelajaran serta layanan administrasi akademik.</li>
+                        <li>Menyusun kalender akademik berdasarkan data dan informasi dari fakultas</li>
+                        <li>Menyusun kalender akademik berdasarkan data dan informasi dari fakultas</li>
+                        <li>Melaksanakan penawaran dan seleksi calon mahasiswa</li>
+                        <li>Mengkoordinasikan persiapan perkuliahan setiap awal semester (plotting jadwal kuliah, dosen, mahasiswa, presensi kuliah, rapat akademik, RPS)</li>
+                        <li>Mengkoordinasikan pelaksanan perkuliahan (kehadiran dosen dan mahasiswa, implementasin e-Learning, kesesuaian materi perkuliahan dengan RPS)</li>
+                        <li>Mengkoordinasikan pelaksanaan evaluasi akhir perkuliahan (UTS/UAS baik teori maupun praktikum, input/upload nilai UTS/UAS)</li>
+                        <li>Mengkoordinasi pelaporan ke PDDIKTI dan SIMKOPTA serta EMIS ke Kopertais IV</li>
+                        <li>Melakukan koordinasi dengan unit kerja lain untuk mendukung kelancaran tugas-tugas Akademik</li>
+                        <li>Membagi tugas, menggerakkan, mengarahkan dan membimbing pelaksanaan tugas bagian</li>
+                        <li>Melakukan validasi kinerja staf yang menjadi bawahannya secara obyektif</li>
+                        <li>Melaksanakan pembinaan dan pengembangan administrasi akademik, dan informasi berdasarkan peraturan perundang-undangan yang berlaku</li>
+                    </ul>
                 </div>
 
                 <!-- Fungsi Card -->
@@ -65,6 +80,13 @@
                         <li>Pelayanan registrasi dan herregistrasi mahasiswa</li>
                         <li>Pengelolaan administrasi wisuda dan alumni</li>
                     </ul>
+                    <div class="flex items-center mb-4 mt-10">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.333 6.764a3 3 0 1 1 3.141-5.023M2.5 16H1v-2a4 4 0 0 1 4-4m7.379-8.121a3 3 0 1 1 2.976 5M15 10a4 4 0 0 1 4 4v2h-1.761M13 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-4 6h2a4 4 0 0 1 4 4v2H5v-2a4 4 0 0 1 4-4Z"/>
+                        </svg>
+                        <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Motto</h5>
+                    </div>
+                    <p>“Pelayanan Prima, Ramah, Cepat dan Tepat”</p>
                 </div>
             </div>
 
