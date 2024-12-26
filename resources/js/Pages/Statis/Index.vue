@@ -34,7 +34,13 @@
                             </template>
                         </Column>
                         <Column field="title" header="Judul" sortable style="width: 30%;" />
-                        <Column field="judul_seo" header="URL" sortable style="width: 20%;" />
+                        <Column header="URL" style="width: 20%;">
+                            <template #body="{ data }">
+                                <span  class="text-gray-500 hover:text-primary-600 underline">
+                                    /pages/{{ data.judul_seo }}
+                                </span>
+                            </template>
+                        </Column>
                         <Column :body="formatDate" field="updated_at" header="Diubah" sortable style="width: 15%;" />
                         <Column field="tag" header="Tag" style="width: 10%;" />
                         <Column field="actions" header="Aksi" style="width: 13%;">

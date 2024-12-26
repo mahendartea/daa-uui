@@ -10,7 +10,7 @@
 
         <Card class="border">
             <template #title>
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center my-5">
                     <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Tambah Submenu</h2>
                 </div>
             </template>
