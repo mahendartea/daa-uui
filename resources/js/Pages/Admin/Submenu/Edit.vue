@@ -1,0 +1,106 @@
+<template>
+    <LoggedInLayout title="Edit Submenu">
+        <div class="card flex justify-between my-5">
+            <Breadcrumb :home="home" :model="items" class="bg-gray-50 dark:bg-gray-800 w-full rounded-sm" />
+        </div>
+
+        <section class="max-w-8xl p-6 mx-auto bg-gray-50 rounded-md shadow-md dark:bg-gray-800">
+            <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Edit Submenu</h2>
+            <form @submit.prevent="submit" class="w-full flex flex-wrap justify-end text-center mt-10">
+                <div class="card grid grid-cols-2 w-full gap-10">
+                    <FloatLabel class="w-full">
+                        <InputText id="nama_sub" v-model="form.nama_sub" class="w-full" />
+                        <label for="nama_sub">Nama Submenu</label>
+                        <small v-if="form.errors.nama_sub" class="p-error">{{ form.errors.nama_sub }}</small>
+                    </FloatLabel>
+
+                    <FloatLabel class="w-full">
+                        <InputText id="link" v-model="form.link" class="w-full" />
+                        <label for="link">Link</label>
+                        <small v-if="form.errors.link" class="p-error">{{ form.errors.link }}</small>
+                    </FloatLabel>
+
+                    <FloatLabel class="w-full">
+                        <Dropdown id="id_main" v-model="form.id_main" :options="menus"
+                            optionLabel="nama_menu" optionValue="id_main" class="w-full" />
+                        <label for="id_main">Menu</label>
+                        <small v-if="form.errors.id_main" class="p-error">{{ form.errors.id_main }}</small>
+                    </FloatLabel>
+
+                    <FloatLabel class="w-full">
+                        <InputNumber id="urutan" v-model="form.urutan" class="w-full" :min="1" />
+                        <label for="urutan">Urutan</label>
+                        <small v-if="form.errors.urutan" class="p-error">{{ form.errors.urutan }}</small>
+                    </FloatLabel>
+
+                    <FloatLabel class="w-full">
+                        <Dropdown id="aktif" v-model="form.aktif" :options="statusOptions"
+                            optionLabel="label" optionValue="value" class="w-full" />
+                        <label for="aktif">Status</label>
+                        <small v-if="form.errors.aktif" class="p-error">{{ form.errors.aktif }}</small>
+                    </FloatLabel>
+                </div>
+
+                <div class="flex gap-2 mt-6">
+                    <Button type="button" severity="secondary" label="Batal" icon="pi pi-times"
+                        @click="router.get(route('submenus.index'))" />
+                    <Button type="submit" severity="primary" label="Simpan" icon="pi pi-save"
+                        :loading="form.processing" />
+                </div>
+            </form>
+        </section>
+    </LoggedInLayout>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { router, useForm } from '@inertiajs/vue3'
+import LoggedInLayout from '@/Layouts/LoggedInLayout.vue'
+import InputText from 'primevue/inputtext'
+import InputNumber from 'primevue/inputnumber'
+import Dropdown from 'primevue/dropdown'
+import Button from 'primevue/button'
+import Breadcrumb from 'primevue/breadcrumb'
+import FloatLabel from 'primevue/floatlabel'
+
+const props = defineProps({
+    submenu: {
+        type: Object,
+        required: true
+    },
+    menus: {
+        type: Array,
+        required: true
+    }
+})
+
+const home = ref({
+    icon: 'pi pi-home'
+})
+
+const items = ref([
+    { label: 'Submenu' },
+    { label: 'Edit' }
+])
+
+const statusOptions = [
+    { label: 'Aktif', value: 'Y' },
+    { label: 'Tidak Aktif', value: 'N' }
+]
+
+const form = useForm({
+    nama_sub: props.submenu.nama_sub,
+    link: props.submenu.link,
+    id_main: props.submenu.id_main,
+    urutan: props.submenu.urutan,
+    aktif: props.submenu.aktif
+})
+
+const submit = () => {
+    form.put(route('submenus.update', props.submenu.id_sub), {
+        onSuccess: () => {
+            router.get(route('submenus.index'))
+        }
+    })
+}
+</script>

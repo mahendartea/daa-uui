@@ -9,11 +9,13 @@ use App\Http\Controllers\FinalCalenderController;
 use App\Http\Controllers\GaleryController;
 use App\Http\Controllers\HeadlineController;
 use App\Http\Controllers\KalenderController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\MidtemCalenderController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StatisController;
+use App\Http\Controllers\SubmenuController;
 use App\Http\Controllers\UserController;
 use App\Models\CourseCalender;
 use Illuminate\Foundation\Application;
@@ -176,11 +178,35 @@ Route::middleware([
         });
 
         // Headline Routes
-        Route::get('/headline', [HeadlineController::class, 'index'])->name('headline.index');
-        Route::get('/headline/create', [HeadlineController::class, 'create'])->name('headline.create');
-        Route::post('/headline', [HeadlineController::class, 'store'])->name('headline.store');
-        Route::get('/headline/{id}/edit', [HeadlineController::class, 'edit'])->name('headline.edit');
-        Route::put('/headline/{id}', [HeadlineController::class, 'update'])->name('headline.update');
+        Route::group(['prefix' => 'headline'], function () {
+            Route::get('/', [HeadlineController::class, 'index'])->name('headline.index');
+            Route::get('create', [HeadlineController::class, 'create'])->name('headline.create');
+            Route::post('/', [HeadlineController::class, 'store'])->name('headline.store');
+            Route::get('{id}/edit', [HeadlineController::class, 'edit'])->name('headline.edit');
+            Route::put('{id}', [HeadlineController::class, 'update'])->name('headline.update');
+        });
+
+        // Menu Management Routes
+        Route::group(['prefix' => 'menus'], function () {
+            Route::get('/', [MenuController::class, 'index'])->name('menus.index');
+            Route::get('create', [MenuController::class, 'create'])->name('menus.create');
+            Route::post('store', [MenuController::class, 'store'])->name('menus.store');
+            Route::get('edit/{id}', [MenuController::class, 'edit'])->name('menus.edit');
+            Route::put('update/{id}', [MenuController::class, 'update'])->name('menus.update');
+            Route::delete('destroy/{id}', [MenuController::class, 'destroy'])->name('menus.destroy');
+            Route::put('update-order', [MenuController::class, 'updateOrder'])->name('menus.update-order');
+        });
+
+        // Submenu Management Routes
+        Route::group(['prefix' => 'submenus'], function () {
+            Route::get('/', [SubmenuController::class, 'index'])->name('submenus.index');
+            Route::get('create', [SubmenuController::class, 'create'])->name('submenus.create');
+            Route::post('store', [SubmenuController::class, 'store'])->name('submenus.store');
+            Route::get('edit/{id}', [SubmenuController::class, 'edit'])->name('submenus.edit');
+            Route::put('update/{id}', [SubmenuController::class, 'update'])->name('submenus.update');
+            Route::delete('destroy/{id}', [SubmenuController::class, 'destroy'])->name('submenus.destroy');
+            Route::put('update-order', [SubmenuController::class, 'updateOrder'])->name('submenus.update-order');
+        });
 
         // Static Pages Management Routes
         Route::group(['prefix' => 'statis'], function () {
@@ -191,6 +217,7 @@ Route::middleware([
             Route::put('{id}', [StatisController::class, 'update'])->name('statis.update');
             Route::delete('{id}', [StatisController::class, 'destroy'])->name('statis.destroy');
         });
+
     });
 });
 

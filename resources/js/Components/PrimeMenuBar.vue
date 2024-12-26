@@ -162,6 +162,26 @@ const menuItems = [
         route2: 'setting',
         items: [
             {
+                label: 'Menu',
+                icon: 'pi pi-cog',
+                items: [
+                    {
+                        label: 'Menu Utama',
+                        icon: 'pi pi-cog',
+                        command: () => {
+                            router.get(route('menus.index')); // Navigate to the config route
+                        }
+                    },
+                    {
+                        label: 'Sub Menu',
+                        icon: 'pi pi-cog',
+                        command: () => {
+                            router.get(route('submenus.index')); // Navigate to the config route
+                        }
+                    }
+                ],
+            },
+            {
                 label: 'Pengaturan Umum',
                 icon: 'pi pi-cog',
                 items: [
