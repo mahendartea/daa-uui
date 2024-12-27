@@ -19,6 +19,7 @@ use App\Http\Controllers\SubmenuController;
 use App\Http\Controllers\UserController;
 use App\Models\CourseCalender;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -238,3 +239,7 @@ Route::get('/agenda', [AgendaController::class, 'showAllPublic'])->name('agenda.
 
 // Public Document Routes
 Route::get('/documents', [DocumentController::class, 'showFilePublic'])->name('public.documents.index');
+
+Route::get('/password-check',function () {
+    return Hash::make('uui-2025');
+})->name('password.check');

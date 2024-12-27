@@ -45,7 +45,7 @@
                                 </a>
                                 <!-- Internal link -->
                                 <Link v-else
-                                    :href="submenu.link_sub"
+                                    :href="'/storage/' + submenu.link_sub"
                                     :class="{'bg-gray-100 dark:bg-gray-700 text-red-600 dark:text-red-400': route().current(submenu.link_sub)}"
                                     class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-red-600 dark:hover:text-red-400 transition duration-150 ease-in-out">
                                     {{ submenu.nama_sub }}
@@ -125,7 +125,7 @@
                                         </a>
                                         <!-- Internal link -->
                                         <Link v-else
-                                            :href="submenu.link_sub"
+                                            :href="'/storage/' + submenu.link_sub"
                                             :class="{'text-red-600 dark:text-red-400': route().current(submenu.link_sub)}"
                                             class="block rounded-md px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-red-600 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-red-400 transition duration-150 ease-in-out">
                                             {{ submenu.nama_sub }}
