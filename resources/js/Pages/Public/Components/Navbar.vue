@@ -11,7 +11,8 @@
             <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <img class="h-10"
                      src="/images/logouui.png"/>
-                <span class="self-center text-md text-gray-800 font-semibold whitespace-nowrap dark:text-white">Direktorat Administrasi Akademik</span>
+                <span class="self-center text-md hidden lg:block text-gray-800 font-semibold whitespace-nowrap dark:text-white">Direktorat Administrasi Akademik</span>
+                <span class="self-center text-md block lg:hidden text-gray-800 font-semibold whitespace-nowrap dark:text-white">DAA</span>
             </a>
             <div class="hidden lg:flex lg:gap-x-8">
                 <template v-for="menu in mainmenu" :key="menu.id_main">
@@ -36,20 +37,21 @@
                         <div class="absolute left-0 z-10 mt-2 w-48 origin-top-left rounded-md bg-white dark:bg-gray-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
                             <template v-for="submenu in menu.submenu" :key="submenu.id_sub">
                                 <!-- External link -->
-                                <a v-if="isExternalLink(submenu.link_sub)"
+                                <Link v-if="isExternalLink(submenu.link_sub)"
                                     :href="submenu.link_sub"
                                     target="_blank"
                                     class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-red-600 dark:hover:text-red-400 transition duration-150 ease-in-out">
                                     {{ submenu.nama_sub }}
                                     <i class="pi pi-external-link ml-1 text-xs"></i>
-                                </a>
+                                </Link>
                                 <!-- Internal link -->
-                                <Link v-else
-                                    :href="'/storage/' + submenu.link_sub"
+                                <a v-else
+                                    href="#"
+                                    @click.prevent="handleFileClick(submenu)"
                                     :class="{'bg-gray-100 dark:bg-gray-700 text-red-600 dark:text-red-400': route().current(submenu.link_sub)}"
                                     class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-red-600 dark:hover:text-red-400 transition duration-150 ease-in-out">
                                     {{ submenu.nama_sub }}
-                                </Link>
+                                </a>
                             </template>
                         </div>
                     </div>
@@ -75,7 +77,7 @@
         <div v-show="isMobileMenuOpen"
             class="lg:hidden fixed inset-0 z-50 bg-gray-900/50 dark:bg-gray-900/80"
             @click.self="isMobileMenuOpen = false">
-            <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
+            <div class="fixed inset-y-0 h-screen right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
                 :class="{ 'translate-x-0': isMobileMenuOpen, 'translate-x-full': !isMobileMenuOpen }">
                 <div class="flex items-center justify-between mb-6">
                     <a href="/" class="flex items-center space-x-3">
@@ -124,12 +126,13 @@
                                             <i class="pi pi-external-link ml-1"></i>
                                         </a>
                                         <!-- Internal link -->
-                                        <Link v-else
-                                            :href="'/storage/' + submenu.link_sub"
+                                        <a v-else
+                                            href="#"
+                                            @click.prevent="handleFileClick(submenu)"
                                             :class="{'text-red-600 dark:text-red-400': route().current(submenu.link_sub)}"
                                             class="block rounded-md px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-red-600 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-red-400 transition duration-150 ease-in-out">
                                             {{ submenu.nama_sub }}
-                                        </Link>
+                                        </a>
                                     </template>
                                 </div>
                             </div>
@@ -139,11 +142,18 @@
             </div>
         </div>
     </nav>
+    <!-- Add dialog component for PDF/DOC viewer -->
+    <Dialog v-model:visible="showFileDialog" :modal="true" class="pdf-dialog" :style="{ width: '90vw' }" :header="selectedFileName" :contentStyle="{ height: 'calc(90vh - 6rem)', padding: 0 }">
+        <div class="pdf-container" style="height: 100%;">
+            <iframe :src="selectedFileUrl" style="width: 100%; height: 100%; border: none; display: block;"></iframe>
+        </div>
+    </Dialog>
 </template>
 
 <script setup>
 import { Link, usePage } from '@inertiajs/vue3'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+import Dialog from 'primevue/dialog'
 
 const props = defineProps({
     mainmenu: {
@@ -176,6 +186,26 @@ const handleRouteChange = () => {
     activeMobileSubmenu.value = null
 }
 
+const showFileDialog = ref(false)
+const selectedFileUrl = ref('')
+const selectedFileName = ref('')
+
+const isPdfOrDoc = (filename) => {
+    const ext = filename.toLowerCase().split('.').pop()
+    return ['pdf', 'doc', 'docx'].includes(ext)
+}
+
+const handleFileClick = (submenu) => {
+    const fileUrl = '/storage/' + submenu.link_sub
+    if (isPdfOrDoc(submenu.link_sub)) {
+        selectedFileUrl.value = fileUrl
+        selectedFileName.value = submenu.nama_sub
+        showFileDialog.value = true
+    } else {
+        window.location.href = fileUrl
+    }
+}
+
 onMounted(() => {
     document.addEventListener('keydown', handleEscape)
     window.addEventListener('popstate', handleRouteChange)
@@ -192,6 +222,14 @@ const mainmenu = usePage().props.mainmenu
 <style scoped>
 /* Prevent body scroll when mobile menu is open */
 :deep(body.mobile-menu-open) {
+    overflow: hidden;
+}
+
+.pdf-dialog :deep(.p-dialog-content) {
+    overflow: hidden;
+}
+
+.pdf-container {
     overflow: hidden;
 }
 </style>

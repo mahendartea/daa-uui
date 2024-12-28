@@ -41,6 +41,10 @@ const submit = () => {
             {{ status }}
         </div>
 
+        <p class="mb-4 text-sm text-gray-600 dark:text-gray-400">
+            Silahkan Login.<br class="hidden sm:block">
+            Khusus Administrator
+        </p>
         <form @submit.prevent="submit">
             <div>
                 <InputLabel for="email" value="Email" />
@@ -86,5 +90,10 @@ const submit = () => {
                 </PrimaryButton>
             </div>
         </form>
+
+            <p class="mt-4 text-sm text-gray-600 dark:text-gray-400">
+                 <Link href="/" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">Kembali ke Halaman Utama</Link>
+            </p>
+
     </AuthenticationCard>
 </template>

@@ -84,9 +84,9 @@
             </button>
         </div>
 
-        <section class="bg-white dark:bg-gray-900">
-            <div class="py-5 mx-auto max-w-screen-xl lg:py-16 flex items-start gap-5">
-                <main class="relative md:flex md:items-center w-1/2">
+        <section class="bg-white dark:bg-gray-900 px-2">
+            <div class="py-5 mx-auto max-w-screen-xl lg:py-16 flex flex-col gap-5 md:flex-row md:items-start md:gap-10">
+                <main class="relative md:w-1/2">
                     <div class="p-8 border rounded-lg dark:border-gray-700">
                         <p class="leading-loose text-gray-500 dark:text-gray-400 text-justify">
                             Assalamu'alaikum Wr.Wb.Puji syukur kami panjatkan kepada Allah SWT atas rahmat dan
@@ -114,7 +114,7 @@
                     </div>
                 </main>
                 <div
-                    class="w-1/2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12">
+                    class="md:w-1/2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12">
                     <a class="bg-red-100 text-red-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-red-400 mb-2"
                         href="https://www.youtube.com/watch?v=_amV5yNaZW4">
                         <svg aria-hidden="true" class="w-2.5 h-2.5 me-1.5" fill="currentColor" viewBox="0 0 20 14"
@@ -145,7 +145,7 @@
             </div>
         </section>
 
-        <section class="bg-white dark:bg-gray-900 mb-10">
+        <section class="bg-white dark:bg-gray-900 mb-10 mx-2">
             <div class="py-5 px-4 mx-auto max-w-screen-xl lg:py-5 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
                 <div class="grid md:grid-cols-3 gap-8 p-5">
                     <!-- Berita Section -->
@@ -243,7 +243,7 @@
             </div>
         </section>
 
-        <section class="bg-white dark:bg-gray-900">
+        <section class="bg-white dark:bg-gray-900 mx-2">
             <RssFeed />
 
         </section>
