@@ -1,5 +1,6 @@
 <template>
     <div>
+
         <Head>
             <link rel="icon" type="image/png" href="/images/logouuinontext.png" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
@@ -13,10 +14,33 @@
 
         <Navbar />
 
+        <!-- Banner -->
+        <div v-if="showBanner && headline" id="bottom-banner" tabindex="-1"
+            class="fixed bottom-0 start-0 z-50 flex justify-between w-full p-4 border-t bg-gradient-to-r from-white to-blue-100 dark:from-gray-900 dark:to-gray-700 border-gray-200 dark:border-gray-600">
+            <div class="flex items-center justify-between">
+                <p class="flex items-center text-sm font-normal justify-start text-gray-500 dark:text-gray-400">
+                    <img src="/images/logouui.png" class="h-10 pr-5 " alt="UUILOGO" />
+                    <span class="border-r border-blue-800 font-bold pr-5 mr-5">Headline:</span>
+                    <span v-html="headline.isi_headline" class="font-bold text-blue-900 dark:text-white"></span>
+                </p>
+
+            </div>
+            <div class="flex items-center">
+                <button @click="closeBanner" type="button" class="flex-shrink-0 inline-flex justify-center w-7 h-7 items-center bg-blue-100 text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 dark:hover:bg-gray-600 dark:hover:text-white">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close banner</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- content Main -->
         <main>
             <slot />
         </main>
 
+        <!-- Footer -->
         <footer class="bg-slate-50 dark:bg-gray-900 mx-2">
             <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
                 <div class="md:flex md:justify-between">
@@ -24,13 +48,15 @@
                         <a href="/" class="flex items-center flex-col">
                             <img src="/images/logouui.png" class="h-14 me-3" alt="UUILOGO" />
                             <span
-                                class="self-center text-lg font-semibold whitespace-nowrap dark:text-white">Universitas Ubudiyah Indonesia</span>
-                                <span>Direktorat Administrasi Akademik</span>
+                                class="self-center text-lg font-semibold whitespace-nowrap dark:text-white">Universitas
+                                Ubudiyah Indonesia</span>
+                            <span>Direktorat Administrasi Akademik</span>
                         </a>
                     </div>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-6 sm:grid-cols-3">
                         <div>
-                            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Fasilitas</h2>
+                            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Fasilitas
+                            </h2>
                             <ul class="text-gray-500 dark:text-gray-400 font-medium">
                                 <li class="mb-4">
                                     <a href="https://library.uui.ac.id" class="hover:underline">Perpustakaan</a>
@@ -58,16 +84,19 @@
                             </ul>
                         </div>
                         <div>
-                            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Alumni & Kemahasiswaan</h2>
+                            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Alumni &
+                                Kemahasiswaan</h2>
                             <ul class="text-gray-500 dark:text-gray-400 font-medium">
                                 <li class="mb-4">
                                     <a href="https://tracerstudy.uui.ac.id" class="hover:underline">Tracer Study</a>
                                 </li>
                                 <li class="mb-4">
-                                    <a href="https://cdc.uui.ac.id" class="hover:underline">Career Development Center</a>
+                                    <a href="https://cdc.uui.ac.id" class="hover:underline">Career Development
+                                        Center</a>
                                 </li>
                                 <li class="mb-4">
-                                    <a href="https://sipenmaru.uui.ac.id" class="hover:underline">Sistem Penerimaan Mahasiswa Baru</a>
+                                    <a href="https://sipenmaru.uui.ac.id" class="hover:underline">Sistem Penerimaan
+                                        Mahasiswa Baru</a>
                                 </li>
                             </ul>
                         </div>
@@ -75,8 +104,9 @@
                 </div>
                 <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
                 <div class="sm:flex sm:items-center sm:justify-between">
-                    <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400"> {{ new Date().getFullYear() }} <a
-                            href="https://flowbite.com/" class="hover:underline">Universitas Ubudiyah Indonesia</a>. All Rights Reserved.
+                    <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+                        {{ new Date() . getFullYear() }} <a href="https://flowbite.com/"
+                            class="hover:underline">Universitas Ubudiyah Indonesia</a>. All Rights Reserved.
                     </span>
                     <div class="flex mt-4 sm:justify-center sm:mt-0">
                         <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
@@ -131,8 +161,14 @@
 </template>
 
 <script setup>
-    import {
-        Head
-    } from '@inertiajs/vue3';
+    import { ref } from 'vue'
+    import { Head, usePage } from '@inertiajs/vue3';
     import Navbar from '@/Pages/Public/Components/Navbar.vue';
+
+    const showBanner = ref(true)
+    const headline = usePage().props.headline
+
+    const closeBanner = () => {
+        showBanner.value = false
+    }
 </script>

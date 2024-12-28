@@ -1,9 +1,5 @@
 <script setup>
-import Welcome from '@/Components/Welcome.vue';
-import Card from 'primevue/card';
-import Button from 'primevue/button';
-import LoggedInLayout from '@/Layouts/LoggedInLayout.vue';
-
+    import LoggedInLayout from '@/Layouts/LoggedInLayout.vue';
 </script>
 
 <template>
@@ -14,51 +10,25 @@ import LoggedInLayout from '@/Layouts/LoggedInLayout.vue';
             </h2>
         </template>
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div
-                    class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg flex gap-2 justify-between px-2 py-5">
-                    <Card style="width: 25rem; overflow: hidden">
-                        <template #header>
-                            <img alt="user header" src="https://primefaces.org/cdn/primevue/images/usercard.png" />
-                        </template>
-                        <template #title>Advanced Card</template>
-                        <template #subtitle>Card subtitle</template>
-                        <template #content>
-                            <p class="m-0">
+        <section class="bg-white dark:bg-gray-900 shadow-md max-w-7xl mx-auto my-5">
+            <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
+                <h1
+                    class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+                    Selamat Datang di Direktorat Administrasi dan Akademik
+                </h1>
+                <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">
+                    Direktorat Administrasi dan Akademik berkomitmen untuk memberikan pelayanan terbaik dalam pengelolaan
+                    administrasi akademik dan mendukung kegiatan pembelajaran di Universitas Ubudiyah Indonesia.
+                </p>
+                <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
 
-                            </p>
-                        </template>
-                        <template #footer>
-                            <div class="flex gap-4 mt-1">
-                                <Button label="Cancel" severity="secondary" outlined class="w-full" />
-                                <Button label="Save" class="w-full" />
-                            </div>
-                        </template>
-                    </Card>
-                    <Card style="width: 25rem; overflow: hidden">
-                        <template #header>
-                            <img alt="user header" src="https://primefaces.org/cdn/primevue/images/usercard.png" />
-                        </template>
-                        <template #title>Advanced Card</template>
-                        <template #subtitle>Card subtitle</template>
-                        <template #content>
-                            <p class="m-0">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur
-                                error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis,
-                                culpa ratione quam perferendis esse, cupiditate neque
-                                quas!
-                            </p>
-                        </template>
-                        <template #footer>
-                            <div class="flex gap-4 mt-1">
-                                <Button label="Cancel" severity="secondary" outlined class="w-full" />
-                                <Button label="Save" class="w-full" />
-                            </div>
-                        </template>
-                    </Card>
+                    <a href="#"
+                        class="py-3 px-5 sm:ms-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        Pelajari Lebih Lanjut
+                    </a>
                 </div>
             </div>
-        </div>
+        </section>
+
     </LoggedInLayout>
 </template>

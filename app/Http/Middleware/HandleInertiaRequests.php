@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Headline;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use App\Models\Menu;
@@ -45,6 +46,7 @@ class HandleInertiaRequests extends Middleware
                     },
                 ])
                 ->get(),
+            'headline' => Headline::first(),
         ]);
     }
 }

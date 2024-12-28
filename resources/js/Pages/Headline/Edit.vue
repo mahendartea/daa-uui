@@ -22,8 +22,13 @@
                     <form v-if="headline" @submit.prevent="submit" class="flex flex-col gap-4">
                         <div class="flex flex-col gap-2">
                             <label for="isi_headline">Isi Headline</label>
-                            <Editor v-model="form.isi_headline" editorStyle="height: 250px" ref="editorRef"
-                                :class="{ 'p-invalid': form.errors.isi_headline }" />
+                            <InputText
+                                v-model="form.isi_headline"
+                                id="isi_headline"
+                                type="text"
+                                class="w-full"
+                                :class="{ 'p-invalid': form.errors.isi_headline }"
+                            />
                             <small class="text-red-500" v-if="form.errors.isi_headline">{{ form.errors.isi_headline }}</small>
                         </div>
 
@@ -61,17 +66,16 @@
 </template>
 
 <script setup>
-import LoggedInLayout from '@/Layouts/LoggedInLayout.vue';
-import { Card } from 'primevue';
+import { Head, useForm } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
-import Breadcrumb from 'primevue/breadcrumb';
+import LoggedInLayout from '@/Layouts/LoggedInLayout.vue';
+import Card from 'primevue/card';
 import Button from 'primevue/button';
-import Editor from 'primevue/editor';
-import FileUpload from 'primevue/fileupload';
-import { useForm, Head } from '@inertiajs/vue3';
 import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
-import { watch } from 'vue';
+import FileUpload from 'primevue/fileupload';
+import InputText from 'primevue/inputtext';
+import Breadcrumb from 'primevue/breadcrumb';
 
 const props = defineProps({
     headline: {
@@ -95,23 +99,6 @@ onMounted(() => {
         form.isi_headline = props.headline.isi_headline;
     }
 });
-
-
-const editorRef = ref()
-
-watch(editorRef, (editor) => {
-    if (!editor) return
-    editor.renderValue = function renderValue(value) {
-        if (this.quill) {
-            if (value) {
-                const delta = this.quill.clipboard.convert({ html: value })
-                this.quill.setContents(delta, 'silent')
-            } else {
-                this.quill.setText('')
-            }
-        }
-    }.bind(editor)
-})
 
 const home = ref({
     icon: 'pi pi-home',
