@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class CategoryController extends Controller
@@ -13,7 +14,12 @@ class CategoryController extends Controller
         $categories = Category::orderByDesc('created_at')->orderByDesc('updated_at')->get();
         return Inertia::render('Category/index', [
             'categories' => $categories,
-            'message' => session('message')
+            'message' => session('message'),
+            'can' => [
+                'create_category' => Auth::user()->can('create categories'),
+                'edit_category' => Auth::user()->can('edit categories'),
+                'delete_category' => Auth::user()->can('delete categories'),
+            ]
         ]);
     }
 

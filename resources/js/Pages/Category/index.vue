@@ -30,7 +30,8 @@ const props = defineProps({
         type: Object,
         default: () => []
     },
-    message: Object
+    message: Object,
+    can: Object
 });
 
 const first = ref(0);
@@ -104,7 +105,7 @@ onMounted(() => {
                 <div>
                     <h1 class="text-2xl font-bold text-primary">Kategori</h1>
                 </div>
-                <div class="flex justify-end gap-1">
+                <div class="flex justify-end gap-1" v-if="can.create_category">
                     <Button class="p-button-primary p-button-outlined hover:bg-primary-500 hover:text-white"
                         icon="pi pi-plus" icon-class="p-w-4" label="Tambah Kategori" type="button"
                         @click="createCategory" />
@@ -136,11 +137,11 @@ onMounted(() => {
                                     <Button
                                         class="p-button-secondary p-button-outlined hover:bg-primary-500 hover:text-white"
                                         icon="pi pi-pencil" icon-class="p-w-4" label="Ubah" size="small" type="button"
-                                        @click="editCategory(data.id)" />
+                                        @click="editCategory(data.id)" v-if="can.edit_category" />
                                     <Button
                                         class="p-button-danger p-button-outlined hover:bg-primary-500 hover:text-white"
                                         icon="pi pi-trash" icon-class="p-w-4" label="Hapus" size="small"
-                                        @click="confirmDelete(data.id)" />
+                                        @click="confirmDelete(data.id)" v-if="can.delete_category" />
                                 </div>
                             </template>
                         </Column>

@@ -244,7 +244,7 @@
         </section>
 
         <section class="bg-white dark:bg-gray-900 mx-2">
-            <RssFeed />
+            <!-- <RssFeed /> -->
 
         </section>
 
