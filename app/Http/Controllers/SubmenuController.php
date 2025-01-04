@@ -11,7 +11,13 @@ class SubmenuController extends Controller
 {
     public function index()
     {
-        $submenus = Submenu::with('menu')->orderBy('urutan')->get();
+        $perPage = request('rows', 10);
+        $page = request('page', 1);
+
+        $submenus = Submenu::with('menu')
+            ->orderBy('urutan')
+            ->paginate($perPage, ['*'], 'page', $page);
+
         return Inertia::render('Admin/Submenu/Index', [
             'submenus' => $submenus
         ]);

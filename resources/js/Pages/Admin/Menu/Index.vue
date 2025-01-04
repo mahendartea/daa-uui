@@ -14,10 +14,10 @@
                     <h1 class="text-2xl font-bold text-primary">Menu Management</h1>
                 </div>
                 <div class="flex justify-end gap-1">
-                    <FloatLabel variant="on">
+                    <!-- <FloatLabel variant="on">
                         <InputText id="on_label" v-model="search" class="w-72" />
                         <label for="on_label">Cari Menu...</label>
-                    </FloatLabel>
+                    </FloatLabel> -->
                     <Button class="p-button-primary p-button-outlined hover:bg-primary-500 hover:text-white"
                         icon="pi pi-plus" icon-class="p-w-4" label="Tambah Menu" type="button"
                         @click="createMenu" />
@@ -26,11 +26,12 @@
             <Card class="border">
                 <template #title>Daftar Menu</template>
                 <template #content>
-                    <DataTable :value="menus" responsiveLayout="scroll" size="small" stripedRows
-                        tableStyle="min-width: 50rem">
+                    <DataTable :value="menus.data" :paginator="true" :rows="perPage" :total-records="menus.total"
+                        :lazy="true" :rows-per-page-options="[5,10,20,50]" @page="onPage($event)"
+                        responsiveLayout="scroll" size="small" stripedRows tableStyle="min-width: 50rem" :loading="loading">
                         <Column header="No" style="width: 5%;">
-                            <template #body="{ index }">
-                                {{ index + 1 }}
+                            <template #body="slotProps">
+                                {{ slotProps.index + 1 + ((menus.current_page - 1) * perPage) }}
                             </template>
                         </Column>
                         <Column field="nama_menu" header="Nama Menu" sortable style="width: 15%;" />
@@ -96,16 +97,16 @@ import FloatLabel from 'primevue/floatlabel'
 import { useToast } from 'primevue/usetoast'
 
 const props = defineProps({
-    menus: {
-        type: Array,
-        required: true
-    }
+    menus: Object,
+    message: Object
 })
 
 const toasts = useToast()
 const deleteDialog = ref(false)
 const menuToDelete = ref(null)
 const search = ref('')
+const loading = ref(false)
+const perPage = ref(10)
 
 // Breadcrumb configuration
 const home = ref({
@@ -179,6 +180,24 @@ const updateOrder = (menu) => {
             })
         }
     })
+}
+
+const onPage = (event) => {
+    loading.value = true
+    router.get(
+        route('menus.index'),
+        {
+            page: event.page + 1,
+            rows: event.rows
+        },
+        {
+            preserveScroll: true,
+            preserveState: true,
+            onSuccess: () => {
+                loading.value = false
+            }
+        }
+    )
 }
 
 onMounted(() => {

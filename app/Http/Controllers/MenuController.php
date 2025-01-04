@@ -10,7 +10,12 @@ class MenuController extends Controller
 {
     public function index()
     {
-        $menus = Menu::orderBy('urutan')->get();
+        $perPage = request('rows', 10);
+        $page = request('page', 1);
+
+        $menus = Menu::orderBy('urutan')
+            ->paginate($perPage, ['*'], 'page', $page);
+
         return Inertia::render('Admin/Menu/Index', [
             'menus' => $menus
         ]);

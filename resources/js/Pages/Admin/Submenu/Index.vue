@@ -14,12 +14,12 @@
                     <h1 class="text-2xl font-bold text-primary">Submenu Management</h1>
                 </div>
                 <div class="flex justify-end gap-1">
-                    <div class="w-72">
+                    <!-- <div class="w-72">
                         <FloatLabel variant="on">
                             <InputText id="on_label" v-model="search" class="w-full" />
                             <label for="on_label">Cari Submenu...</label>
                         </FloatLabel>
-                    </div>
+                    </div> -->
                     <Button class="p-button-primary p-button-outlined hover:bg-primary-500 hover:text-white"
                         icon="pi pi-plus" icon-class="p-w-4" label="Tambah Submenu" type="button"
                         @click="createSubmenu" />
@@ -28,11 +28,12 @@
             <Card class="border">
                 <template #title>Daftar Submenu</template>
                 <template #content>
-                    <DataTable :value="submenus" responsiveLayout="scroll" size="small" stripedRows
-                        tableStyle="min-width: 50rem">
+                    <DataTable :value="submenus.data" :paginator="true" :rows="perPage" :total-records="submenus.total"
+                        :lazy="true" :rows-per-page-options="[5,10,20,50]" @page="onPage($event)"
+                        responsiveLayout="scroll" size="small" stripedRows tableStyle="min-width: 50rem" :loading="loading">
                         <Column header="No" style="width: 5%;">
-                            <template #body="{ index }">
-                                {{ index + 1 }}
+                            <template #body="slotProps">
+                                {{ slotProps.index + 1 + ((submenus.current_page - 1) * perPage) }}
                             </template>
                         </Column>
                         <Column field="nama_sub" header="Nama Submenu" sortable style="width: 15%;" />
@@ -88,33 +89,25 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted } from 'vue'
 import { Link, router, Head } from '@inertiajs/vue3'
-import { useToast } from "primevue/usetoast"
-import { debounce } from 'lodash'
 import LoggedInLayout from '@/Layouts/LoggedInLayout.vue'
-import { Card } from 'primevue'
+import { Card, Toast } from 'primevue'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
-import Button from 'primevue/button'
-import Dialog from 'primevue/dialog'
-import Tag from 'primevue/tag'
-import Toast from 'primevue/toast'
-import Breadcrumb from 'primevue/breadcrumb'
 import InputNumber from 'primevue/inputnumber'
+import Tag from 'primevue/tag'
+import Dialog from 'primevue/dialog'
+import Button from 'primevue/button'
+import Breadcrumb from 'primevue/breadcrumb'
 import InputText from 'primevue/inputtext'
 import FloatLabel from 'primevue/floatlabel'
+import { useToast } from 'primevue/usetoast'
 
 const toast = useToast()
 const props = defineProps({
-    submenus: {
-        type: Array,
-        required: true
-    },
-    flash: {
-        type: Object,
-        default: () => ({})
-    }
+    submenus: Object,
+    message: Object
 })
 
 const home = ref({
@@ -126,13 +119,28 @@ const items = ref([
 ])
 
 const loading = ref(false)
+const perPage = ref(10)
 const deleteDialog = ref(false)
 const submenuToDelete = ref(null)
 const search = ref('')
 
-watch(search, (newSearch) => {
-    // Implement search functionality here
-})
+const onPage = (event) => {
+    loading.value = true
+    router.get(
+        route('submenus.index'),
+        {
+            page: event.page + 1,
+            rows: event.rows
+        },
+        {
+            preserveScroll: true,
+            preserveState: true,
+            onSuccess: () => {
+                loading.value = false
+            }
+        }
+    )
+}
 
 const createSubmenu = () => {
     router.get(route('submenus.create'))
@@ -170,33 +178,9 @@ const deleteSubmenu = () => {
     })
 }
 
-const updateOrder = debounce((submenu) => {
-    router.put(route('submenus.update-order'), {
-        items: [{ id_sub: submenu.id_sub, urutan: submenu.urutan }]
-    }, {
-        preserveScroll: true,
-        onSuccess: () => {
-            toast.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Urutan berhasil diperbarui',
-                life: 3000
-            })
-        },
-        onError: () => {
-            toast.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: 'Gagal memperbarui urutan',
-                life: 3000
-            })
-        }
-    })
-}, 500)
-
 onMounted(() => {
-    if (props.flash?.message) {
-        toast.add({ severity: 'success', summary: 'Success', detail: props.flash.message, life: 3000 })
+    if (props.message) {
+        toast.add({ severity: 'success', summary: 'Success', detail: props.message, life: 3000 })
     }
 })
 </script>
