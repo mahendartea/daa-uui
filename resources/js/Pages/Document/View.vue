@@ -78,7 +78,7 @@ const handleDownload = () => {
                                     @click="router.get(route('documents.edit', document.id))"
                                     class="p-button-secondary" />
                                     <span class="flex items-center gap-2">
-                                        <span class="text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md p-2">/{{ document.path }}</span>
+                                        <span class="text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md p-2">/storage/{{ document.path }}</span>
                                     </span>
                             </div>
                         </div>

@@ -196,7 +196,7 @@ const isPdfOrDoc = (filename) => {
 }
 
 const handleFileClick = (submenu) => {
-    const fileUrl = '/storage/' + submenu.link_sub
+    const fileUrl = submenu.link_sub
     if (isPdfOrDoc(submenu.link_sub)) {
         selectedFileUrl.value = fileUrl
         selectedFileName.value = submenu.nama_sub
