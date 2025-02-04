@@ -101,33 +101,6 @@ Route::middleware([
             Route::delete('destroy/{album}', [AlbumController::class, 'destroy'])->name('albums.destroy');
         });
 
-        // Route::group(['prefix' => 'course-calendar'], function () {
-        //     Route::get('/', [CourseCalenderController::class, 'index'])->name('course-calendar.index');
-        //     Route::get('create', [CourseCalenderController::class, 'create'])->name('course-calendar.create');
-        //     Route::post('/', [CourseCalenderController::class, 'store'])->name('course-calendar.store');
-        //     Route::delete('{courseCalender}', [CourseCalenderController::class, 'destroy'])->name('course-calendar.destroy');
-        //     Route::get('{courseCalender}/edit', [CourseCalenderController::class, 'edit'])->name('course-calendar.edit');
-        //     Route::put('{courseCalender}', [CourseCalenderController::class, 'update'])->name('course-calendar.update');
-        // });
-
-        // Route::group(['prefix' => 'midtem-calender'], function () {
-        //     Route::get('/', [MidtemCalenderController::class, 'index'])->name('midtem-calender.index');
-        //     Route::get('create', [MidtemCalenderController::class, 'create'])->name('midtem-calender.create');
-        //     Route::post('/', [MidtemCalenderController::class, 'store'])->name('midtem-calender.store');
-        //     Route::get('{midtemCalender}/edit', [MidtemCalenderController::class, 'edit'])->name('midtem-calender.edit');
-        //     Route::put('{midtemCalender}', [MidtemCalenderController::class, 'update'])->name('midtem-calender.update');
-        //     Route::delete('{midtemCalender}', [MidtemCalenderController::class, 'destroy'])->name('midtem-calender.destroy');
-        // });
-
-        // Route::group(['prefix'=>'final-calender'], function () {
-        //     Route::get('/', [FinalCalenderController::class, 'index'])->name('final-calender.index');
-        //     Route::get('create', [FinalCalenderController::class, 'create'])->name('final-calender.create');
-        //     Route::post('/', [FinalCalenderController::class, 'store'])->name('final-calender.store');
-        //     Route::delete('{finalCalender}', [FinalCalenderController::class, 'destroy'])->name('final-calender.destroy');
-        //     Route::get('{finalCalender}/edit', [FinalCalenderController::class, 'edit'])->name('final-calender.edit');
-        //     Route::put('{finalCalender}', [FinalCalenderController::class, 'update'])->name('final-calender.update');
-        // });
-
         Route::group(['prefix' => 'documents'], function () {
             Route::get('/', [DocumentController::class, 'index'])->name('documents.index');
             Route::get('create', [DocumentController::class, 'create'])->name('documents.create');
@@ -167,17 +140,6 @@ Route::middleware([
             Route::get('edit/{permission}', [PermissionController::class, 'edit'])->name('permissions.edit');
             Route::put('update/{permission}', [PermissionController::class, 'update'])->name('permissions.update');
         });
-
-        // module kalender akademik
-        // Route::group(['prefix' => 'akademik'], function () {
-        //     Route::get('/', [KalenderController::class, 'index'])->name('kalender.index');
-        //     Route::get('create', [KalenderController::class, 'create'])->name('kalender.create');
-        //     Route::post('store', [KalenderController::class, 'store'])->name('kalender.store');
-        //     Route::delete('destroy/{kalender}', [KalenderController::class, 'destroy'])->name('kalender.destroy');
-        //     Route::get('edit/{kalender}', [KalenderController::class, 'edit'])->name('kalender.edit');
-        //     Route::put('update/{kalender}', [KalenderController::class, 'update'])->name('kalender.update');
-        //     Route::get('download/{kalender}', [KalenderController::class, 'download'])->name('kalender.download');
-        // });
 
         // Headline Routes
         Route::group(['prefix' => 'headline'], function () {
@@ -219,7 +181,6 @@ Route::middleware([
             Route::put('{id}', [StatisController::class, 'update'])->name('statis.update');
             Route::delete('{id}', [StatisController::class, 'destroy'])->name('statis.destroy');
         });
-
     });
 });
 
@@ -241,6 +202,6 @@ Route::get('/agenda', [AgendaController::class, 'showAllPublic'])->name('agenda.
 // Public Document Routes
 Route::get('/documents', [DocumentController::class, 'showFilePublic'])->name('public.documents.index');
 
-Route::get('/password-check',function () {
+Route::get('/password-check', function () {
     return Hash::make('uui-2025');
 })->name('password.check');
