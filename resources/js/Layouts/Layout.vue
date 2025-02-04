@@ -4,7 +4,7 @@
         <Head>
             <link rel="icon" type="image/png" href="/images/logouuinontext.png" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-            <meta name="description" content="UUI - Universitas Ubudiyah Indonesia" />
+            <meta name="description" content="UUI - Direktorat Kemahasiswa & Alumni Universitas Ubudiyah Indonesia" />
             <meta name="author" content="UUI - Universitas Ubudiyah Indonesia (by: Mahendar Dwi Payana)" />
             <meta name="keywords" content="UUI, Universitas Ubudiyah Indonesia, Universitas, Ubudiyah, Indonesia" />
             <meta name="robots" content="index, follow" />
@@ -50,7 +50,7 @@
                             <span
                                 class="self-center text-lg font-semibold whitespace-nowrap dark:text-white">Universitas
                                 Ubudiyah Indonesia</span>
-                            <span>Direktorat Administrasi Akademik</span>
+                            <span>Direktorat Kemahasiswaan & Alumni</span>
                         </a>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-6 sm:grid-cols-3">

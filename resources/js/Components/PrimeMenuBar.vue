@@ -115,47 +115,6 @@ const menuItems = [
         }
     },
     {
-        label: 'Akademik',
-        icon: 'pi pi-users',
-        route: 'akademik.index',
-        items: [
-            {
-                label: 'Kalender Akademik',
-                icon: 'pi pi-search',
-                command: () => {
-                    router.get(route('kalender.index'));
-                }
-            },
-            {
-                label: 'Jadwal',
-                icon: 'pi pi-search',
-                items: [
-                    {
-                        label: 'Jadwal Kuliah',
-                        icon: 'pi pi-search',
-                        command: () => {
-                            router.get(route('course-calendar.index'));
-                        }
-                    },
-                    {
-                        label: 'Jadwal UTS',
-                        icon: 'pi pi-search',
-                        command: () => {
-                            router.get(route('midtem-calender.index'));
-                        }
-                    },
-                    {
-                        label: 'Jadwal UAS',
-                        icon: 'pi pi-search',
-                        command: () => {
-                            router.get(route('final-calender.index'));
-                        }
-                    },
-                ]
-            },
-        ],
-    },
-    {
         label: 'Pengaturan',
         icon: 'pi pi-search',
         route: 'setting',

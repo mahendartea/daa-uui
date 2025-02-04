@@ -1,7 +1,7 @@
 <template>
     <Layout>
 
-        <Head title="Selamat Datang di Sistem Informasi Akademik" />
+        <Head title="Direktorat Kemahasiswa & Alumni" />
 
         <div id="carouselExample" class="relative w-full" data-carousel="slide">
             <!-- Carousel wrapper -->
@@ -10,32 +10,20 @@
                 <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
                     <img alt="Campus Building"
                         class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-cover"
-                        src="/images/gallery/08a-WEB_REG_.png">
+                        src="/images/gallery/UUI-luar.jpg">
                 </div>
                 <!-- Item 2 -->
                 <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
                     <img alt="Library Interior"
                         class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-bottom"
-                        src="/images/gallery/Lab-robotik.jpg">
+                        src="/images/gallery/g6x-h.jpg">
                 </div>
-                <!-- Item 3 -->
                 <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
-                    <img alt="Study Area"
+                    <img alt="Library Interior"
                         class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-bottom"
-                        src="/images/gallery/Perpustakaan-1.jpg">
+                        src="/images/gallery/oup-DSC_0571.jpg">
                 </div>
-                <!-- Item 4 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
-                    <img alt="Graduation Day"
-                        class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-bottom"
-                        src="/images/gallery/Plenary-Hall-UUI.jpg">
-                </div>
-                <!-- Item 5 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
-                    <img alt="Campus Life"
-                        class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-bottom"
-                        src="/images/gallery/Gedung-UKM.jpg">
-                </div>
+
             </div>
             <!-- Slider indicators -->
             <div class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
@@ -48,12 +36,7 @@
                 <button id="carousel-indicator-3" aria-current="false" aria-label="Slide 3"
                     class="w-3 h-3 rounded-full bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800"
                     data-carousel-slide-to="2" type="button"></button>
-                <button id="carousel-indicator-4" aria-current="false" aria-label="Slide 4"
-                    class="w-3 h-3 rounded-full bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800"
-                    data-carousel-slide-to="3" type="button"></button>
-                <button id="carousel-indicator-5" aria-current="false" aria-label="Slide 5"
-                    class="w-3 h-3 rounded-full bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800"
-                    data-carousel-slide-to="4" type="button"></button>
+
             </div>
             <!-- Slider controls -->
             <button
@@ -89,33 +72,23 @@
                 <main class="relative md:w-1/2">
                     <div class="p-8 border rounded-lg dark:border-gray-700">
                         <p class="leading-loose text-gray-500 dark:text-gray-400 text-justify">
-                            Assalamu'alaikum Wr.Wb.Puji syukur kami panjatkan kepada Allah SWT atas rahmat dan
-                            hidayah-Nya
-                            portal media informasi Direktorat Administrasi akademik UUI sudah dapat kita gunakan.
-                            Direktorat
-                            DAA mempunyai visi Menjadi Pusat Layanan Administrasi Akademik Berbasis Teknologi Informasi
-                            Demi
-                            Menunjang Pembangunan Dan Pengembangan Universitas Ubudiyah Indonesia Menjadi Cyber
-                            University.
-                            Kami memiliki Motto Pelayanan Prima, Ramah, Cepat dan Tepat. kami siap memberikan kinerja
-                            terbaik
-                            dalam melayani mahasiswa dengan dedikasi yang tinggi.
+                            Assalamu'alaikum Wr.Wb. Puji syukur kami panjatkan kepada Allah SWT atas rahmat dan hidayah-Nya portal media informasi Direktorat Kemahasiswaan dan Alumni (DKA)Universitas Ubudiyah Indonesia sudah dapat kita gunakan. DKA mempunyai visi menyelenggarakan pelayanan mahasiswa yang berkualitas dan professional dengan didukung oleh SDM yang mumpuni dan berkomitmen tinggi, kami siap memberikan kinerja terbaik dalam melayani mahasiswa dengan dedikasi yang tinggidemi terwujudnya World Class Cyber University pada tahun 2025.
                         </p>
 
                         <div class="flex items-center mt-5 -mx-2">
                             <img class="object-cover mx-2 rounded-full w-14 shrink-0 h-14 ring-4 ring-gray-300 dark:ring-gray-700"
-                                src="/images/dirdaa.png" alt="">
+                                src="/images/rahmatfajri.jpg" alt="">
 
                             <div class="mx-2">
-                                <h1 class="font-semibold text-gray-800 dark:text-white">Eva Rosdiana, S.ST., M.K.M</h1>
-                                <span class="text-sm text-gray-500">Direktur Administrasi Akademik</span>
+                                <h1 class="font-semibold text-gray-800 dark:text-white">RAHMAT FAJRI S.Pd.,M.Hum</h1>
+                                <span class="text-sm text-gray-500">Direktur Kemahasiswa & Alumni</span>
                             </div>
                         </div>
                     </div>
                 </main>
                 <div
                     class="md:w-1/2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12">
-                    <a class="bg-red-100 text-red-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-red-400 mb-2"
+                    <a class="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-red-400 mb-2"
                         href="https://www.youtube.com/watch?v=_amV5yNaZW4">
                         <svg aria-hidden="true" class="w-2.5 h-2.5 me-1.5" fill="currentColor" viewBox="0 0 20 14"
                             xmlns="http://www.w3.org/2000/svg">
@@ -131,7 +104,7 @@
                         mengumumkan bahwa penerimaan mahasiswa baru Universitas Ubudiyah Indonesia telah dibuka. Kami
                         berharap Anda dapat bergabung dengan komunitas akademik yang cerdas dan kreatif untuk mencapai
                         prestasi yang lebih tinggi.</p>
-                    <a class="inline-flex justify-center items-center py-2.5 px-5 text-base font-medium text-center text-white rounded-lg bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900"
+                    <a class="inline-flex justify-center items-center py-2.5 px-5 text-base font-medium text-center text-white rounded-lg bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900"
                         href="https://sipenmaru.uui.ac.id">
                         Sipenmaru
                         <svg aria-hidden="true" class="w-3.5 h-3.5 ms-2 rtl:rotate-180" fill="none"
@@ -167,7 +140,7 @@
                                 </div>
                             </div>
                             <Link :href="route('posts.showAllPublic')"
-                                class="inline-block text-sm font-medium text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400">
+                                class="inline-block text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-500 dark:hover:text-green-400">
                             Lihat Semua Berita
                             </Link>
                         </div>
@@ -192,7 +165,7 @@
                                 class="p-4 bg-white border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800">
                                 <div class="flex flex-col justify-between">
                                     <Link :href="route('post.show', post.judul_seo)"
-                                        class="text-lg font-semibold text-gray-900 dark:text-white hover:text-red-600 dark:hover:text-red-400">
+                                        class="text-lg font-semibold text-gray-900 dark:text-white hover:text-green-600 dark:hover:text-green-400">
                                     {{ post . title }}
                                     </Link>
                                     <span
@@ -202,7 +175,7 @@
                                 </div>
                             </div>
                             <Link :href="route('posts.showAllPublic')"
-                                class="inline-block text-sm font-medium text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400">
+                                class="inline-block text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-500 dark:hover:text-green-400">
                             Lihat Semua Pengumuman
                             </Link>
                         </div>
@@ -237,7 +210,7 @@
                                 class="p-4 bg-white border-b border-gray-200 dark:border-gray-700 dark:bg-gray-800">
                                 <div class="flex flex-col space-y-2">
                                     <Link :href="route('agenda.show', agenda.id)"
-                                        class="text-lg font-semibold text-gray-900 dark:text-white hover:text-red-600 dark:hover:text-red-400">
+                                        class="text-lg font-semibold text-gray-900 dark:text-white hover:text-green-600 dark:hover:text-green-400">
                                     {{ agenda . nama_agenda }}
                                     </Link>
                                     <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
@@ -270,7 +243,7 @@
                             Tidak ada agenda terbaru
                         </div>
                         <Link :href="route('agenda.showAllPublic')"
-                            class="inline-block text-sm font-medium text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400 mt-5">
+                            class="inline-block text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-500 dark:hover:text-green-400 mt-5">
                         Lihat Semua Agenda
                         </Link>
                     </div>
